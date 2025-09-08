@@ -18,13 +18,13 @@
 #
 # Quartus II 64-Bit
 # Version 9.1 Build 222 10/21/2009 SJ Full Version
-# Date created = 19:31:25  September 08, 2025
+# Date created = 20:00:40  September 08, 2025
 #
 # -------------------------------------------------------------------------- #
 
 QUARTUS_VERSION = "9.1"
-DATE = "19:31:25  September 08, 2025"
+DATE = "20:00:40  September 08, 2025"
 
 # Revisions
 
-PROJECT_REVISION = "Q2-lyf"
+PROJECT_REVISION = "Q2_lyf"
