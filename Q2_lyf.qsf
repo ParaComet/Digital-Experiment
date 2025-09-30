@@ -50,3 +50,5 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_EXT_SUPPLY_VOLTAGE_TO_REGULATOR 3.3V
 set_global_assignment -name VHDL_FILE Q2_lyf.vhd
 set_global_assignment -name VHDL_FILE LedMatrix_Animation.vhd
+set_global_assignment -name VHDL_FILE LedMatrix_PwmController.vhd
+set_global_assignment -name VHDL_FILE LedMatrix.vhd
