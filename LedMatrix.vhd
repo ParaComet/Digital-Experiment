@@ -10,12 +10,16 @@ entity LedMatrix is
         stage : in integer range 0 to 4;
         
         matrix_en : out std_logic_vector(7 downto 0);
-        matrix_R : out std_logic_vector(63 downto 0);
-        matrix_G : out std_logic_vector(63 downto 0)
+        matrix_R : out std_logic_vector(7 downto 0);
+        matrix_G : out std_logic_vector(7 downto 0)
     );
 end entity;
 
 architecture rtl of LedMatrix is
+
+    type Frequency is array (0 to 3) of integer range 0 to 60;
+
+    constant ANIMATION_UPDATE_FREQ : Frequency := (60, 40, 20, 10);  -- 100Hz
 
     component LedMatrix_Animation is
         port (
@@ -50,6 +54,9 @@ architecture rtl of LedMatrix is
         );
     end component; 
 
+    signal clk_div : std_logic;
+    signal clkcount : integer range 0 to 60;
+
     signal Data_red : std_logic_vector(63 downto 0);
     signal Data_green : std_logic_vector(63 downto 0);
 
@@ -58,5 +65,37 @@ architecture rtl of LedMatrix is
 
 begin
     LedMatrix_Animation_Inst : LedMatrix_Animation
-        port map (clk_Update => clk, rst => rst, stage => stage, LedMatrix_Red => Data_red, LedMatrix_Green => Data_green, Pwm_Level_R => pwmlevelR, Pwm_Level_G => pwmlevelG);
+        port map (clk_Update => clk_div, rst => rst, stage => stage, 
+            LedMatrix_Red => Data_red, LedMatrix_Green => Data_green, 
+            Pwm_Level_R => pwmlevelR, Pwm_Level_G => pwmlevelG);
+
+    LedMatrix_PwmController_Inst : LedMatrix_PwmController
+        port map (clk_pwm => clk, rst => rst, clk_100hz => clk_100hz, 
+            frame_data_Red => Data_red, frame_data_Green => Data_green, 
+            pwm_level_R => pwmlevelR, pwm_level_G => pwmlevelG,
+            Row_out => matrix_en, Col_out_Red => matrix_R, Col_out_Green => matrix_G);
+
+
+    process(clk_100hz, rst)
+    begin
+        if (rst = '1') then
+            clk_div <= '0';
+            clkcount <= 0;
+            matrix_en <= (others => '0');
+            matrix_R <= (others => '0');
+            matrix_G <= (others => '0');
+        elsif rising_edge(clk_100hz) then
+            if clkcount = 60 then
+                clkcount <= 0;
+            end if;
+            if clkcount = ANIMATION_UPDATE_FREQ(stage) - 1 then
+                clk_div <= '1';
+                clkcount <= 0;
+            else
+                clk_div <= '0';
+                clkcount <= clkcount + 1;
+            end if;
+        end if;
+    end process;
+
 end architecture;
