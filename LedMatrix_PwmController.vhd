@@ -58,8 +58,6 @@ begin
             pwm_counter <= 0;
             pwm_row_data_R <= (others => '0');
             pwm_row_data_G <= (others => '0');
-            Col_out_Red <= (others => '0');
-            Col_out_Green <= (others => '0');
         elsif rising_edge(clk_pwm) then
             pwm_counter <= (pwm_counter + 1) mod PWM_COUNT_MAX;
 

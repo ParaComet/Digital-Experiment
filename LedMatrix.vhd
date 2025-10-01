@@ -81,9 +81,6 @@ begin
         if (rst = '1') then
             clk_div <= '0';
             clkcount <= 0;
-            matrix_en <= (others => '0');
-            matrix_R <= (others => '0');
-            matrix_G <= (others => '0');
         elsif rising_edge(clk_100hz) then
             if clkcount = 60 then
                 clkcount <= 0;

@@ -52,3 +52,6 @@ set_global_assignment -name VHDL_FILE Q2_lyf.vhd
 set_global_assignment -name VHDL_FILE LedMatrix_Animation.vhd
 set_global_assignment -name VHDL_FILE LedMatrix_PwmController.vhd
 set_global_assignment -name VHDL_FILE LedMatrix.vhd
+set_global_assignment -name MISC_FILE "D:/参考资料/数电实验二/Digital-Experiment/Q2_lyf.dpf"
+set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
+set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"

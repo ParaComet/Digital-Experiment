@@ -1,0 +1,356 @@
+Analysis & Synthesis report for Q2_lyf
+Wed Oct 01 20:44:31 2025
+Quartus II 64-Bit Version 9.1 Build 222 10/21/2009 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Registers Removed During Synthesis
+  9. General Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Parameter Settings for Inferred Entity Instance: LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0
+ 12. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                           ;
++-----------------------------+------------------------------------------+
+; Analysis & Synthesis Status ; Successful - Wed Oct 01 20:44:31 2025    ;
+; Quartus II 64-Bit Version   ; 9.1 Build 222 10/21/2009 SJ Full Version ;
+; Revision Name               ; Q2_lyf                                   ;
+; Top-level Entity Name       ; Q2_lyf                                   ;
+; Family                      ; MAX II                                   ;
+; Total logic elements        ; 85                                       ;
+; Total pins                  ; 28                                       ;
+; Total virtual pins          ; 0                                        ;
+; UFM blocks                  ; 0 / 1 ( 0 % )                            ;
++-----------------------------+------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EPM1270T144C5      ;                    ;
+; Top-level entity name                                                      ; Q2_lyf             ; Q2_lyf             ;
+; Family name                                                                ; MAX II             ; Stratix II         ;
+; Use Generated Physical Constraints File                                    ; Off                ;                    ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Show Parameter Settings Tables in Synthesis Report                         ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 100                ; 100                ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 12          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2-12 processors        ;   0.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                    ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                          ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------+
+; Q2_lyf.vhd                       ; yes             ; User VHDL File               ; D:/参考资料/数电实验二/Digital-Experiment/Q2_lyf.vhd                  ;
+; LedMatrix_Animation.vhd          ; yes             ; User VHDL File               ; D:/参考资料/数电实验二/Digital-Experiment/LedMatrix_Animation.vhd     ;
+; LedMatrix_PwmController.vhd      ; yes             ; User VHDL File               ; D:/参考资料/数电实验二/Digital-Experiment/LedMatrix_PwmController.vhd ;
+; LedMatrix.vhd                    ; yes             ; User VHDL File               ; D:/参考资料/数电实验二/Digital-Experiment/LedMatrix.vhd               ;
+; lpm_divide.tdf                   ; yes             ; Megafunction                 ; d:/quartus/quartus/libraries/megafunctions/lpm_divide.tdf             ;
+; db/lpm_divide_rnl.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/参考资料/数电实验二/Digital-Experiment/db/lpm_divide_rnl.tdf       ;
+; db/sign_div_unsign_9kh.tdf       ; yes             ; Auto-Generated Megafunction  ; D:/参考资料/数电实验二/Digital-Experiment/db/sign_div_unsign_9kh.tdf  ;
+; db/alt_u_div_die.tdf             ; yes             ; Auto-Generated Megafunction  ; D:/参考资料/数电实验二/Digital-Experiment/db/alt_u_div_die.tdf        ;
+; db/add_sub_e7c.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/参考资料/数电实验二/Digital-Experiment/db/add_sub_e7c.tdf          ;
+; db/add_sub_f7c.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/参考资料/数电实验二/Digital-Experiment/db/add_sub_f7c.tdf          ;
+; db/add_sub_g7c.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/参考资料/数电实验二/Digital-Experiment/db/add_sub_g7c.tdf          ;
+; db/add_sub_h7c.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/参考资料/数电实验二/Digital-Experiment/db/add_sub_h7c.tdf          ;
+; db/add_sub_i7c.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/参考资料/数电实验二/Digital-Experiment/db/add_sub_i7c.tdf          ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+; Total logic elements                        ; 85    ;
+;     -- Combinational with no register       ; 40    ;
+;     -- Register only                        ; 17    ;
+;     -- Combinational with a register        ; 28    ;
+;                                             ;       ;
+; Logic element usage by number of LUT inputs ;       ;
+;     -- 4 input functions                    ; 26    ;
+;     -- 3 input functions                    ; 15    ;
+;     -- 2 input functions                    ; 20    ;
+;     -- 1 input functions                    ; 7     ;
+;     -- 0 input functions                    ; 0     ;
+;                                             ;       ;
+; Logic elements by mode                      ;       ;
+;     -- normal mode                          ; 71    ;
+;     -- arithmetic mode                      ; 14    ;
+;     -- qfbk mode                            ; 0     ;
+;     -- register cascade mode                ; 0     ;
+;     -- synchronous clear/load mode          ; 6     ;
+;     -- asynchronous clear/load mode         ; 41    ;
+;                                             ;       ;
+; Total registers                             ; 45    ;
+; Total logic cells in carry chains           ; 19    ;
+; I/O pins                                    ; 28    ;
+; Maximum fan-out node                        ; rst   ;
+; Maximum fan-out                             ; 45    ;
+; Total fan-out                               ; 327   ;
+; Average fan-out                             ; 2.89  ;
++---------------------------------------------+-------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                                             ;
++--------------------------------------------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                                   ; Logic Cells ; LC Registers ; UFM Blocks ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Carry Chain LCs ; Packed LCs ; Full Hierarchy Name                                                                                                                                                                                          ; Library Name ;
++--------------------------------------------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
+; |Q2_lyf                                                      ; 85 (4)      ; 45           ; 0          ; 28   ; 0            ; 40 (1)       ; 17 (0)            ; 28 (3)           ; 19 (0)          ; 0 (0)      ; |Q2_lyf                                                                                                                                                                                                      ; work         ;
+;    |LedMatrix:led_matrix_inst|                               ; 81 (11)     ; 42           ; 0          ; 0    ; 0            ; 39 (4)       ; 17 (1)            ; 25 (6)           ; 19 (6)          ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst                                                                                                                                                                            ; work         ;
+;       |LedMatrix_Animation:LedMatrix_Animation_Inst|         ; 13 (13)     ; 10           ; 0          ; 0    ; 0            ; 3 (3)        ; 0 (0)             ; 10 (10)          ; 0 (0)           ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst                                                                                                                               ; work         ;
+;       |LedMatrix_PwmController:LedMatrix_PwmController_Inst| ; 57 (38)     ; 25           ; 0          ; 0    ; 0            ; 32 (13)      ; 16 (16)           ; 9 (9)            ; 13 (1)          ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst                                                                                                                       ; work         ;
+;          |lpm_divide:Mod0|                                   ; 19 (0)      ; 0            ; 0          ; 0    ; 0            ; 19 (0)       ; 0 (0)             ; 0 (0)            ; 12 (0)          ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0                                                                                                       ; work         ;
+;             |lpm_divide_rnl:auto_generated|                  ; 19 (0)      ; 0            ; 0          ; 0    ; 0            ; 19 (0)       ; 0 (0)             ; 0 (0)            ; 12 (0)          ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0|lpm_divide_rnl:auto_generated                                                                         ; work         ;
+;                |sign_div_unsign_9kh:divider|                 ; 19 (0)      ; 0            ; 0          ; 0    ; 0            ; 19 (0)       ; 0 (0)             ; 0 (0)            ; 12 (0)          ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0|lpm_divide_rnl:auto_generated|sign_div_unsign_9kh:divider                                             ; work         ;
+;                   |alt_u_div_die:divider|                    ; 19 (7)      ; 0            ; 0          ; 0    ; 0            ; 19 (7)       ; 0 (0)             ; 0 (0)            ; 12 (0)          ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0|lpm_divide_rnl:auto_generated|sign_div_unsign_9kh:divider|alt_u_div_die:divider                       ; work         ;
+;                      |add_sub_h7c:add_sub_3|                 ; 6 (6)       ; 0            ; 0          ; 0    ; 0            ; 6 (6)        ; 0 (0)             ; 0 (0)            ; 6 (6)           ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0|lpm_divide_rnl:auto_generated|sign_div_unsign_9kh:divider|alt_u_div_die:divider|add_sub_h7c:add_sub_3 ; work         ;
+;                      |add_sub_i7c:add_sub_4|                 ; 6 (6)       ; 0            ; 0          ; 0    ; 0            ; 6 (6)        ; 0 (0)             ; 0 (0)            ; 6 (6)           ; 0 (0)      ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0|lpm_divide_rnl:auto_generated|sign_div_unsign_9kh:divider|alt_u_div_die:divider|add_sub_i7c:add_sub_4 ; work         ;
++--------------------------------------------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                                                                                         ;
++---------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+
+; Register name                                                                                           ; Reason for Removal                                                                                               ;
++---------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+
+; LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|Row_out[0..7]            ; Stuck at GND due to stuck port data_in                                                                           ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[32..63]                ; Stuck at GND due to stuck port data_in                                                                           ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[32..63]                ; Stuck at GND due to stuck port data_in                                                                           ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[1..7]                  ; Merged with LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[0]                  ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[24..30]                ; Merged with LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[31]                 ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[16..22]                ; Merged with LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[23]                 ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[8..14]                 ; Merged with LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[15]                 ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[0..6]                  ; Merged with LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[7]                  ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[24..30]                ; Merged with LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[31]                 ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[16..22]                ; Merged with LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[23]                 ;
+; LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[8..14]                 ; Merged with LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[15]                 ;
+; LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[0..6] ; Merged with LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[7] ;
+; LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[0..6] ; Merged with LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[7] ;
+; Total Number of Removed Registers = 142                                                                 ;                                                                                                                  ;
++---------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 45    ;
+; Number of registers using Synchronous Clear  ; 6     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 41    ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 6     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------+
+; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[7] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[31]                 ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[7]                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0 ;
++------------------------+----------------+-------------------------------------------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                                                                  ;
++------------------------+----------------+-------------------------------------------------------------------------------------------------------+
+; LPM_WIDTHN             ; 5              ; Untyped                                                                                               ;
+; LPM_WIDTHD             ; 5              ; Untyped                                                                                               ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                               ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                               ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                                                               ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                               ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                               ;
+; CBXI_PARAMETER         ; lpm_divide_rnl ; Untyped                                                                                               ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                               ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                               ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                            ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                          ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                          ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                        ;
++------------------------+----------------+-------------------------------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 9.1 Build 222 10/21/2009 SJ Full Version
+    Info: Processing started: Wed Oct 01 20:44:30 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Q2_lyf -c Q2_lyf
+Info: Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info: Found 2 design units, including 1 entities, in source file q2_lyf.vhd
+    Info: Found design unit 1: Q2_lyf-behavioral
+    Info: Found entity 1: Q2_lyf
+Info: Found 2 design units, including 1 entities, in source file ledmatrix_animation.vhd
+    Info: Found design unit 1: LedMatrix_Animation-rtl
+    Info: Found entity 1: LedMatrix_Animation
+Info: Found 2 design units, including 1 entities, in source file ledmatrix_pwmcontroller.vhd
+    Info: Found design unit 1: LedMatrix_PwmController-rtl
+    Info: Found entity 1: LedMatrix_PwmController
+Info: Found 2 design units, including 1 entities, in source file ledmatrix.vhd
+    Info: Found design unit 1: LedMatrix-rtl
+    Info: Found entity 1: LedMatrix
+Info: Elaborating entity "Q2_lyf" for the top level hierarchy
+Info: Elaborating entity "LedMatrix" for hierarchy "LedMatrix:led_matrix_inst"
+Info: Elaborating entity "LedMatrix_Animation" for hierarchy "LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst"
+Info: Elaborating entity "LedMatrix_PwmController" for hierarchy "LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst"
+Info: Inferred 1 megafunctions from design logic
+    Info: Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|Mod0"
+Info: Elaborated megafunction instantiation "LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0"
+Info: Instantiated megafunction "LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0" with the following parameter:
+    Info: Parameter "LPM_WIDTHN" = "5"
+    Info: Parameter "LPM_WIDTHD" = "5"
+    Info: Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info: Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info: Found 1 design units, including 1 entities, in source file db/lpm_divide_rnl.tdf
+    Info: Found entity 1: lpm_divide_rnl
+Info: Found 1 design units, including 1 entities, in source file db/sign_div_unsign_9kh.tdf
+    Info: Found entity 1: sign_div_unsign_9kh
+Info: Found 1 design units, including 1 entities, in source file db/alt_u_div_die.tdf
+    Info: Found entity 1: alt_u_div_die
+Info: Found 1 design units, including 1 entities, in source file db/add_sub_e7c.tdf
+    Info: Found entity 1: add_sub_e7c
+Info: Found 1 design units, including 1 entities, in source file db/add_sub_f7c.tdf
+    Info: Found entity 1: add_sub_f7c
+Info: Found 1 design units, including 1 entities, in source file db/add_sub_g7c.tdf
+    Info: Found entity 1: add_sub_g7c
+Info: Found 1 design units, including 1 entities, in source file db/add_sub_h7c.tdf
+    Info: Found entity 1: add_sub_h7c
+Info: Found 1 design units, including 1 entities, in source file db/add_sub_i7c.tdf
+    Info: Found entity 1: add_sub_i7c
+Warning: Output pins are stuck at VCC or GND
+    Warning (13410): Pin "matrix_en[0]" is stuck at GND
+    Warning (13410): Pin "matrix_en[1]" is stuck at GND
+    Warning (13410): Pin "matrix_en[2]" is stuck at GND
+    Warning (13410): Pin "matrix_en[3]" is stuck at GND
+    Warning (13410): Pin "matrix_en[4]" is stuck at GND
+    Warning (13410): Pin "matrix_en[5]" is stuck at GND
+    Warning (13410): Pin "matrix_en[6]" is stuck at GND
+    Warning (13410): Pin "matrix_en[7]" is stuck at GND
+Info: Implemented 113 device resources after synthesis - the final resource count might be different
+    Info: Implemented 4 input pins
+    Info: Implemented 24 output pins
+    Info: Implemented 85 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 9 warnings
+    Info: Peak virtual memory: 4457 megabytes
+    Info: Processing ended: Wed Oct 01 20:44:31 2025
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+
