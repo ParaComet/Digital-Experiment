@@ -20,10 +20,17 @@ end entity LedMatrix_Animation;
 architecture rtl of LedMatrix_Animation is
 
     -- 基础图案
-    constant STEP0 : std_logic_vector(63 downto 0) := x"000000000000FF00"; -- line 1
-    constant STEP1 : std_logic_vector(63 downto 0) := x"00000000000000FF"; -- line 2
-    constant STEP2 : std_logic_vector(63 downto 0) := x"0000000000FF0000"; -- line 3
-    constant STEP3 : std_logic_vector(63 downto 0) := x"00000000FF000000"; -- line 4
+    constant STEP0 : std_logic_vector(63 downto 0) 
+        := x"00" & x"60" & x"F0" & x"90" & x"09" & x"0F" & x"06" & x"00" ;
+        
+    constant STEP1 : std_logic_vector(63 downto 0)
+        := x"70" & x"38" & x"18" & x"10" & x"08" & x"18" & x"1C" & x"0E";
+
+    constant STEP2 : std_logic_vector(63 downto 0)
+        := x"0C" & x"06" & x"06" & x"0C" & x"30" & x"60" & x"60" & x"30";
+
+    constant STEP3 : std_logic_vector(63 downto 0)
+        := x"00" & x"01" & x"03" & x"6F" & x"F6" & x"C0" & x"80" & x"00";
 
     type step_type is array (0 to 3) of std_logic_vector(63 downto 0);
 

@@ -58,3 +58,5 @@ set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
 set_global_assignment -name VHDL_FILE Beep.vhd
 set_global_assignment -name VHDL_FILE Tempreature.vhd
 set_global_assignment -name VHDL_FILE Tempreature_I2C.vhd
+set_global_assignment -name VHDL_FILE DigitalDisplay.vhd
+set_global_assignment -name VHDL_FILE Button.vhd
