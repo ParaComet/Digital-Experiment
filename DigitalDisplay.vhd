@@ -17,16 +17,17 @@ end entity DigitalDisplay;
 architecture rtl of DigitalDisplay is 
 
     signal en_index : integer range 0 to 7 := 0;
-    signal deg_index : integer range 0 to 12 := 0;
+    signal deg_index : integer range 0 to 11 := 0;
     
-    -- 解码用临时信号
     signal temp_tens  : integer range 0 to 8 := 0; -- 十位（0..8）
     signal temp_units : integer range 0 to 9 := 0; -- 个位
     signal tempdot    : std_logic := '0';          -- 是否有 0.5（小数点）
-    
+    signal dp_now     : std_logic := '0';          -- 当前扫描位是否显示小数点
+
+    signal deg_out_reg : std_logic_vector(7 downto 0) := (others => '0');
+
 begin
 
-    -- 扫描计数器
     process(clk, rst)
     begin
         if rst = '1' then
@@ -36,16 +37,14 @@ begin
         end if;
     end process;
 
-    -- 输出位选（低有效）
     process(en_index)
     begin
         en_out <= (others => '1');
         en_out(en_index) <= '0';
     end process;
-
-    -- 从 temp_twice 解码出十位/个位/半位标志（组合逻辑）
     process(temp_twice)
         variable v : integer;
+        variable integer_temp : integer;
     begin
         v := temp_twice;
         if v < 0 then
@@ -53,8 +52,9 @@ begin
         elsif v > 80 then
             v := 80;
         end if;
-        temp_tens  <= v / 10;
-        temp_units <= v mod 10;
+        integer_temp := v / 2; -- 恢复实际温度（向下取整）
+        temp_tens  <= integer_temp / 10;
+        temp_units <= integer_temp mod 10;
         if (v mod 2) = 1 then
             tempdot <= '1';
         else
@@ -65,19 +65,22 @@ begin
     -- 根据当前位选择要显示的字符索引（组合逻辑）
     process(en_index, temp_tens, temp_units, tempdot, stage)
     begin 
+        dp_now <= '0';
         case en_index is
             when 0 => deg_index <= temp_tens;   -- 十位
-            when 1 => deg_index <= temp_units;  -- 个位
+            when 1 => 
+                deg_index <= temp_units;  -- 个位
+                dp_now <= '1';
             when 2 => 
                 if tempdot = '1' then
-                    deg_index <= 12; -- dp-only
+                    deg_index <= 5; -- 显示 5 (表示 .5)
                 else
-                    deg_index <= 0;  -- 空白或 0 根据需求
+                    deg_index <= 0; -- 显示 0
                 end if;
             when 3 => deg_index <= 10;  -- C
-            when 4 => deg_index <= 11;  -- °
-            when 5 => deg_index <= 0;   -- 保留空白
-            when 6 => deg_index <= 0;   -- 保留空白
+            when 4 => deg_index <= 0;
+            when 5 => deg_index <= 0;   
+            when 6 => deg_index <= 0;   
             when 7 => 
                 if stage >= 0 and stage <= 4 then
                     deg_index <= stage; -- 用 stage 显示 0..4
@@ -88,21 +91,22 @@ begin
         end case;
     end process;
 
-    -- 7 段和小数点编码（8 位，MSB 假定为 DP）
+    -- 7 段和小数点编码（8 位，bit7 = DP）
     with deg_index select
-        deg_out <= "00111111" when 0,  -- 0
-                   "00000110" when 1,  -- 1
-                   "01011011" when 2,  -- 2
-                   "01001111" when 3,  -- 3
-                   "01100110" when 4,  -- 4
-                   "01101101" when 5,  -- 5
-                   "01111101" when 6,  -- 6
-                   "00000111" when 7,  -- 7
-                   "01111111" when 8,  -- 8
-                   "01101111" when 9,  -- 9
-                   "01110111" when 10, -- C
-                   "00111001" when 11, -- °
-                   "10000000" when 12, -- dp-only（仅小数点）
-                   "00000000" when others; -- 空白 / 默认
-    
+        deg_out_reg(6 downto 0) <=  "0111111" when 0,  -- 0
+                                    "0000110" when 1,  -- 1
+                                    "1011011" when 2,  -- 2
+                                    "1001111" when 3,  -- 3
+                                    "1100110" when 4,  -- 4
+                                    "1101101" when 5,  -- 5
+                                    "1111101" when 6,  -- 6
+                                    "0000111" when 7,  -- 7
+                                    "1111111" when 8,  -- 8
+                                    "1101111" when 9,  -- 9
+                                    "0111001" when 10, -- C
+                                    "0000000" when others; -- 空白 / 默认
+
+    deg_out_reg(7) <= dp_now; -- 小数点（仅由 dp_now 控制）
+    deg_out <= deg_out_reg;
+
 end architecture rtl;

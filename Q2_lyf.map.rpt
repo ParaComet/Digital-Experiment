@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Q2_lyf
-Wed Oct 08 00:49:32 2025
+Wed Oct 08 01:32:22 2025
 Quartus II 64-Bit Version 9.1 Build 222 10/21/2009 SJ Full Version
 
 
@@ -22,8 +22,8 @@ Quartus II 64-Bit Version 9.1 Build 222 10/21/2009 SJ Full Version
  14. Multiplexer Restructuring Statistics (Restructuring Performed)
  15. Parameter Settings for User Entity Instance: Clk_Generater:clkgen_inst
  16. Parameter Settings for User Entity Instance: Tempreature:Temp_Inst|Temperature_I2C:I2C_Master
- 17. Parameter Settings for Inferred Entity Instance: DigitalDisplay:Display_Inst|lpm_divide:Div0
- 18. Parameter Settings for Inferred Entity Instance: DigitalDisplay:Display_Inst|lpm_divide:Mod0
+ 17. Parameter Settings for Inferred Entity Instance: DigitalDisplay:Display_Inst|lpm_divide:Mod0
+ 18. Parameter Settings for Inferred Entity Instance: DigitalDisplay:Display_Inst|lpm_divide:Div0
  19. Parameter Settings for Inferred Entity Instance: LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0
  20. Port Connectivity Checks: "Tempreature:Temp_Inst|Temperature_I2C:I2C_Master"
  21. Port Connectivity Checks: "Tempreature:Temp_Inst"
@@ -54,12 +54,12 @@ applicable agreement for further details.
 +------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                           ;
 +-----------------------------+------------------------------------------+
-; Analysis & Synthesis Status ; Successful - Wed Oct 08 00:49:32 2025    ;
+; Analysis & Synthesis Status ; Successful - Wed Oct 08 01:32:22 2025    ;
 ; Quartus II 64-Bit Version   ; 9.1 Build 222 10/21/2009 SJ Full Version ;
 ; Revision Name               ; Q2_lyf                                   ;
 ; Top-level Entity Name       ; Q2_lyf                                   ;
 ; Family                      ; MAX II                                   ;
-; Total logic elements        ; 591                                      ;
+; Total logic elements        ; 621                                      ;
 ; Total pins                  ; 47                                       ;
 ; Total virtual pins          ; 0                                        ;
 ; UFM blocks                  ; 0 / 1 ( 0 % )                            ;
@@ -166,19 +166,18 @@ applicable agreement for further details.
 ; Button.vhd                       ; yes             ; User VHDL File               ; C:/Users/ParaComet/Documents/题目2-刘亦凡/Button.vhd                  ;
 ; Clk_Generater.vhd                ; yes             ; User VHDL File               ; C:/Users/ParaComet/Documents/题目2-刘亦凡/Clk_Generater.vhd           ;
 ; lpm_divide.tdf                   ; yes             ; Megafunction                 ; c:/resource/quartus/libraries/megafunctions/lpm_divide.tdf            ;
-; db/lpm_divide_pvl.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/lpm_divide_pvl.tdf       ;
-; db/sign_div_unsign_akh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/sign_div_unsign_akh.tdf  ;
-; db/alt_u_div_fie.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/alt_u_div_fie.tdf        ;
+; db/lpm_divide_tnl.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/lpm_divide_tnl.tdf       ;
+; db/sign_div_unsign_ckh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/sign_div_unsign_ckh.tdf  ;
+; db/alt_u_div_hie.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/alt_u_div_hie.tdf        ;
 ; db/add_sub_e7c.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/add_sub_e7c.tdf          ;
 ; db/add_sub_f7c.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/add_sub_f7c.tdf          ;
 ; db/add_sub_g7c.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/add_sub_g7c.tdf          ;
 ; db/add_sub_h7c.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/add_sub_h7c.tdf          ;
 ; db/add_sub_i7c.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/add_sub_i7c.tdf          ;
-; db/lpm_divide_vnl.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/lpm_divide_vnl.tdf       ;
-; db/sign_div_unsign_dkh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/sign_div_unsign_dkh.tdf  ;
-; db/alt_u_div_lie.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/alt_u_div_lie.tdf        ;
 ; db/add_sub_j7c.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/add_sub_j7c.tdf          ;
-; db/add_sub_k7c.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/add_sub_k7c.tdf          ;
+; db/lpm_divide_ovl.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/lpm_divide_ovl.tdf       ;
+; db/sign_div_unsign_bkh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/sign_div_unsign_bkh.tdf  ;
+; db/alt_u_div_eie.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/alt_u_div_eie.tdf        ;
 ; db/lpm_divide_rnl.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/lpm_divide_rnl.tdf       ;
 ; db/sign_div_unsign_9kh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/sign_div_unsign_9kh.tdf  ;
 ; db/alt_u_div_die.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/ParaComet/Documents/题目2-刘亦凡/db/alt_u_div_die.tdf        ;
@@ -190,33 +189,33 @@ applicable agreement for further details.
 +---------------------------------------------+-------+
 ; Resource                                    ; Usage ;
 +---------------------------------------------+-------+
-; Total logic elements                        ; 591   ;
-;     -- Combinational with no register       ; 321   ;
+; Total logic elements                        ; 621   ;
+;     -- Combinational with no register       ; 318   ;
 ;     -- Register only                        ; 14    ;
-;     -- Combinational with a register        ; 256   ;
+;     -- Combinational with a register        ; 289   ;
 ;                                             ;       ;
 ; Logic element usage by number of LUT inputs ;       ;
-;     -- 4 input functions                    ; 205   ;
-;     -- 3 input functions                    ; 138   ;
-;     -- 2 input functions                    ; 201   ;
-;     -- 1 input functions                    ; 33    ;
+;     -- 4 input functions                    ; 216   ;
+;     -- 3 input functions                    ; 136   ;
+;     -- 2 input functions                    ; 224   ;
+;     -- 1 input functions                    ; 31    ;
 ;     -- 0 input functions                    ; 0     ;
 ;                                             ;       ;
 ; Logic elements by mode                      ;       ;
 ;     -- normal mode                          ; 426   ;
-;     -- arithmetic mode                      ; 165   ;
+;     -- arithmetic mode                      ; 195   ;
 ;     -- qfbk mode                            ; 0     ;
 ;     -- register cascade mode                ; 0     ;
-;     -- synchronous clear/load mode          ; 136   ;
-;     -- asynchronous clear/load mode         ; 229   ;
+;     -- synchronous clear/load mode          ; 168   ;
+;     -- asynchronous clear/load mode         ; 262   ;
 ;                                             ;       ;
-; Total registers                             ; 270   ;
-; Total logic cells in carry chains           ; 190   ;
+; Total registers                             ; 303   ;
+; Total logic cells in carry chains           ; 218   ;
 ; I/O pins                                    ; 47    ;
 ; Maximum fan-out node                        ; rst   ;
-; Maximum fan-out                             ; 251   ;
-; Total fan-out                               ; 2434  ;
-; Average fan-out                             ; 3.82  ;
+; Maximum fan-out                             ; 284   ;
+; Total fan-out                               ; 2615  ;
+; Average fan-out                             ; 3.91  ;
 +---------------------------------------------+-------+
 
 
@@ -225,28 +224,27 @@ applicable agreement for further details.
 +--------------------------------------------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                                   ; Logic Cells ; LC Registers ; UFM Blocks ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Carry Chain LCs ; Packed LCs ; Full Hierarchy Name                                                                                                                                                                                         ; Library Name ;
 +--------------------------------------------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |Q2_lyf                                                      ; 591 (66)    ; 270          ; 0          ; 47   ; 0            ; 321 (22)     ; 14 (0)            ; 256 (44)         ; 190 (32)        ; 0 (0)      ; |Q2_lyf                                                                                                                                                                                                     ; work         ;
+; |Q2_lyf                                                      ; 621 (65)    ; 303          ; 0          ; 47   ; 0            ; 318 (21)     ; 14 (0)            ; 289 (44)         ; 218 (32)        ; 0 (0)      ; |Q2_lyf                                                                                                                                                                                                     ; work         ;
+;    |Beep:Beep_Inst|                                          ; 64 (64)     ; 33           ; 0          ; 0    ; 0            ; 31 (31)      ; 0 (0)             ; 33 (33)          ; 44 (44)         ; 0 (0)      ; |Q2_lyf|Beep:Beep_Inst                                                                                                                                                                                      ; work         ;
 ;    |Button:button_inst|                                      ; 38 (38)     ; 30           ; 0          ; 0    ; 0            ; 8 (8)        ; 0 (0)             ; 30 (30)          ; 20 (20)         ; 0 (0)      ; |Q2_lyf|Button:button_inst                                                                                                                                                                                  ; work         ;
 ;    |Clk_Generater:clkgen_inst|                               ; 88 (88)     ; 66           ; 0          ; 0    ; 0            ; 22 (22)      ; 0 (0)             ; 66 (66)          ; 64 (64)         ; 0 (0)      ; |Q2_lyf|Clk_Generater:clkgen_inst                                                                                                                                                                           ; work         ;
-;    |DigitalDisplay:Display_Inst|                             ; 141 (41)    ; 3            ; 0          ; 0    ; 0            ; 138 (38)     ; 0 (0)             ; 3 (3)            ; 55 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst                                                                                                                                                                         ; work         ;
-;       |lpm_divide:Div0|                                      ; 45 (0)      ; 0            ; 0          ; 0    ; 0            ; 45 (0)       ; 0 (0)             ; 0 (0)            ; 25 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0                                                                                                                                                         ; work         ;
-;          |lpm_divide_pvl:auto_generated|                     ; 45 (0)      ; 0            ; 0          ; 0    ; 0            ; 45 (0)       ; 0 (0)             ; 0 (0)            ; 25 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_pvl:auto_generated                                                                                                                           ; work         ;
-;             |sign_div_unsign_akh:divider|                    ; 45 (0)      ; 0            ; 0          ; 0    ; 0            ; 45 (0)       ; 0 (0)             ; 0 (0)            ; 25 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_pvl:auto_generated|sign_div_unsign_akh:divider                                                                                               ; work         ;
-;                |alt_u_div_fie:divider|                       ; 45 (20)     ; 0            ; 0          ; 0    ; 0            ; 45 (20)      ; 0 (0)             ; 0 (0)            ; 25 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_pvl:auto_generated|sign_div_unsign_akh:divider|alt_u_div_fie:divider                                                                         ; work         ;
-;                   |add_sub_h7c:add_sub_3|                    ; 6 (6)       ; 0            ; 0          ; 0    ; 0            ; 6 (6)        ; 0 (0)             ; 0 (0)            ; 6 (6)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_pvl:auto_generated|sign_div_unsign_akh:divider|alt_u_div_fie:divider|add_sub_h7c:add_sub_3                                                   ; work         ;
-;                   |add_sub_i7c:add_sub_4|                    ; 7 (7)       ; 0            ; 0          ; 0    ; 0            ; 7 (7)        ; 0 (0)             ; 0 (0)            ; 7 (7)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_pvl:auto_generated|sign_div_unsign_akh:divider|alt_u_div_fie:divider|add_sub_i7c:add_sub_4                                                   ; work         ;
-;                   |add_sub_i7c:add_sub_5|                    ; 7 (7)       ; 0            ; 0          ; 0    ; 0            ; 7 (7)        ; 0 (0)             ; 0 (0)            ; 7 (7)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_pvl:auto_generated|sign_div_unsign_akh:divider|alt_u_div_fie:divider|add_sub_i7c:add_sub_5                                                   ; work         ;
-;                   |add_sub_i7c:add_sub_6|                    ; 5 (5)       ; 0            ; 0          ; 0    ; 0            ; 5 (5)        ; 0 (0)             ; 0 (0)            ; 5 (5)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_pvl:auto_generated|sign_div_unsign_akh:divider|alt_u_div_fie:divider|add_sub_i7c:add_sub_6                                                   ; work         ;
-;       |lpm_divide:Mod0|                                      ; 55 (0)      ; 0            ; 0          ; 0    ; 0            ; 55 (0)       ; 0 (0)             ; 0 (0)            ; 30 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0                                                                                                                                                         ; work         ;
-;          |lpm_divide_vnl:auto_generated|                     ; 55 (0)      ; 0            ; 0          ; 0    ; 0            ; 55 (0)       ; 0 (0)             ; 0 (0)            ; 30 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_vnl:auto_generated                                                                                                                           ; work         ;
-;             |sign_div_unsign_dkh:divider|                    ; 55 (0)      ; 0            ; 0          ; 0    ; 0            ; 55 (0)       ; 0 (0)             ; 0 (0)            ; 30 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_vnl:auto_generated|sign_div_unsign_dkh:divider                                                                                               ; work         ;
-;                |alt_u_div_lie:divider|                       ; 55 (25)     ; 0            ; 0          ; 0    ; 0            ; 55 (25)      ; 0 (0)             ; 0 (0)            ; 30 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_vnl:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_lie:divider                                                                         ; work         ;
-;                   |add_sub_h7c:add_sub_3|                    ; 6 (6)       ; 0            ; 0          ; 0    ; 0            ; 6 (6)        ; 0 (0)             ; 0 (0)            ; 6 (6)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_vnl:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_lie:divider|add_sub_h7c:add_sub_3                                                   ; work         ;
-;                   |add_sub_i7c:add_sub_4|                    ; 7 (7)       ; 0            ; 0          ; 0    ; 0            ; 7 (7)        ; 0 (0)             ; 0 (0)            ; 7 (7)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_vnl:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_lie:divider|add_sub_i7c:add_sub_4                                                   ; work         ;
-;                   |add_sub_j7c:add_sub_5|                    ; 8 (8)       ; 0            ; 0          ; 0    ; 0            ; 8 (8)        ; 0 (0)             ; 0 (0)            ; 8 (8)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_vnl:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_lie:divider|add_sub_j7c:add_sub_5                                                   ; work         ;
-;                   |add_sub_k7c:add_sub_6|                    ; 9 (9)       ; 0            ; 0          ; 0    ; 0            ; 9 (9)        ; 0 (0)             ; 0 (0)            ; 9 (9)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_vnl:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_lie:divider|add_sub_k7c:add_sub_6                                                   ; work         ;
-;    |LedMatrix:LedMatrix_Inst|                                ; 152 (12)    ; 68           ; 0          ; 0    ; 0            ; 84 (5)       ; 2 (1)             ; 66 (6)           ; 19 (6)          ; 0 (0)      ; |Q2_lyf|LedMatrix:LedMatrix_Inst                                                                                                                                                                            ; work         ;
-;       |LedMatrix_Animation:LedMatrix_Animation_Inst|         ; 19 (19)     ; 14           ; 0          ; 0    ; 0            ; 5 (5)        ; 0 (0)             ; 14 (14)          ; 0 (0)           ; 0 (0)      ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst                                                                                                                               ; work         ;
+;    |DigitalDisplay:Display_Inst|                             ; 107 (38)    ; 3            ; 0          ; 0    ; 0            ; 104 (35)     ; 0 (0)             ; 3 (3)            ; 39 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst                                                                                                                                                                         ; work         ;
+;       |lpm_divide:Div0|                                      ; 33 (0)      ; 0            ; 0          ; 0    ; 0            ; 33 (0)       ; 0 (0)             ; 0 (0)            ; 18 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0                                                                                                                                                         ; work         ;
+;          |lpm_divide_ovl:auto_generated|                     ; 33 (0)      ; 0            ; 0          ; 0    ; 0            ; 33 (0)       ; 0 (0)             ; 0 (0)            ; 18 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_ovl:auto_generated                                                                                                                           ; work         ;
+;             |sign_div_unsign_bkh:divider|                    ; 33 (0)      ; 0            ; 0          ; 0    ; 0            ; 33 (0)       ; 0 (0)             ; 0 (0)            ; 18 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_ovl:auto_generated|sign_div_unsign_bkh:divider                                                                                               ; work         ;
+;                |alt_u_div_eie:divider|                       ; 33 (15)     ; 0            ; 0          ; 0    ; 0            ; 33 (15)      ; 0 (0)             ; 0 (0)            ; 18 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_ovl:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_eie:divider                                                                         ; work         ;
+;                   |add_sub_h7c:add_sub_3|                    ; 6 (6)       ; 0            ; 0          ; 0    ; 0            ; 6 (6)        ; 0 (0)             ; 0 (0)            ; 6 (6)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_ovl:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_eie:divider|add_sub_h7c:add_sub_3                                                   ; work         ;
+;                   |add_sub_i7c:add_sub_4|                    ; 7 (7)       ; 0            ; 0          ; 0    ; 0            ; 7 (7)        ; 0 (0)             ; 0 (0)            ; 7 (7)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_ovl:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_eie:divider|add_sub_i7c:add_sub_4                                                   ; work         ;
+;                   |add_sub_i7c:add_sub_5|                    ; 5 (5)       ; 0            ; 0          ; 0    ; 0            ; 5 (5)        ; 0 (0)             ; 0 (0)            ; 5 (5)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Div0|lpm_divide_ovl:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_eie:divider|add_sub_i7c:add_sub_5                                                   ; work         ;
+;       |lpm_divide:Mod0|                                      ; 36 (0)      ; 0            ; 0          ; 0    ; 0            ; 36 (0)       ; 0 (0)             ; 0 (0)            ; 21 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0                                                                                                                                                         ; work         ;
+;          |lpm_divide_tnl:auto_generated|                     ; 36 (0)      ; 0            ; 0          ; 0    ; 0            ; 36 (0)       ; 0 (0)             ; 0 (0)            ; 21 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_tnl:auto_generated                                                                                                                           ; work         ;
+;             |sign_div_unsign_ckh:divider|                    ; 36 (0)      ; 0            ; 0          ; 0    ; 0            ; 36 (0)       ; 0 (0)             ; 0 (0)            ; 21 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_tnl:auto_generated|sign_div_unsign_ckh:divider                                                                                               ; work         ;
+;                |alt_u_div_hie:divider|                       ; 36 (15)     ; 0            ; 0          ; 0    ; 0            ; 36 (15)      ; 0 (0)             ; 0 (0)            ; 21 (0)          ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_tnl:auto_generated|sign_div_unsign_ckh:divider|alt_u_div_hie:divider                                                                         ; work         ;
+;                   |add_sub_h7c:add_sub_3|                    ; 6 (6)       ; 0            ; 0          ; 0    ; 0            ; 6 (6)        ; 0 (0)             ; 0 (0)            ; 6 (6)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_tnl:auto_generated|sign_div_unsign_ckh:divider|alt_u_div_hie:divider|add_sub_h7c:add_sub_3                                                   ; work         ;
+;                   |add_sub_i7c:add_sub_4|                    ; 7 (7)       ; 0            ; 0          ; 0    ; 0            ; 7 (7)        ; 0 (0)             ; 0 (0)            ; 7 (7)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_tnl:auto_generated|sign_div_unsign_ckh:divider|alt_u_div_hie:divider|add_sub_i7c:add_sub_4                                                   ; work         ;
+;                   |add_sub_j7c:add_sub_5|                    ; 8 (8)       ; 0            ; 0          ; 0    ; 0            ; 8 (8)        ; 0 (0)             ; 0 (0)            ; 8 (8)           ; 0 (0)      ; |Q2_lyf|DigitalDisplay:Display_Inst|lpm_divide:Mod0|lpm_divide_tnl:auto_generated|sign_div_unsign_ckh:divider|alt_u_div_hie:divider|add_sub_j7c:add_sub_5                                                   ; work         ;
+;    |LedMatrix:LedMatrix_Inst|                                ; 153 (12)    ; 68           ; 0          ; 0    ; 0            ; 85 (5)       ; 2 (1)             ; 66 (6)           ; 19 (6)          ; 0 (0)      ; |Q2_lyf|LedMatrix:LedMatrix_Inst                                                                                                                                                                            ; work         ;
+;       |LedMatrix_Animation:LedMatrix_Animation_Inst|         ; 20 (20)     ; 14           ; 0          ; 0    ; 0            ; 6 (6)        ; 0 (0)             ; 14 (14)          ; 0 (0)           ; 0 (0)      ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst                                                                                                                               ; work         ;
 ;       |LedMatrix_PwmController:LedMatrix_PwmController_Inst| ; 121 (102)   ; 47           ; 0          ; 0    ; 0            ; 74 (55)      ; 1 (1)             ; 46 (46)          ; 13 (1)          ; 0 (0)      ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst                                                                                                                       ; work         ;
 ;          |lpm_divide:Mod0|                                   ; 19 (0)      ; 0            ; 0          ; 0    ; 0            ; 19 (0)       ; 0 (0)             ; 0 (0)            ; 12 (0)          ; 0 (0)      ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0                                                                                                       ; work         ;
 ;             |lpm_divide_rnl:auto_generated|                  ; 19 (0)      ; 0            ; 0          ; 0    ; 0            ; 19 (0)       ; 0 (0)             ; 0 (0)            ; 12 (0)          ; 0 (0)      ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0|lpm_divide_rnl:auto_generated                                                                         ; work         ;
@@ -310,11 +308,9 @@ Encoding Type:  One-Hot
 +------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
 ; Register name                                                                                                    ; Reason for Removal                                                                              ;
 +------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
-; Beep:Beep_Inst|cnt[0..31]                                                                                        ; Lost fanout                                                                                     ;
 ; LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[0]                               ; Stuck at GND due to stuck port data_in                                                          ;
 ; LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[0,6..8,55..57,63]                ; Stuck at GND due to stuck port data_in                                                          ;
 ; LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[6..8,55..57,63]                  ; Stuck at GND due to stuck port data_in                                                          ;
-; Beep:Beep_Inst|beep_reg                                                                                          ; Stuck at GND due to stuck port data_in                                                          ;
 ; Tempreature:Temp_Inst|data_wr_sig[0..7]                                                                          ; Stuck at GND due to stuck port data_in                                                          ;
 ; LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[1..3,11..12,20,43,51..52,60..61] ; Merged with LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[62] ;
 ; LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[4..5,13..14,21,42,49..50,58]     ; Merged with LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[59] ;
@@ -331,7 +327,7 @@ Encoding Type:  One-Hot
 ; Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|shifter[4]                                                      ; Merged with Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|shifter[7]                         ;
 ; Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|shifter[1..3,5]                                                 ; Merged with Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|shifter[6]                         ;
 ; Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|shifter[6]                                                      ; Stuck at GND due to stuck port data_in                                                          ;
-; Total Number of Removed Registers = 163                                                                          ;                                                                                                 ;
+; Total Number of Removed Registers = 130                                                                          ;                                                                                                 ;
 +------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+
 
 
@@ -340,10 +336,10 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 270   ;
-; Number of registers using Synchronous Clear  ; 126   ;
+; Total registers                              ; 303   ;
+; Number of registers using Synchronous Clear  ; 158   ;
 ; Number of registers using Synchronous Load   ; 10    ;
-; Number of registers using Asynchronous Clear ; 229   ;
+; Number of registers using Asynchronous Clear ; 262   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 63    ;
 ; Number of registers using Preset             ; 0     ;
@@ -379,29 +375,30 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                  ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Q2_lyf|read_cnt[24]                                                                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Q2_lyf|Beep:Beep_Inst|cnt[13]                                                                              ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Q2_lyf|read_cnt[9]                                                                                         ;
 ; 3:1                ; 7 bits    ; 14 LEs        ; 14 LEs               ; 0 LEs                  ; Yes        ; |Q2_lyf|Tempreature:Temp_Inst|temp_twice[0]                                                                 ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|scl_falling                                        ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|clk_cnt[3]                                         ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 2 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[53]                 ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|clk_cnt[0]                                         ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 2 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[41]                 ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[41]                 ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[4] ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[3] ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[3] ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[5] ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[2] ;
-; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|auto_stage[1]                                                                                       ;
-; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Q2_lyf|Button:button_inst|btn0_cnt[6]                                                                      ;
-; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Q2_lyf|Button:button_inst|btn2_cnt[6]                                                                      ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[2] ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|auto_stage[2]                                                                                       ;
+; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Q2_lyf|Button:button_inst|btn0_cnt[4]                                                                      ;
+; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Q2_lyf|Button:button_inst|btn2_cnt[3]                                                                      ;
 ; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[7] ;
 ; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[0] ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[1] ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[6] ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[1] ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_R[6] ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[54]                 ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |Q2_lyf|LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[54]                 ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; Yes        ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|shifter[6]                                         ;
-; 8:1                ; 3 bits    ; 15 LEs        ; 3 LEs                ; 12 LEs                 ; Yes        ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|bit_cnt[1]                                         ;
-; 9:1                ; 2 bits    ; 12 LEs        ; 10 LEs               ; 2 LEs                  ; No         ; |Q2_lyf|DigitalDisplay:Display_Inst|Mux3                                                                    ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |Q2_lyf|Selector0                                                                                           ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; Yes        ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|shifter[7]                                         ;
+; 8:1                ; 3 bits    ; 15 LEs        ; 3 LEs                ; 12 LEs                 ; Yes        ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|bit_cnt[2]                                         ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |Q2_lyf|DigitalDisplay:Display_Inst|Mux3                                                                    ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |Q2_lyf|Selector1                                                                                           ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|Selector21                                         ;
 ; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |Q2_lyf|Tempreature:Temp_Inst|Selector3                                                                     ;
 ; 9:1                ; 2 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; No         ; |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|Selector18                                         ;
@@ -431,18 +428,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +----------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: DigitalDisplay:Display_Inst|lpm_divide:Div0 ;
+; Parameter Settings for Inferred Entity Instance: DigitalDisplay:Display_Inst|lpm_divide:Mod0 ;
 +------------------------+----------------+----------------------------------------------------+
 ; Parameter Name         ; Value          ; Type                                               ;
 +------------------------+----------------+----------------------------------------------------+
-; LPM_WIDTHN             ; 7              ; Untyped                                            ;
-; LPM_WIDTHD             ; 4              ; Untyped                                            ;
+; LPM_WIDTHN             ; 6              ; Untyped                                            ;
+; LPM_WIDTHD             ; 6              ; Untyped                                            ;
 ; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                            ;
 ; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                            ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                            ;
 ; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                            ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                            ;
-; CBXI_PARAMETER         ; lpm_divide_pvl ; Untyped                                            ;
+; CBXI_PARAMETER         ; lpm_divide_tnl ; Untyped                                            ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                            ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                            ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                         ;
@@ -454,18 +451,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +----------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: DigitalDisplay:Display_Inst|lpm_divide:Mod0 ;
+; Parameter Settings for Inferred Entity Instance: DigitalDisplay:Display_Inst|lpm_divide:Div0 ;
 +------------------------+----------------+----------------------------------------------------+
 ; Parameter Name         ; Value          ; Type                                               ;
 +------------------------+----------------+----------------------------------------------------+
-; LPM_WIDTHN             ; 7              ; Untyped                                            ;
-; LPM_WIDTHD             ; 7              ; Untyped                                            ;
+; LPM_WIDTHN             ; 6              ; Untyped                                            ;
+; LPM_WIDTHD             ; 4              ; Untyped                                            ;
 ; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                            ;
 ; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                            ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                            ;
 ; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                            ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                            ;
-; CBXI_PARAMETER         ; lpm_divide_vnl ; Untyped                                            ;
+; CBXI_PARAMETER         ; lpm_divide_ovl ; Untyped                                            ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                            ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                            ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                         ;
@@ -526,7 +523,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------+-------+----------+---------------+
 ; Port    ; Type  ; Severity ; Details       ;
 +---------+-------+----------+---------------+
-; beep_en ; Input ; Info     ; Stuck at GND  ;
+; beep_en ; Input ; Info     ; Stuck at VCC  ;
 +---------+-------+----------+---------------+
 
 
@@ -536,7 +533,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 9.1 Build 222 10/21/2009 SJ Full Version
-    Info: Processing started: Wed Oct 08 00:49:30 2025
+    Info: Processing started: Wed Oct 08 01:32:20 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Q2_lyf -c Q2_lyf
 Info: Parallel compilation is enabled and will use 10 of the 10 processors detected
 Info: Found 2 design units, including 1 entities, in source file q2_lyf.vhd
@@ -580,21 +577,21 @@ Info: Elaborating entity "Beep" for hierarchy "Beep:Beep_Inst"
 Info: Elaborating entity "Tempreature" for hierarchy "Tempreature:Temp_Inst"
 Info: Elaborating entity "Temperature_I2C" for hierarchy "Tempreature:Temp_Inst|Temperature_I2C:I2C_Master"
 Info: Inferred 3 megafunctions from design logic
-    Info: Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "DigitalDisplay:Display_Inst|Div0"
     Info: Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "DigitalDisplay:Display_Inst|Mod0"
+    Info: Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "DigitalDisplay:Display_Inst|Div0"
     Info: Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|Mod0"
-Info: Elaborated megafunction instantiation "DigitalDisplay:Display_Inst|lpm_divide:Div0"
-Info: Instantiated megafunction "DigitalDisplay:Display_Inst|lpm_divide:Div0" with the following parameter:
-    Info: Parameter "LPM_WIDTHN" = "7"
-    Info: Parameter "LPM_WIDTHD" = "4"
+Info: Elaborated megafunction instantiation "DigitalDisplay:Display_Inst|lpm_divide:Mod0"
+Info: Instantiated megafunction "DigitalDisplay:Display_Inst|lpm_divide:Mod0" with the following parameter:
+    Info: Parameter "LPM_WIDTHN" = "6"
+    Info: Parameter "LPM_WIDTHD" = "6"
     Info: Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
     Info: Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info: Found 1 design units, including 1 entities, in source file db/lpm_divide_pvl.tdf
-    Info: Found entity 1: lpm_divide_pvl
-Info: Found 1 design units, including 1 entities, in source file db/sign_div_unsign_akh.tdf
-    Info: Found entity 1: sign_div_unsign_akh
-Info: Found 1 design units, including 1 entities, in source file db/alt_u_div_fie.tdf
-    Info: Found entity 1: alt_u_div_fie
+Info: Found 1 design units, including 1 entities, in source file db/lpm_divide_tnl.tdf
+    Info: Found entity 1: lpm_divide_tnl
+Info: Found 1 design units, including 1 entities, in source file db/sign_div_unsign_ckh.tdf
+    Info: Found entity 1: sign_div_unsign_ckh
+Info: Found 1 design units, including 1 entities, in source file db/alt_u_div_hie.tdf
+    Info: Found entity 1: alt_u_div_hie
 Info: Found 1 design units, including 1 entities, in source file db/add_sub_e7c.tdf
     Info: Found entity 1: add_sub_e7c
 Info: Found 1 design units, including 1 entities, in source file db/add_sub_f7c.tdf
@@ -605,22 +602,20 @@ Info: Found 1 design units, including 1 entities, in source file db/add_sub_h7c.
     Info: Found entity 1: add_sub_h7c
 Info: Found 1 design units, including 1 entities, in source file db/add_sub_i7c.tdf
     Info: Found entity 1: add_sub_i7c
-Info: Elaborated megafunction instantiation "DigitalDisplay:Display_Inst|lpm_divide:Mod0"
-Info: Instantiated megafunction "DigitalDisplay:Display_Inst|lpm_divide:Mod0" with the following parameter:
-    Info: Parameter "LPM_WIDTHN" = "7"
-    Info: Parameter "LPM_WIDTHD" = "7"
-    Info: Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info: Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info: Found 1 design units, including 1 entities, in source file db/lpm_divide_vnl.tdf
-    Info: Found entity 1: lpm_divide_vnl
-Info: Found 1 design units, including 1 entities, in source file db/sign_div_unsign_dkh.tdf
-    Info: Found entity 1: sign_div_unsign_dkh
-Info: Found 1 design units, including 1 entities, in source file db/alt_u_div_lie.tdf
-    Info: Found entity 1: alt_u_div_lie
 Info: Found 1 design units, including 1 entities, in source file db/add_sub_j7c.tdf
     Info: Found entity 1: add_sub_j7c
-Info: Found 1 design units, including 1 entities, in source file db/add_sub_k7c.tdf
-    Info: Found entity 1: add_sub_k7c
+Info: Elaborated megafunction instantiation "DigitalDisplay:Display_Inst|lpm_divide:Div0"
+Info: Instantiated megafunction "DigitalDisplay:Display_Inst|lpm_divide:Div0" with the following parameter:
+    Info: Parameter "LPM_WIDTHN" = "6"
+    Info: Parameter "LPM_WIDTHD" = "4"
+    Info: Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info: Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info: Found 1 design units, including 1 entities, in source file db/lpm_divide_ovl.tdf
+    Info: Found entity 1: lpm_divide_ovl
+Info: Found 1 design units, including 1 entities, in source file db/sign_div_unsign_bkh.tdf
+    Info: Found entity 1: sign_div_unsign_bkh
+Info: Found 1 design units, including 1 entities, in source file db/alt_u_div_eie.tdf
+    Info: Found entity 1: alt_u_div_eie
 Info: Elaborated megafunction instantiation "LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0"
 Info: Instantiated megafunction "LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|lpm_divide:Mod0" with the following parameter:
     Info: Parameter "LPM_WIDTHN" = "5"
@@ -633,50 +628,15 @@ Info: Found 1 design units, including 1 entities, in source file db/sign_div_uns
     Info: Found entity 1: sign_div_unsign_9kh
 Info: Found 1 design units, including 1 entities, in source file db/alt_u_div_die.tdf
     Info: Found entity 1: alt_u_div_die
-Warning: Output pins are stuck at VCC or GND
-    Warning (13410): Pin "beep_out" is stuck at GND
 Info: Registers with preset signals will power-up high
-Info: 32 registers lost all their fanouts during netlist optimizations. The first 32 are displayed below.
-    Info: Register "Beep:Beep_Inst|cnt[31]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[30]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[29]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[28]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[27]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[26]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[25]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[24]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[23]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[22]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[21]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[20]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[19]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[18]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[17]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[16]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[15]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[14]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[13]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[12]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[11]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[10]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[9]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[8]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[7]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[6]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[5]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[4]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[3]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[2]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[1]" lost all its fanouts during netlist optimizations.
-    Info: Register "Beep:Beep_Inst|cnt[0]" lost all its fanouts during netlist optimizations.
-Info: Implemented 638 device resources after synthesis - the final resource count might be different
+Info: Implemented 668 device resources after synthesis - the final resource count might be different
     Info: Implemented 4 input pins
     Info: Implemented 42 output pins
     Info: Implemented 1 bidirectional pins
-    Info: Implemented 591 logic cells
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 2 warnings
+    Info: Implemented 621 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 4460 megabytes
-    Info: Processing ended: Wed Oct 08 00:49:32 2025
+    Info: Processing ended: Wed Oct 08 01:32:22 2025
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:02
 

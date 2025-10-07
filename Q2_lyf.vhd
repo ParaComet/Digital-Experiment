@@ -172,7 +172,7 @@ begin
         port map (
             clk     => clk,
             rst     => rst,
-            beep_en => '0', -- 默认静音，可按需连接
+            beep_en => '1', -- 默认使能蜂鸣器
             stage   => stage,
             beep    => beep_out
         );
