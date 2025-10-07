@@ -36,7 +36,7 @@ architecture rtl of LedMatrix_Animation is
 
     constant step_Table1 : step_type := (STEP0, STEP1, STEP2, STEP3);
     constant step_Table2 : step_type := (STEP0 or STEP2, STEP1 or STEP3, STEP0 or STEP2, STEP1 or STEP3);
-
+    constant step_Table3 : step_type := (STEP0 or STEP2, STEP0 or STEP2, STEP0 or STEP2, STEP0 or STEP2);
     type table_array is array (0 to 4) of step_type;
 
     constant R_table : table_array := (
@@ -48,7 +48,7 @@ architecture rtl of LedMatrix_Animation is
     );
 
     constant G_table : table_array := (
-        0 => step_Table2, 
+        0 => step_Table3, 
         1 => step_Table2, 
         2 => step_Table2, 
         3 => step_Table1, 
@@ -57,8 +57,8 @@ architecture rtl of LedMatrix_Animation is
 
     type pwm_array is array (0 to 4) of integer range 0 to 15;
 
-    constant PwmR : pwm_array := (0, 7, 11, 11, 11);
-    constant PwmG : pwm_array := (11, 11, 11, 7, 11);
+    constant PwmR : pwm_array := (0, 3, 5, 3, 3);
+    constant PwmG : pwm_array := (15, 15, 13, 15, 8);
 
     signal step_index : integer range 0 to 3 := 0;
     signal pwm_out_R  : std_logic_vector(63 downto 0) := (others => '0');

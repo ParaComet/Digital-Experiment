@@ -20,7 +20,7 @@
 FUNCTION sign_div_unsign_9kh (denominator[4..0], numerator[4..0])
 RETURNS ( quotient[4..0], remainder[4..0]);
 
---synthesis_resources = lut 12 
+--synthesis_resources = 
 SUBDESIGN lpm_divide_rnl
 ( 
 	denom[4..0]	:	input;

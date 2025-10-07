@@ -28,7 +28,7 @@ RETURNS ( cout, result[3..0]);
 FUNCTION add_sub_i7c (dataa[4..0], datab[4..0])
 RETURNS ( cout, result[4..0]);
 
---synthesis_resources = lut 12 
+--synthesis_resources = 
 SUBDESIGN alt_u_div_die
 ( 
 	denominator[4..0]	:	input;

@@ -5,9 +5,9 @@ Timing Analyzer Summary
 Type           : Worst-case tsu
 Slack          : N/A
 Required Time  : None
-Actual Time    : 2.960 ns
-From           : button
-To             : stage[0]
+Actual Time    : 3.027 ns
+From           : rst
+To             : Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|shifter[0]
 From Clock     : --
 To Clock       : clk
 Failed Paths   : 0
@@ -15,9 +15,9 @@ Failed Paths   : 0
 Type           : Worst-case tco
 Slack          : N/A
 Required Time  : None
-Actual Time    : 10.303 ns
-From           : LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|pwm_row_data_G[7]
-To             : matrix_G[7]
+Actual Time    : 40.345 ns
+From           : Tempreature:Temp_Inst|temp_twice[6]
+To             : deg_out[3]
 From Clock     : clk
 To Clock       : --
 Failed Paths   : 0
@@ -25,32 +25,32 @@ Failed Paths   : 0
 Type           : Worst-case th
 Slack          : N/A
 Required Time  : None
-Actual Time    : 3.573 ns
+Actual Time    : 9.444 ns
 From           : rst
-To             : LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[41]
+To             : LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[53]
 From Clock     : --
-To Clock       : clk_100hz
+To Clock       : clk
 Failed Paths   : 0
 
 Type           : Clock Setup: 'clk'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 73.45 MHz ( period = 13.614 ns )
-From           : LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|pwm_counter[0]
-To             : LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|pwm_counter[0]
+Actual Time    : 63.37 MHz ( period = 15.780 ns )
+From           : LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[48]
+To             : LedMatrix:LedMatrix_Inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[1]
 From Clock     : clk
 To Clock       : clk
 Failed Paths   : 0
 
-Type           : Clock Setup: 'clk_100hz'
-Slack          : N/A
+Type           : Clock Hold: 'clk'
+Slack          : Not operational: Clock Skew > Data Delay
 Required Time  : None
-Actual Time    : 85.59 MHz ( period = 11.684 ns )
-From           : LedMatrix:led_matrix_inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[53]
-To             : LedMatrix:led_matrix_inst|LedMatrix_PwmController:LedMatrix_PwmController_Inst|current_row_data_G[3]
-From Clock     : clk_100hz
-To Clock       : clk_100hz
-Failed Paths   : 0
+Actual Time    : N/A
+From           : auto_stage[2]
+To             : LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_R[41]
+From Clock     : clk
+To Clock       : clk
+Failed Paths   : 49
 
 Type           : Total number of failed paths
 Slack          : 
@@ -60,7 +60,7 @@ From           :
 To             : 
 From Clock     : 
 To Clock       : 
-Failed Paths   : 0
+Failed Paths   : 49
 
 --------------------------------------------------------------------------------------
 

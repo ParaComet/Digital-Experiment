@@ -1,0 +1,27 @@
+
+State Machine - |Q2_lyf|rstate_sig
+Name rstate_sig.R_WAIT_BUSY_DONE rstate_sig.R_WAIT_BUSY_START rstate_sig.R_IDLE 
+rstate_sig.R_IDLE 0 0 0 
+rstate_sig.R_WAIT_BUSY_START 0 1 1 
+rstate_sig.R_WAIT_BUSY_DONE 1 0 1 
+
+State Machine - |Q2_lyf|Tempreature:Temp_Inst|seq_state
+Name seq_state.S_UPDATE seq_state.S_WAIT_LSB_DONE seq_state.S_WAIT_LSB_START seq_state.S_WAIT_MSB_DONE seq_state.S_WAIT_MSB_START seq_state.S_WAIT_WRITE_DONE seq_state.S_WAIT_WRITE_START seq_state.S_IDLE 
+seq_state.S_IDLE 0 0 0 0 0 0 0 0 
+seq_state.S_WAIT_WRITE_START 0 0 0 0 0 0 1 1 
+seq_state.S_WAIT_WRITE_DONE 0 0 0 0 0 1 0 1 
+seq_state.S_WAIT_MSB_START 0 0 0 0 1 0 0 1 
+seq_state.S_WAIT_MSB_DONE 0 0 0 1 0 0 0 1 
+seq_state.S_WAIT_LSB_START 0 0 1 0 0 0 0 1 
+seq_state.S_WAIT_LSB_DONE 0 1 0 0 0 0 0 1 
+seq_state.S_UPDATE 1 0 0 0 0 0 0 1 
+
+State Machine - |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|state
+Name state.STOP state.RECV_DATA state.SEND_DATA state.ACK state.SEND_ADDR state.START state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 
+state.START 0 0 0 0 0 1 1 
+state.SEND_ADDR 0 0 0 0 1 0 1 
+state.ACK 0 0 0 1 0 0 1 
+state.SEND_DATA 0 0 1 0 0 0 1 
+state.RECV_DATA 0 1 0 0 0 0 1 
+state.STOP 1 0 0 0 0 0 1 

@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity i2c_master is
+entity Temperature_I2C is
   generic (
     INPUT_CLK : integer := 1_000_000;  -- FPGA 主时钟 (Hz)
     I2C_CLK   : integer := 100_000      -- I2C 总线速率 (Hz, DS1775 可到 400kHz)
@@ -22,7 +22,7 @@ entity i2c_master is
   );
 end entity;
 
-architecture rtl of i2c_master is
+architecture rtl of Temperature_I2C is
 
   -- 新增：基于半周期计数产生 SCL，并产生上升/下降沿脉冲
   constant HALF_TICKS : integer := INPUT_CLK / (2 * I2C_CLK);
@@ -114,7 +114,6 @@ begin
           sda_dir <= '1';
           -- 开始产生时钟
           scl_enable <= '1';
-          clk_cnt <= 0;
           state <= SEND_ADDR;
 
         when SEND_ADDR =>

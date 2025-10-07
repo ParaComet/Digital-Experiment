@@ -1,11 +1,11 @@
-Fitter Status : Successful - Tue Oct 07 19:56:21 2025
+Fitter Status : Successful - Wed Oct 08 00:49:34 2025
 Quartus II 64-Bit Version : 9.1 Build 222 10/21/2009 SJ Full Version
 Revision Name : Q2_lyf
 Top-level Entity Name : Q2_lyf
 Family : MAX II
 Device : EPM1270T144C5
 Timing Models : Final
-Total logic elements : 142 / 1,270 ( 11 % )
-Total pins : 28 / 116 ( 24 % )
+Total logic elements : 583 / 1,270 ( 46 % )
+Total pins : 47 / 116 ( 41 % )
 Total virtual pins : 0
 UFM blocks : 0 / 1 ( 0 % )

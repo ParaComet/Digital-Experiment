@@ -14,14 +14,17 @@ entity Tempreature is
 
         scl         : out std_logic;
         sda         : inout std_logic;
-        busy        : out std_logic;
-        done        : out std_logic
+        busy        : out std_logic
     );
 end entity Tempreature;
 
 architecture rtl of Tempreature is
 
-component Tempreature_I2C is
+component Temperature_I2C is
+    generic (
+        INPUT_CLK : integer := 10_000_000;  -- 系统时钟频率
+        I2C_CLK   : integer := 400_000      -- I2C 时钟频率
+    );
     port (
         clk       : in  std_logic;          
         rst       : in  std_logic;          
@@ -43,7 +46,7 @@ signal rw_i2c     : std_logic := '0';
 signal data_wr_sig: std_logic_vector(7 downto 0) := (others => '0');
 signal data_rd_i2c: std_logic_vector(7 downto 0);
 
--- 保存两字节
+
 signal msb_byte   : std_logic_vector(7 downto 0) := (others => '0');
 signal lsb_byte   : std_logic_vector(7 downto 0) := (others => '0');
 
@@ -59,11 +62,15 @@ signal seq_state : seq_type := S_IDLE;
 signal temp_twice : integer range 0 to 80 := 0; -- temp * 2 (定点表示)
 
 begin
-    -- 映射端口
+
     busy <= busy_i2c;
     temp <= temp_twice;
 
-    I2C_Master : Tempreature_I2C
+    I2C_Master : Temperature_I2C
+        generic map (
+            INPUT_CLK => 10_000_000,
+            I2C_CLK   => 400_000
+        )
         port map(
             clk => clk,
             rst => rst,

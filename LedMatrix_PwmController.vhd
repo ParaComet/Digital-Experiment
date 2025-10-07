@@ -5,8 +5,8 @@ use ieee.numeric_std.all;
 entity LedMatrix_PwmController is
     port (
         clk_pwm     : in  std_logic;
+        clk_1khz   : in  std_logic;
         rst         : in  std_logic;
-        clk_100hz   : in  std_logic;
     
         frame_data_Red   : in  std_logic_vector(63 downto 0);
         frame_data_Green : in  std_logic_vector(63 downto 0);
@@ -34,16 +34,16 @@ signal pwm_row_data_G : std_logic_vector(7 downto 0) := (others => '0');
 
 begin
 
-    process(clk_100hz, rst)
+    process(clk_1khz, rst)
     begin
         if rst = '1' then
             current_row_index <= 0;
             current_row_data_R <= (others => '0');
             current_row_data_G <= (others => '0');
-            Row_out <= (others => '0');
-        elsif rising_edge(clk_100hz) then
+            Row_out <= (others => '1');
+        elsif rising_edge(clk_1khz) then
             current_row_index <= (current_row_index + 1) mod 8;
-            Row_out <= (others => '0');
+            Row_out <= (others => '1');
             Row_out(current_row_index) <= '0';
             
             current_row_data_R <= frame_data_Red(current_row_index*8+7 downto current_row_index*8);
