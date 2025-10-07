@@ -1,5 +1,5 @@
 Flow report for Q2_lyf
-Wed Oct 01 20:44:34 2025
+Tue Oct 07 12:05:29 2025
 Quartus II 64-Bit Version 9.1 Build 222 10/21/2009 SJ Full Version
 
 
@@ -38,18 +38,14 @@ applicable agreement for further details.
 +----------------------------------------------------------------------+
 ; Flow Summary                                                         ;
 +---------------------------+------------------------------------------+
-; Flow Status               ; Successful - Wed Oct 01 20:44:34 2025    ;
+; Flow Status               ; Flow Failed - Tue Oct 07 12:05:29 2025   ;
 ; Quartus II 64-Bit Version ; 9.1 Build 222 10/21/2009 SJ Full Version ;
 ; Revision Name             ; Q2_lyf                                   ;
 ; Top-level Entity Name     ; Q2_lyf                                   ;
 ; Family                    ; MAX II                                   ;
 ; Device                    ; EPM1270T144C5                            ;
 ; Timing Models             ; Final                                    ;
-; Met timing requirements   ; Yes                                      ;
-; Total logic elements      ; 82 / 1,270 ( 6 % )                       ;
-; Total pins                ; 28 / 116 ( 24 % )                        ;
-; Total virtual pins        ; 0                                        ;
-; UFM blocks                ; 0 / 1 ( 0 % )                            ;
+; Met timing requirements   ; N/A                                      ;
 +---------------------------+------------------------------------------+
 
 
@@ -58,7 +54,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 10/01/2025 20:44:30 ;
+; Start date & time ; 10/07/2025 12:05:29 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Q2_lyf              ;
 +-------------------+---------------------+
@@ -69,7 +65,7 @@ applicable agreement for further details.
 +---------------------------------------+------------------------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                       ; Value                                                ; Default Value ; Entity Name ; Section Id     ;
 +---------------------------------------+------------------------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                 ; 35716187045429.175932267008132                       ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                 ; 57562776996114.175980992915828                       ; --            ; --          ; --             ;
 ; MAX_CORE_JUNCTION_TEMP                ; 85                                                   ; --            ; --          ; --             ;
 ; MIN_CORE_JUNCTION_TEMP                ; 0                                                    ; --            ; --          ; --             ;
 ; MISC_FILE                             ; D:/参考资料/数电实验二/Digital-Experiment/Q2_lyf.dpf ; --            ; --          ; --             ;
@@ -78,38 +74,29 @@ applicable agreement for further details.
 +---------------------------------------+------------------------------------------------------+---------------+-------------+----------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------+
-; Flow Elapsed Time                                                                                                           ;
-+-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
-+-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:00:01     ; 1.0                     ; 4457 MB             ; 00:00:01                           ;
-; Fitter                  ; 00:00:00     ; 1.0                     ; 4508 MB             ; 00:00:01                           ;
-; Assembler               ; 00:00:00     ; 1.0                     ; 4365 MB             ; 00:00:00                           ;
-; Classic Timing Analyzer ; 00:00:00     ; 1.0                     ; 4343 MB             ; 00:00:00                           ;
-; Total                   ; 00:00:01     ; --                      ; --                  ; 00:00:02                           ;
-+-------------------------+--------------+-------------------------+---------------------+------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                        ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis ; 00:00:01     ; 1.0                     ; 4440 MB             ; 00:00:01                           ;
+; Total                ; 00:00:01     ; --                      ; --                  ; 00:00:01                           ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+------------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                          ;
-+-------------------------+------------------+---------------+------------+----------------+
-; Module Name             ; Machine Hostname ; OS Name       ; OS Version ; Processor type ;
-+-------------------------+------------------+---------------+------------+----------------+
-; Analysis & Synthesis    ; LAPTOP-41US5550  ; Windows Vista ; 6.2        ; x86_64         ;
-; Fitter                  ; LAPTOP-41US5550  ; Windows Vista ; 6.2        ; x86_64         ;
-; Assembler               ; LAPTOP-41US5550  ; Windows Vista ; 6.2        ; x86_64         ;
-; Classic Timing Analyzer ; LAPTOP-41US5550  ; Windows Vista ; 6.2        ; x86_64         ;
-+-------------------------+------------------+---------------+------------+----------------+
++---------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                       ;
++----------------------+------------------+---------------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name       ; OS Version ; Processor type ;
++----------------------+------------------+---------------+------------+----------------+
+; Analysis & Synthesis ; DESKTOP-TE1IVVG  ; Windows Vista ; 6.2        ; x86_64         ;
++----------------------+------------------+---------------+------------+----------------+
 
 
 ------------
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off Q2_lyf -c Q2_lyf
-quartus_fit --read_settings_files=off --write_settings_files=off Q2_lyf -c Q2_lyf
-quartus_asm --read_settings_files=off --write_settings_files=off Q2_lyf -c Q2_lyf
-quartus_tan --read_settings_files=off --write_settings_files=off Q2_lyf -c Q2_lyf
 
 
 
