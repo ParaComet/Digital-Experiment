@@ -125,94 +125,6 @@ a36c8ec425c8a2589af98b2d4daabc3
 
 # end
 # entity
-Tempreature
-# storage
-db|Q2_lyf.(8).cnf
-db|Q2_lyf.(8).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_insensitive
-# source_file
-tempreature.vhd
-30a467e7f9e56f77519eabfebfc6b922
-5
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-}
-# hierarchies {
-Tempreature:Temp_Inst
-}
-# lmf
-|resource|quartus|lmf|maxplus2.lmf
-a36c8ec425c8a2589af98b2d4daabc3
-# macro_sequence
-
-# end
-# entity
-Temperature_I2C
-# storage
-db|Q2_lyf.(9).cnf
-db|Q2_lyf.(9).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_insensitive
-# source_file
-tempreature_i2c.vhd
-4be8497360777bce939c8184faf6ed14
-5
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-}
-# user_parameter {
-input_clk
-10000000
-PARAMETER_SIGNED_DEC
-USR
-i2c_clk
-400000
-PARAMETER_SIGNED_DEC
-USR
- constraint(addr)
-6 downto 0
-PARAMETER_STRING
-USR
- constraint(data_wr)
-7 downto 0
-PARAMETER_STRING
-USR
- constraint(data_rd)
-7 downto 0
-PARAMETER_STRING
-USR
-}
-# hierarchies {
-Tempreature:Temp_Inst|Temperature_I2C:I2C_Master
-}
-# lmf
-|resource|quartus|lmf|maxplus2.lmf
-a36c8ec425c8a2589af98b2d4daabc3
-# macro_sequence
-
-# end
-# entity
 lpm_divide
 # storage
 db|Q2_lyf.(10).cnf
@@ -1813,39 +1725,6 @@ a36c8ec425c8a2589af98b2d4daabc3
 
 # end
 # entity
-Q2_lyf
-# storage
-db|Q2_lyf.(0).cnf
-db|Q2_lyf.(0).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_insensitive
-# source_file
-q2_lyf.vhd
-92eed721619208ca212d1df68373c3
-5
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-}
-# hierarchies {
-|
-}
-# lmf
-|resource|quartus|lmf|maxplus2.lmf
-a36c8ec425c8a2589af98b2d4daabc3
-# macro_sequence
-
-# end
-# entity
 lpm_divide
 # storage
 db|Q2_lyf.(29).cnf
@@ -2573,6 +2452,127 @@ USR
 }
 # hierarchies {
 DigitalDisplay:Display_Inst
+}
+# lmf
+|resource|quartus|lmf|maxplus2.lmf
+a36c8ec425c8a2589af98b2d4daabc3
+# macro_sequence
+
+# end
+# entity
+Tempreature
+# storage
+db|Q2_lyf.(8).cnf
+db|Q2_lyf.(8).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+tempreature.vhd
+dfbcc0a8dc27cf46be1546aa7d2416
+5
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# hierarchies {
+Tempreature:Temp_Inst
+}
+# lmf
+|resource|quartus|lmf|maxplus2.lmf
+a36c8ec425c8a2589af98b2d4daabc3
+# macro_sequence
+
+# end
+# entity
+Temperature_I2C
+# storage
+db|Q2_lyf.(9).cnf
+db|Q2_lyf.(9).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+tempreature_i2c.vhd
+668fd44330c16511c2b3d44415612451
+5
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# user_parameter {
+input_clk
+10000000
+PARAMETER_SIGNED_DEC
+USR
+i2c_clk
+400000
+PARAMETER_SIGNED_DEC
+USR
+ constraint(addr)
+6 downto 0
+PARAMETER_STRING
+USR
+ constraint(data_wr)
+7 downto 0
+PARAMETER_STRING
+USR
+ constraint(data_rd)
+7 downto 0
+PARAMETER_STRING
+USR
+}
+# hierarchies {
+Tempreature:Temp_Inst|Temperature_I2C:I2C_Master
+}
+# lmf
+|resource|quartus|lmf|maxplus2.lmf
+a36c8ec425c8a2589af98b2d4daabc3
+# macro_sequence
+
+# end
+# entity
+Q2_lyf
+# storage
+db|Q2_lyf.(0).cnf
+db|Q2_lyf.(0).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+q2_lyf.vhd
+366e15eac485fcd0adca3f3d305ba9
+5
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# hierarchies {
+|
 }
 # lmf
 |resource|quartus|lmf|maxplus2.lmf

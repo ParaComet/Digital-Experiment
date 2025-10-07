@@ -37,7 +37,8 @@ architecture rtl of Temperature_I2C is
   signal bit_cnt      : integer range 0 to 7 := 7;
   signal shifter      : std_logic_vector(7 downto 0) := (others => '0');
 
-  type state_type is (IDLE, START, SEND_ADDR, ACK_SLAVE, SEND_DATA, ACK_AFTER_SEND, RECV_DATA, RECV_ACK_MASTER, STOP);
+  type state_type is (IDLE, START, SEND_ADDR, ACK_SLAVE, SEND_DATA, ACK_AFTER_SEND,
+                      RECV_DATA, RECV_ACK_MASTER, AFTER_NACK_LOW, STOP_WAIT, STOP_DONE);
   signal state        : state_type := IDLE;
 
   -- 用于多字节接收计数（接收 2 字节）
@@ -194,7 +195,7 @@ begin
             sda_dir <= '1';
             sda_reg <= '1';
             scl_enable <= '0';
-            state <= STOP;
+            state <= STOP_WAIT;
           end if;
 
         when RECV_DATA =>
@@ -214,40 +215,55 @@ begin
           end if;
 
         when RECV_ACK_MASTER =>
-          -- 主机在 ACK/NACK 周期驱动 SDA（第9位），在 SCL 下降沿设置驱动值
+          -- 在 SCL 下降沿设置 ACK/NACK
           if scl_falling = '1' then
             if recv_left > 1 then
-              -- 对收到的字节发送 ACK 并准备接收下一个字节
               sda_dir <= '1';
               sda_reg <= '0'; -- ACK (拉低)
             else
-              -- 最后一个字节发送 NACK（高电平），随后停止
               sda_dir <= '1';
-              sda_reg <= '1'; -- NACK
+              sda_reg <= '1'; -- NACK (驱高/释放，以便从机在随后的 SCL 高期采样到 NACK)
             end if;
           end if;
 
-          -- 在 ACK/NACK 位的上升沿（从机采样），我们根据是否还要接收来决定下一步
+          -- 在 SCL 上升沿决定后续动作
           if scl_rising = '1' then
             if recv_left > 1 then
-              -- 为接收下一个字节做准备：释放 SDA、计数置位
+              -- 还有数据要收：准备接收下一个字节
               recv_left <= recv_left - 1;
               sda_dir <= '0';
               bit_cnt <= 7;
               state <= RECV_DATA;
             else
-              -- NACK 已发，事务结束：停止时钟并在下一步释放 SDA
-              sda_dir <= '1';
-              sda_reg <= '1';
-              scl_enable <= '0';
-              state <= STOP;
+              -- NACK 已被发送并在该 SCL 高期被从机采样
+              -- 接下来为保证产生规范 STOP，需要：
+              -- 1) 在下一个 SCL 低期主动把 SDA 拉低（确保 STOP 前 SDA 为低）
+              -- 2) 再等待 SCL 回到高，并在其高期把 SDA 设高以产生 0->1 的 STOP 边沿
+              state <= AFTER_NACK_LOW;
             end if;
           end if;
 
-        when STOP =>
-          -- 生成 STOP：SDA 在 SCL 高时拉高（sda_reg 已为 '1'），停止后清 busy
-          state <= IDLE;
+        when AFTER_NACK_LOW =>
+          -- 在 SCL 的低期把 SDA 拉低（在 scl_falling 时刻可以安全操作）
+          if scl_falling = '1' then
+            sda_dir <= '1';
+            sda_reg <= '0'; -- 拉低，准备产生 STOP 时的上升沿
+            -- 保持 SCL 继续切换，等待上升到高
+            state <= STOP_WAIT;
+          end if;
+
+        when STOP_WAIT =>
+          -- 等待 SCL 回到高，在 SCL 高期把 SDA 设为高以产生 STOP（0->1 while SCL=1）
+          if scl_reg = '1' then
+            sda_dir <= '1';
+            sda_reg <= '1'; -- 在 SCL 高期产生上升沿 -> STOP
+            -- 结束事务
+            state <= STOP_DONE;
+          end if;
+
+        when STOP_DONE =>
           busy <= '0';
+          state <= IDLE;
 
       end case;
     end if;

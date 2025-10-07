@@ -1,5 +1,5 @@
 Flow report for Q2_lyf
-Wed Oct 08 01:32:25 2025
+Wed Oct 08 02:45:20 2025
 Quartus II 64-Bit Version 9.1 Build 222 10/21/2009 SJ Full Version
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +----------------------------------------------------------------------+
 ; Flow Summary                                                         ;
 +---------------------------+------------------------------------------+
-; Flow Status               ; Successful - Wed Oct 08 01:32:25 2025    ;
+; Flow Status               ; Successful - Wed Oct 08 02:45:20 2025    ;
 ; Quartus II 64-Bit Version ; 9.1 Build 222 10/21/2009 SJ Full Version ;
 ; Revision Name             ; Q2_lyf                                   ;
 ; Top-level Entity Name     ; Q2_lyf                                   ;
@@ -46,7 +46,7 @@ applicable agreement for further details.
 ; Device                    ; EPM1270T144C5                            ;
 ; Timing Models             ; Final                                    ;
 ; Met timing requirements   ; No                                       ;
-; Total logic elements      ; 613 / 1,270 ( 48 % )                     ;
+; Total logic elements      ; 685 / 1,270 ( 54 % )                     ;
 ; Total pins                ; 47 / 116 ( 41 % )                        ;
 ; Total virtual pins        ; 0                                        ;
 ; UFM blocks                ; 0 / 1 ( 0 % )                            ;
@@ -58,7 +58,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 10/08/2025 01:32:20 ;
+; Start date & time ; 10/08/2025 02:45:14 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Q2_lyf              ;
 +-------------------+---------------------+
@@ -69,7 +69,7 @@ applicable agreement for further details.
 +---------------------------------------+------------------------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                       ; Value                                                ; Default Value ; Entity Name ; Section Id     ;
 +---------------------------------------+------------------------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                 ; 57562776996114.175985834010968                       ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                 ; 57562776996114.175986271312500                       ; --            ; --          ; --             ;
 ; MAX_CORE_JUNCTION_TEMP                ; 85                                                   ; --            ; --          ; --             ;
 ; MIN_CORE_JUNCTION_TEMP                ; 0                                                    ; --            ; --          ; --             ;
 ; MISC_FILE                             ; D:/参考资料/数电实验二/Digital-Experiment/Q2_lyf.dpf ; --            ; --          ; --             ;
@@ -84,11 +84,11 @@ applicable agreement for further details.
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:00:02     ; 1.0                     ; 4460 MB             ; 00:00:03                           ;
-; Fitter                  ; 00:00:00     ; 1.0                     ; 4509 MB             ; 00:00:01                           ;
-; Assembler               ; 00:00:00     ; 1.0                     ; 4364 MB             ; 00:00:00                           ;
+; Analysis & Synthesis    ; 00:00:02     ; 1.0                     ; 4459 MB             ; 00:00:03                           ;
+; Fitter                  ; 00:00:02     ; 1.0                     ; 4509 MB             ; 00:00:01                           ;
+; Assembler               ; 00:00:00     ; 1.0                     ; 4365 MB             ; 00:00:00                           ;
 ; Classic Timing Analyzer ; 00:00:00     ; 1.0                     ; 4343 MB             ; 00:00:01                           ;
-; Total                   ; 00:00:02     ; --                      ; --                  ; 00:00:05                           ;
+; Total                   ; 00:00:04     ; --                      ; --                  ; 00:00:05                           ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

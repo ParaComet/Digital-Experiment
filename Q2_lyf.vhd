@@ -26,7 +26,6 @@ end Q2_lyf;
 architecture behavioral of Q2_lyf is
 
     signal stage        : integer range 0 to 4 := 0;
-    -- 分离驱动：手动/自动分别驱动各自的中间信号，避免多个进程驱动同一信号
     signal manual_stage : integer range 0 to 4 := 0;
     signal auto_stage   : integer range 0 to 4 := 0;
 
@@ -49,13 +48,22 @@ architecture behavioral of Q2_lyf is
     signal temp_ena     : std_logic := '0';
     signal temp_busy    : std_logic := '0';
 
-    -- 读周期计数（以主 clk 计数，默认主时钟 1MHz -> 0.2s = 200000 ticks）
+    -- 读周期计数（以主 clk 计数，默认主时钟 1MHz -> 0.3s = 400000 ticks）
     signal read_cnt     : integer := 0;
-    constant READ_TICKS : integer := 200000; -- 0.2s @ 1MHz
+    constant READ_TICKS : integer := 300000; -- 0.3s @ 1MHz
 
     -- 等待 I2C 事务状态机
     type rstate is (R_IDLE, R_WAIT_BUSY_START, R_WAIT_BUSY_DONE);
     signal rstate_sig : rstate := R_IDLE;
+
+    signal en_out_i     : std_logic_vector(7 downto 0);
+    signal deg_out_i    : std_logic_vector(7 downto 0);
+    signal matrix_en_i  : std_logic_vector(7 downto 0);
+    signal matrix_R_i   : std_logic_vector(7 downto 0);
+    signal matrix_G_i   : std_logic_vector(7 downto 0);
+    signal beep_en_i       : std_logic;
+
+
 
     component Clk_Generater is
         generic (INPUT_CLK : integer := 1_000_000);
@@ -152,8 +160,8 @@ begin
             rst        => rst,
             temp_twice => temp_twice,
             stage      => stage,
-            en_out     => en_out,
-            deg_out    => deg_out
+            en_out     => en_out_i,
+            deg_out    => deg_out_i
         );
 
     LedMatrix_Inst : component LedMatrix
@@ -163,16 +171,16 @@ begin
             clk_100hz => clk_100hz,
             rst       => rst,
             stage     => stage,
-            matrix_en => matrix_en,
-            matrix_R  => matrix_R,
-            matrix_G  => matrix_G
+            matrix_en => matrix_en_i,
+            matrix_R  => matrix_R_i,
+            matrix_G  => matrix_G_i
         );
 
     Beep_Inst : component Beep
         port map (
             clk     => clk,
             rst     => rst,
-            beep_en => '1', -- 默认使能蜂鸣器
+            beep_en => beep_en_i, -- 关机时禁止蜂鸣器
             stage   => stage,
             beep    => beep_out
         );
@@ -188,6 +196,14 @@ begin
             sda   => sda,
             busy  => temp_busy
         );
+
+    en_out   <= (others => '1') when power_on = '0' else en_out_i;
+    deg_out  <= (others => '0') when power_on = '0' else deg_out_i;
+    matrix_en<= (others => '1') when power_on = '0' else matrix_en_i;
+    matrix_R <= (others => '0') when power_on = '0' else matrix_R_i;
+    matrix_G <= (others => '0') when power_on = '0' else matrix_G_i;
+    beep_en_i <= power_on; -- 关机时禁止蜂鸣器
+
 
     ----------------------------------------------------------------
     -- 按键处理（按键 mapping 与模式/电源控制）

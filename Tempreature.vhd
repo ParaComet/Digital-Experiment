@@ -36,7 +36,8 @@ component Temperature_I2C is
         busy      : out std_logic;
         ack_error : out std_logic;
         scl       : out std_logic;
-        sda       : inout std_logic
+        sda       : inout std_logic;
+        byte_valid: out std_logic
     );
 end component;
 
@@ -45,7 +46,7 @@ signal busy_i2c   : std_logic := '0';
 signal rw_i2c     : std_logic := '0';
 signal data_wr_sig: std_logic_vector(7 downto 0) := (others => '0');
 signal data_rd_i2c: std_logic_vector(7 downto 0);
-
+signal byte_valid_i2c : std_logic := '0';
 
 signal msb_byte   : std_logic_vector(7 downto 0) := (others => '0');
 signal lsb_byte   : std_logic_vector(7 downto 0) := (others => '0');
@@ -54,12 +55,13 @@ signal prev_ena   : std_logic := '0';
 signal prev_busy  : std_logic := '0';
 
 type seq_type is (S_IDLE, S_WAIT_WRITE_START, S_WAIT_WRITE_DONE,
-                  S_WAIT_MSB_START, S_WAIT_MSB_DONE,
-                  S_WAIT_LSB_START, S_WAIT_LSB_DONE,
-                  S_UPDATE);
+                  S_WAIT_BYTES);
 signal seq_state : seq_type := S_IDLE;
 
 signal temp_twice : integer range 0 to 80 := 0; -- temp * 2 (定点表示)
+
+-- 辅助：记录已接收字节数（0..2）
+signal bytes_received : integer range 0 to 2 := 0;
 
 begin
 
@@ -82,12 +84,12 @@ begin
             busy => busy_i2c,
             ack_error => open,
             scl => scl,
-            sda => sda
+            sda => sda,
+            byte_valid => byte_valid_i2c
         );
 
-    -- 序列：外部 ena 边沿触发 -> 写指针(0x00) -> 读 MSB -> 读 LSB -> 更新 temp_twice
+    -- 序列：外部 ena 边沿触发 -> 写指针(0x00) -> 一次读取两个字节 -> 更新 temp_twice
     process(clk, rst)
-        -- 在 process 的 declarative 部分声明变量（必须放这里）
         variable signed_msb : integer;
         variable half_bit   : integer;
         variable result     : integer;
@@ -102,6 +104,7 @@ begin
             lsb_byte <= (others => '0');
             seq_state <= S_IDLE;
             temp_twice <= 0;
+            bytes_received <= 0;
         elsif rising_edge(clk) then
             prev_ena <= ena;
             prev_busy <= busy_i2c;
@@ -124,53 +127,52 @@ begin
 
                 when S_WAIT_WRITE_DONE =>
                     if (busy_i2c = '0' and prev_busy = '1') then
-                        -- 写指针完成，读 MSB
+                        -- 写指针完成，发一次读事务，请求连续读取两个字节
                         rw_i2c <= '1';
                         ena_i2c <= '1';
-                        seq_state <= S_WAIT_MSB_START;
+                        bytes_received <= 0;
+                        seq_state <= S_WAIT_BYTES;
                     end if;
 
-                when S_WAIT_MSB_START =>
+                when S_WAIT_BYTES =>
+                    -- 等待事务开始（busy 上升）
                     if (busy_i2c = '1' and prev_busy = '0') then
-                        seq_state <= S_WAIT_MSB_DONE;
+                        -- 事务正在进行，等待 byte_valid 脉冲两次
+                        -- 上层通过 byte_valid_i2c 捕获每个字节
                     end if;
 
-                when S_WAIT_MSB_DONE =>
+                    -- 捕获每个字节到 msb/lsb
+                    if (byte_valid_i2c = '1') then
+                        if bytes_received = 0 then
+                            msb_byte <= data_rd_i2c;
+                            bytes_received <= 1;
+                        elsif bytes_received = 1 then
+                            lsb_byte <= data_rd_i2c;
+                            bytes_received <= 2;
+                        end if;
+                    end if;
+
+                    -- 等待事务结束（busy 回到 0），此时已接收完字节
                     if (busy_i2c = '0' and prev_busy = '1') then
-                        msb_byte <= data_rd_i2c;
-                        -- 继续读 LSB（指针自动移到下一个寄存器）
-                        rw_i2c <= '1';
-                        ena_i2c <= '1';
-                        seq_state <= S_WAIT_LSB_START;
+                        -- 事务结束，若已经收到两个字节则更新 temp_twice
+                        if bytes_received >= 2 then
+                            -- 解析 MSB/LSB -> temp_twice
+                            signed_msb := to_integer(signed(msb_byte));
+                            if lsb_byte(7) = '1' then
+                                half_bit := 1;
+                            else
+                                half_bit := 0;
+                            end if;
+                            result := signed_msb * 2 + half_bit;
+                            if result < 0 then
+                                result := 0;
+                            elsif result > 80 then
+                                result := 80;
+                            end if;
+                            temp_twice <= result;
+                        end if;
+                        seq_state <= S_IDLE;
                     end if;
-
-                when S_WAIT_LSB_START =>
-                    if (busy_i2c = '1' and prev_busy = '0') then
-                        seq_state <= S_WAIT_LSB_DONE;
-                    end if;
-
-                when S_WAIT_LSB_DONE =>
-                    if (busy_i2c = '0' and prev_busy = '1') then
-                        lsb_byte <= data_rd_i2c;
-                        seq_state <= S_UPDATE;
-                    end if;
-
-                when S_UPDATE =>
-                    -- 使用上面声明的变量直接计算（不要在分支内再声明变量）
-                    signed_msb := to_integer(signed(msb_byte));
-                    if lsb_byte(7) = '1' then
-                        half_bit := 1;
-                    else
-                        half_bit := 0;
-                    end if;
-                    result := signed_msb * 2 + half_bit;
-                    if result < 0 then
-                        result := 0;
-                    elsif result > 80 then
-                        result := 80;
-                    end if;
-                    temp_twice <= result;
-                    seq_state <= S_IDLE;
 
             end case;
         end if;
