@@ -13,15 +13,14 @@ seq_state.S_WAIT_WRITE_DONE 0 1 0 1
 seq_state.S_WAIT_BYTES 1 0 0 1 
 
 State Machine - |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|state
-Name state.STOP_DONE state.STOP_WAIT state.AFTER_NACK_LOW state.RECV_ACK_MASTER state.RECV_DATA state.ACK_AFTER_SEND state.SEND_DATA state.ACK_SLAVE state.SEND_ADDR state.START state.IDLE 
-state.IDLE 0 0 0 0 0 0 0 0 0 0 0 
-state.START 0 0 0 0 0 0 0 0 0 1 1 
-state.SEND_ADDR 0 0 0 0 0 0 0 0 1 0 1 
-state.ACK_SLAVE 0 0 0 0 0 0 0 1 0 0 1 
-state.SEND_DATA 0 0 0 0 0 0 1 0 0 0 1 
-state.ACK_AFTER_SEND 0 0 0 0 0 1 0 0 0 0 1 
-state.RECV_DATA 0 0 0 0 1 0 0 0 0 0 1 
-state.RECV_ACK_MASTER 0 0 0 1 0 0 0 0 0 0 1 
-state.AFTER_NACK_LOW 0 0 1 0 0 0 0 0 0 0 1 
-state.STOP_WAIT 0 1 0 0 0 0 0 0 0 0 1 
-state.STOP_DONE 1 0 0 0 0 0 0 0 0 0 1 
+Name state.STOP_WAIT state.AFTER_NACK_LOW state.RECV_ACK_MASTER state.RECV_DATA state.ACK_AFTER_SEND state.SEND_DATA state.ACK_SLAVE state.SEND_ADDR state.START state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 0 0 
+state.START 0 0 0 0 0 0 0 0 1 1 
+state.SEND_ADDR 0 0 0 0 0 0 0 1 0 1 
+state.ACK_SLAVE 0 0 0 0 0 0 1 0 0 1 
+state.SEND_DATA 0 0 0 0 0 1 0 0 0 1 
+state.ACK_AFTER_SEND 0 0 0 0 1 0 0 0 0 1 
+state.RECV_DATA 0 0 0 1 0 0 0 0 0 1 
+state.RECV_ACK_MASTER 0 0 1 0 0 0 0 0 0 1 
+state.AFTER_NACK_LOW 0 1 0 0 0 0 0 0 0 1 
+state.STOP_WAIT 1 0 0 0 0 0 0 0 0 1 

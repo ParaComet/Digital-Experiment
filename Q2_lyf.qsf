@@ -110,3 +110,4 @@ set_global_assignment -name VHDL_FILE Tempreature_I2C.vhd
 set_global_assignment -name VHDL_FILE DigitalDisplay.vhd
 set_global_assignment -name VHDL_FILE Button.vhd
 set_global_assignment -name VHDL_FILE Clk_Generater.vhd
+set_global_assignment -name VECTOR_WAVEFORM_FILE Q2_lyf.vwf

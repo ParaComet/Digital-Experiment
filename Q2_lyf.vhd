@@ -48,9 +48,9 @@ architecture behavioral of Q2_lyf is
     signal temp_ena     : std_logic := '0';
     signal temp_busy    : std_logic := '0';
 
-    -- 读周期计数（以主 clk 计数，默认主时钟 1MHz -> 0.3s = 400000 ticks）
+    -- 读周期计数（以主 clk 计数，默认主时钟 1MHz -> 0.1s = 100000 ticks）
     signal read_cnt     : integer := 0;
-    constant READ_TICKS : integer := 300000; -- 0.3s @ 1MHz
+    constant READ_TICKS : integer := 100000; -- 0.1s @ 1MHz
 
     -- 等待 I2C 事务状态机
     type rstate is (R_IDLE, R_WAIT_BUSY_START, R_WAIT_BUSY_DONE);

@@ -47,6 +47,7 @@ signal rw_i2c     : std_logic := '0';
 signal data_wr_sig: std_logic_vector(7 downto 0) := (others => '0');
 signal data_rd_i2c: std_logic_vector(7 downto 0);
 signal byte_valid_i2c : std_logic := '0';
+signal prev_byte_valid : std_logic := '0';
 
 signal msb_byte   : std_logic_vector(7 downto 0) := (others => '0');
 signal lsb_byte   : std_logic_vector(7 downto 0) := (others => '0');
@@ -90,13 +91,14 @@ begin
 
     -- 序列：外部 ena 边沿触发 -> 写指针(0x00) -> 一次读取两个字节 -> 更新 temp_twice
     process(clk, rst)
-        variable signed_msb : integer;
-        variable half_bit   : integer;
-        variable result     : integer;
+        variable signed_msb : integer range -128 to 127;
+        variable half_bit   : integer range 0 to 1;
+        variable result     : integer range 0 to 80;
     begin
         if rst = '1' then
             prev_ena <= '0';
             prev_busy <= '0';
+            prev_byte_valid <= '0';
             ena_i2c <= '0';
             rw_i2c <= '0';
             data_wr_sig <= (others => '0');
@@ -137,12 +139,14 @@ begin
                 when S_WAIT_BYTES =>
                     -- 等待事务开始（busy 上升）
                     if (busy_i2c = '1' and prev_busy = '0') then
-                        -- 事务正在进行，等待 byte_valid 脉冲两次
-                        -- 上层通过 byte_valid_i2c 捕获每个字节
+                        -- 事务刚开始：清除旧缓存，准备接收字节
+                        bytes_received <= 0;
+                        msb_byte <= (others => '0');
+                        lsb_byte <= (others => '0');
                     end if;
 
-                    -- 捕获每个字节到 msb/lsb
-                    if (byte_valid_i2c = '1') then
+                    -- 捕获每个字节到 msb/lsb（使用上升沿检测）
+                    if (byte_valid_i2c = '1' and prev_byte_valid = '0') then
                         if bytes_received = 0 then
                             msb_byte <= data_rd_i2c;
                             bytes_received <= 1;
@@ -175,6 +179,9 @@ begin
                     end if;
 
             end case;
+
+            -- 在进程结尾同步 prev_byte_valid 以供下一周期检测
+            prev_byte_valid <= byte_valid_i2c;
         end if;
     end process;
 

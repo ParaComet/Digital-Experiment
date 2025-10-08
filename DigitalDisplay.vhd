@@ -43,8 +43,8 @@ begin
         en_out(en_index) <= '0';
     end process;
     process(temp_twice)
-        variable v : integer;
-        variable integer_temp : integer;
+        variable v : integer range -1 to 81;
+        variable integer_temp : integer range 0 to 40;
     begin
         v := temp_twice;
         if v < 0 then
