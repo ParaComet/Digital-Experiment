@@ -4,15 +4,15 @@ use ieee.numeric_std.all;
 
 entity Temperature_I2C is
   generic (
-    INPUT_CLK : integer := 1_000_000;  -- FPGA 主时钟 (Hz)
-    I2C_CLK   : integer := 100_000     -- I2C 总线速率 (Hz)
+    INPUT_CLK : integer := 1_000_000;
+    I2C_CLK   : integer := 100_000
   );
   port (
     clk       : in  std_logic;
     rst       : in  std_logic;
     ena       : in  std_logic;
     addr      : in  std_logic_vector(6 downto 0);
-    rw        : in  std_logic;               -- 0=write, 1=read
+    rw        : in  std_logic;
     data_wr   : in  std_logic_vector(7 downto 0);
     data_rd   : out std_logic_vector(7 downto 0);
     busy      : out std_logic;
@@ -29,7 +29,7 @@ architecture rtl of Temperature_I2C is
 
   signal scl_reg    : std_logic := '1';
   signal sda_reg    : std_logic := '1';
-  signal sda_dir    : std_logic := '1'; -- 1: drive, 0: release
+  signal sda_dir    : std_logic := '1';
   signal scl_enable : std_logic := '0';
 
   signal data_rd_r  : std_logic_vector(7 downto 0) := (others => '0');
@@ -38,8 +38,8 @@ architecture rtl of Temperature_I2C is
   signal byte_valid_r : std_logic := '0';
 
   type state_type is (
-    IDLE, START, SEND_ADDR, ACK_SLAVE, SEND_DATA, ACK_AFTER_SEND,
-    RECV_DATA, RECV_ACK_MASTER, AFTER_NACK_LOW, STOP_WAIT
+    IDLE, START_PREP, START, SEND_ADDR, ACK_SLAVE, SEND_DATA, ACK_AFTER_SEND,
+    RECV_DATA, RECV_ACK_MASTER, STOP_PREP, STOP
   );
   signal state     : state_type := IDLE;
 
@@ -113,22 +113,37 @@ begin
         when IDLE =>
           busy_r <= '0';
           scl_enable <= '0';
+          sda_dir <= '1';
+          sda_reg <= '1';
           if ena = '1' then
             busy_r <= '1';
             ack_err_r <= '0';
             shifter_v := addr & rw;
             bit_cnt_v := 7;
-            sda_dir <= '1';
-            sda_reg <= '1';
+            state <= START_PREP;
+          end if;
+
+        -- 确保 SCL 和 SDA 都为高，准备 START
+        when START_PREP =>
+          sda_reg <= '1';
+          sda_dir <= '1';
+          scl_enable <= '0';  -- SCL 保持高
+          if scl_v = '1' then
             state <= START;
           end if;
 
+        -- 生成 START 条件：SCL 高时，SDA 下降
         when START =>
-          sda_reg <= '0';
+          sda_reg <= '0';  -- SDA 拉低
           sda_dir <= '1';
-          scl_enable <= '1';
-          bit_cnt_v := 7;
-          state <= SEND_ADDR;
+          -- 等待一段时间后启动 SCL
+          if clk_cnt_v >= HALF_TICKS / 2 then
+            scl_enable <= '1';
+            bit_cnt_v := 7;
+            state <= SEND_ADDR;
+          else
+            clk_cnt_v := clk_cnt_v + 1;
+          end if;
 
         when SEND_ADDR =>
           if falling_ev then
@@ -138,7 +153,7 @@ begin
           if rising_ev then
             if bit_cnt_v = 0 then
               bit_cnt_v := 7;
-              sda_dir <= '0'; -- release for ACK
+              sda_dir <= '0';
               state <= ACK_SLAVE;
             else
               bit_cnt_v := bit_cnt_v - 1;
@@ -146,12 +161,15 @@ begin
           end if;
 
         when ACK_SLAVE =>
+          sda_dir <= '0';  -- 释放 SDA 以读取 ACK
           if rising_ev then
             if sda = '1' then
               ack_err_r <= '1';
             else
               ack_err_r <= '0';
             end if;
+          end if;
+          if falling_ev then
             if rw = '0' then
               shifter_v := data_wr;
               bit_cnt_v := 7;
@@ -181,16 +199,16 @@ begin
           end if;
 
         when ACK_AFTER_SEND =>
+          sda_dir <= '0';
           if rising_ev then
             if sda = '1' then
               ack_err_r <= '1';
             else
               ack_err_r <= '0';
             end if;
-            sda_dir <= '1';
-            sda_reg <= '1';
-            scl_enable <= '0';
-            state <= STOP_WAIT;
+          end if;
+          if falling_ev then
+            state <= STOP_PREP;
           end if;
 
         when RECV_DATA =>
@@ -201,41 +219,40 @@ begin
               data_rd_r <= shifter_v;
               byte_valid_r <= '1';
               bit_cnt_v := 7;
-              if recv_left > 1 then
-                sda_dir <= '1';
-                sda_reg <= '0';  -- ACK
-                state <= RECV_ACK_MASTER;
-              else
-                sda_dir <= '1';
-                sda_reg <= '1';  -- NACK
-                state <= AFTER_NACK_LOW;
-              end if;
+              state <= RECV_ACK_MASTER;
             else
               bit_cnt_v := bit_cnt_v - 1;
             end if;
           end if;
 
         when RECV_ACK_MASTER =>
-          -- 保持 ACK 至 SCL 下降沿
-          if falling_ev then
-            sda_dir <= '0';
-            sda_reg <= '1';
-            recv_left <= recv_left - 1;
-            bit_cnt_v := 7;
-            state <= RECV_DATA;
-          end if;
-
-        when AFTER_NACK_LOW =>
+          -- 在 SCL 下降沿发送 ACK/NACK
           if falling_ev then
             sda_dir <= '1';
-            sda_reg <= '0';  -- 拉低准备 STOP
-            state <= STOP_WAIT;
+            if recv_left > 1 then
+              sda_reg <= '0';  -- ACK
+              recv_left <= recv_left - 1;
+              bit_cnt_v := 7;
+              state <= RECV_DATA;
+            else
+              sda_reg <= '1';  -- NACK
+              state <= STOP_PREP;
+            end if;
           end if;
 
-        when STOP_WAIT =>
+        -- 准备 STOP：先拉低 SDA
+        when STOP_PREP =>
+          if falling_ev then
+            sda_dir <= '1';
+            sda_reg <= '0';
+            state <= STOP;
+          end if;
+
+        -- 生成 STOP 条件：SCL 高时，SDA 上升
+        when STOP =>
           if scl_v = '1' then
-            sda_dir <= '1';
-            sda_reg <= '1';  -- STOP: SDA 上升
+            sda_reg <= '1';
+            scl_enable <= '0';
             busy_r <= '0';
             state <= IDLE;
           end if;

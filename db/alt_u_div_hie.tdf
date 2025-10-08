@@ -30,7 +30,7 @@ RETURNS ( cout, result[4..0]);
 FUNCTION add_sub_j7c (dataa[5..0], datab[5..0])
 RETURNS ( cout, result[5..0]);
 
---synthesis_resources = 
+--synthesis_resources = lut 18 
 SUBDESIGN alt_u_div_hie
 ( 
 	denominator[5..0]	:	input;

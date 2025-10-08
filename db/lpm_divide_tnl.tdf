@@ -17,10 +17,10 @@
 --  applicable agreement for further details.
 
 
-FUNCTION sign_div_unsign_ckh (denominator[5..0], numerator[5..0])
+FUNCTION sign_div_unsign_bkh (denominator[5..0], numerator[5..0])
 RETURNS ( quotient[5..0], remainder[5..0]);
 
---synthesis_resources = 
+--synthesis_resources = lut 18 
 SUBDESIGN lpm_divide_tnl
 ( 
 	denom[5..0]	:	input;
@@ -29,7 +29,7 @@ SUBDESIGN lpm_divide_tnl
 	remain[5..0]	:	output;
 ) 
 VARIABLE 
-	divider : sign_div_unsign_ckh;
+	divider : sign_div_unsign_bkh;
 	numer_tmp[5..0]	: WIRE;
 
 BEGIN 

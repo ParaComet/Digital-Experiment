@@ -17,7 +17,7 @@
 --  applicable agreement for further details.
 
 
-FUNCTION sign_div_unsign_bkh (denominator[3..0], numerator[5..0])
+FUNCTION sign_div_unsign_9kh (denominator[3..0], numerator[5..0])
 RETURNS ( quotient[5..0], remainder[3..0]);
 
 --synthesis_resources = 
@@ -29,7 +29,7 @@ SUBDESIGN lpm_divide_ovl
 	remain[3..0]	:	output;
 ) 
 VARIABLE 
-	divider : sign_div_unsign_bkh;
+	divider : sign_div_unsign_9kh;
 	numer_tmp[5..0]	: WIRE;
 
 BEGIN 

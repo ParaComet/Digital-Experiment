@@ -1,5 +1,5 @@
 Flow report for Q2_lyf
-Wed Oct 08 14:20:10 2025
+Wed Oct 08 19:16:17 2025
 Quartus II 64-Bit Version 9.1 Build 222 10/21/2009 SJ Full Version
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +----------------------------------------------------------------------+
 ; Flow Summary                                                         ;
 +---------------------------+------------------------------------------+
-; Flow Status               ; Successful - Wed Oct 08 14:20:10 2025    ;
+; Flow Status               ; Successful - Wed Oct 08 19:16:17 2025    ;
 ; Quartus II 64-Bit Version ; 9.1 Build 222 10/21/2009 SJ Full Version ;
 ; Revision Name             ; Q2_lyf                                   ;
 ; Top-level Entity Name     ; Q2_lyf                                   ;
@@ -46,8 +46,8 @@ applicable agreement for further details.
 ; Device                    ; EPM1270T144C5                            ;
 ; Timing Models             ; Final                                    ;
 ; Met timing requirements   ; No                                       ;
-; Total logic elements      ; 789 / 1,270 ( 62 % )                     ;
-; Total pins                ; 47 / 116 ( 41 % )                        ;
+; Total logic elements      ; 792 / 1,270 ( 62 % )                     ;
+; Total pins                ; 48 / 116 ( 41 % )                        ;
 ; Total virtual pins        ; 0                                        ;
 ; UFM blocks                ; 0 / 1 ( 0 % )                            ;
 +---------------------------+------------------------------------------+
@@ -58,7 +58,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 10/08/2025 14:20:04 ;
+; Start date & time ; 10/08/2025 19:16:11 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; Q2_lyf              ;
 +-------------------+---------------------+
@@ -69,12 +69,13 @@ applicable agreement for further details.
 +---------------------------------------+------------------------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                       ; Value                                                ; Default Value ; Entity Name ; Section Id     ;
 +---------------------------------------+------------------------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                 ; 57562776996114.175990440405056                       ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                 ; 57562776996114.175992217007464                       ; --            ; --          ; --             ;
 ; MAX_CORE_JUNCTION_TEMP                ; 85                                                   ; --            ; --          ; --             ;
 ; MIN_CORE_JUNCTION_TEMP                ; 0                                                    ; --            ; --          ; --             ;
 ; MISC_FILE                             ; D:/参考资料/数电实验二/Digital-Experiment/Q2_lyf.dpf ; --            ; --          ; --             ;
 ; MISC_FILE                             ; C:/Users/ParaComet/Documents/题目2-刘亦凡/Q2_lyf.dpf ; --            ; --          ; --             ;
 ; POWER_EXT_SUPPLY_VOLTAGE_TO_REGULATOR ; 3.3V                                                 ; --            ; --          ; --             ;
+; SYNTH_TIMING_DRIVEN_SYNTHESIS         ; Off                                                  ; --            ; --          ; --             ;
 ; USE_GENERATED_PHYSICAL_CONSTRAINTS    ; Off                                                  ; --            ; --          ; eda_blast_fpga ;
 +---------------------------------------+------------------------------------------------------+---------------+-------------+----------------+
 
@@ -84,11 +85,11 @@ applicable agreement for further details.
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:00:02     ; 1.0                     ; 4460 MB             ; 00:00:03                           ;
+; Analysis & Synthesis    ; 00:00:03     ; 1.0                     ; 4460 MB             ; 00:00:03                           ;
 ; Fitter                  ; 00:00:01     ; 1.0                     ; 4510 MB             ; 00:00:02                           ;
-; Assembler               ; 00:00:00     ; 1.0                     ; 4364 MB             ; 00:00:00                           ;
+; Assembler               ; 00:00:01     ; 1.0                     ; 4364 MB             ; 00:00:00                           ;
 ; Classic Timing Analyzer ; 00:00:01     ; 1.0                     ; 4344 MB             ; 00:00:01                           ;
-; Total                   ; 00:00:04     ; --                      ; --                  ; 00:00:06                           ;
+; Total                   ; 00:00:06     ; --                      ; --                  ; 00:00:06                           ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

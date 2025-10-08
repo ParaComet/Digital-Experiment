@@ -111,3 +111,6 @@ set_global_assignment -name VHDL_FILE DigitalDisplay.vhd
 set_global_assignment -name VHDL_FILE Button.vhd
 set_global_assignment -name VHDL_FILE Clk_Generater.vhd
 set_global_assignment -name VECTOR_WAVEFORM_FILE Q2_lyf.vwf
+set_location_assignment PIN_80 -to debug
+set_global_assignment -name MAXII_OPTIMIZATION_TECHNIQUE BALANCED
+set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS OFF

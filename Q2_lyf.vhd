@@ -19,7 +19,8 @@ entity Q2_lyf is
 
         -- 把 I2C 引脚暴露到顶层，避免内部 tri-state（必须为 resolved std_logic）
         scl       : out std_logic;
-        sda       : inout std_logic
+        sda       : inout std_logic;
+        debug     : out std_logic:='0'
     );
 end Q2_lyf;
 
@@ -132,7 +133,8 @@ architecture behavioral of Q2_lyf is
 
             scl   : out std_logic;
             sda   : inout std_logic;
-            busy  : out std_logic
+            busy  : out std_logic;
+            debug : out std_logic
         );
     end component;
 
@@ -194,7 +196,8 @@ begin
             temp  => temp_twice,
             scl   => scl,
             sda   => sda,
-            busy  => temp_busy
+            busy  => temp_busy,
+            debug => debug
         );
 
     en_out   <= (others => '1') when power_on = '0' else en_out_i;

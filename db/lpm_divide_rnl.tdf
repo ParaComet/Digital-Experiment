@@ -17,7 +17,7 @@
 --  applicable agreement for further details.
 
 
-FUNCTION sign_div_unsign_9kh (denominator[4..0], numerator[4..0])
+FUNCTION sign_div_unsign_akh (denominator[4..0], numerator[4..0])
 RETURNS ( quotient[4..0], remainder[4..0]);
 
 --synthesis_resources = 
@@ -29,7 +29,7 @@ SUBDESIGN lpm_divide_rnl
 	remain[4..0]	:	output;
 ) 
 VARIABLE 
-	divider : sign_div_unsign_9kh;
+	divider : sign_div_unsign_akh;
 	numer_tmp[4..0]	: WIRE;
 
 BEGIN 
