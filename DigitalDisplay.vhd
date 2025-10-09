@@ -6,7 +6,8 @@ entity DigitalDisplay is
     port (
         clk          : in  std_logic;
         rst          : in  std_logic;
-        temp_twice   : in  integer range 0 to 80; -- temp * 2 (定点表示)
+        temp_int     : in  integer range 0 to 63; -- temp * 2 (定点表示)
+        temp_dot     : in  std_logic;
         stage        : in  integer range 0 to 4;  -- 外部状态，用于第7位显示
 
         en_out       : out std_logic_vector(7 downto 0);
@@ -19,9 +20,8 @@ architecture rtl of DigitalDisplay is
     signal en_index : integer range 0 to 7 := 0;
     signal deg_index : integer range 0 to 11 := 0;
     
-    signal temp_tens  : integer range 0 to 8 := 0; -- 十位（0..8）
+    signal temp_tens  : integer range 0 to 8 := 0; -- 十位
     signal temp_units : integer range 0 to 9 := 0; -- 个位
-    signal tempdot    : std_logic := '0';          -- 是否有 0.5（小数点）
     signal dp_now     : std_logic := '0';          -- 当前扫描位是否显示小数点
 
     signal deg_out_reg : std_logic_vector(7 downto 0) := (others => '0');
@@ -42,28 +42,16 @@ begin
         en_out <= (others => '1');
         en_out(en_index) <= '0';
     end process;
-    process(temp_twice)
-        variable v : integer range -1 to 81;
-        variable integer_temp : integer range 0 to 40;
+    process(temp_int)
+        variable v : integer range 0 to 63;
     begin
-        v := temp_twice;
-        if v < 0 then
-            v := 0;
-        elsif v > 80 then
-            v := 80;
-        end if;
-        integer_temp := v / 2; -- 恢复实际温度（向下取整）
-        temp_tens  <= integer_temp / 10;
-        temp_units <= integer_temp mod 10;
-        if (v mod 2) = 1 then
-            tempdot <= '1';
-        else
-            tempdot <= '0';
-        end if;
+        v := temp_int;
+        temp_tens  <= v / 10;
+        temp_units <= v mod 10;
     end process;
 
     -- 根据当前位选择要显示的字符索引（组合逻辑）
-    process(en_index, temp_tens, temp_units, tempdot, stage)
+    process(en_index, temp_tens, temp_units, temp_dot, stage)
     begin 
         dp_now <= '0';
         case en_index is
@@ -72,15 +60,15 @@ begin
                 deg_index <= temp_units;  -- 个位
                 dp_now <= '1';
             when 2 => 
-                if tempdot = '1' then
+                if temp_dot = '1' then
                     deg_index <= 5; -- 显示 5 (表示 .5)
                 else
                     deg_index <= 0; -- 显示 0
                 end if;
             when 3 => deg_index <= 10;  -- C
-            when 4 => deg_index <= 0;
-            when 5 => deg_index <= 0;   
-            when 6 => deg_index <= 0;   
+            when 4 => deg_index <= 11;
+            when 5 => deg_index <= 11;   
+            when 6 => deg_index <= 11;   
             when 7 => 
                 if stage >= 0 and stage <= 4 then
                     deg_index <= stage; -- 用 stage 显示 0..4

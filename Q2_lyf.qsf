@@ -100,6 +100,9 @@ set_location_assignment PIN_16 -to matrix_R[2]
 set_location_assignment PIN_21 -to matrix_R[1]
 set_location_assignment PIN_22 -to matrix_R[0]
 set_global_assignment -name MISC_FILE "C:/Users/ParaComet/Documents/Ã‚ƒø2-¡ı“‡∑≤/Q2_lyf.dpf"
+set_location_assignment PIN_80 -to debug
+set_global_assignment -name MAXII_OPTIMIZATION_TECHNIQUE BALANCED
+set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS OFF
 set_global_assignment -name VHDL_FILE Q2_lyf.vhd
 set_global_assignment -name VHDL_FILE LedMatrix_Animation.vhd
 set_global_assignment -name VHDL_FILE LedMatrix_PwmController.vhd
@@ -111,6 +114,4 @@ set_global_assignment -name VHDL_FILE DigitalDisplay.vhd
 set_global_assignment -name VHDL_FILE Button.vhd
 set_global_assignment -name VHDL_FILE Clk_Generater.vhd
 set_global_assignment -name VECTOR_WAVEFORM_FILE Q2_lyf.vwf
-set_location_assignment PIN_80 -to debug
-set_global_assignment -name MAXII_OPTIMIZATION_TECHNIQUE BALANCED
-set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS OFF
+set_location_assignment PIN_79 -to debug2

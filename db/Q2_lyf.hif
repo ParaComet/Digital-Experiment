@@ -31,7 +31,7 @@ ON
 # case_insensitive
 # source_file
 q2_lyf.vhd
-99d1a89eae76f245607de6f8f834a7
+5061e28c15248a896aa42691ca8c76de
 5
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -338,6 +338,61 @@ ON
 }
 # hierarchies {
 Beep:Beep_Inst
+}
+# lmf
+|resource|quartus|lmf|maxplus2.lmf
+a36c8ec425c8a2589af98b2d4daabc3
+# macro_sequence
+
+# end
+# entity
+Temperature_I2C
+# storage
+db|Q2_lyf.(9).cnf
+db|Q2_lyf.(9).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+tempreature_i2c.vhd
+6c83c40568e75ff15d4322a60e8e2d3
+5
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# user_parameter {
+input_clk
+1000000
+PARAMETER_SIGNED_DEC
+USR
+i2c_clk
+100000
+PARAMETER_SIGNED_DEC
+USR
+ constraint(addr)
+6 downto 0
+PARAMETER_STRING
+USR
+ constraint(data_wr)
+7 downto 0
+PARAMETER_STRING
+USR
+ constraint(data_rd)
+7 downto 0
+PARAMETER_STRING
+USR
+}
+# hierarchies {
+Tempreature:Temp_Inst|Temperature_I2C:I2C_Master
 }
 # lmf
 |resource|quartus|lmf|maxplus2.lmf
@@ -1671,7 +1726,7 @@ ON
 # case_insensitive
 # source_file
 tempreature.vhd
-1079618657c258e4a3d230514af5de33
+bc1b3f3ce2989f363b7559ea9571fdc
 5
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -1685,61 +1740,6 @@ ON
 }
 # hierarchies {
 Tempreature:Temp_Inst
-}
-# lmf
-|resource|quartus|lmf|maxplus2.lmf
-a36c8ec425c8a2589af98b2d4daabc3
-# macro_sequence
-
-# end
-# entity
-Temperature_I2C
-# storage
-db|Q2_lyf.(9).cnf
-db|Q2_lyf.(9).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_insensitive
-# source_file
-tempreature_i2c.vhd
-f777c0389f27e6ace9562f24326e5a1
-5
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-}
-# user_parameter {
-input_clk
-10000000
-PARAMETER_SIGNED_DEC
-USR
-i2c_clk
-400000
-PARAMETER_SIGNED_DEC
-USR
- constraint(addr)
-6 downto 0
-PARAMETER_STRING
-USR
- constraint(data_wr)
-7 downto 0
-PARAMETER_STRING
-USR
- constraint(data_rd)
-7 downto 0
-PARAMETER_STRING
-USR
-}
-# hierarchies {
-Tempreature:Temp_Inst|Temperature_I2C:I2C_Master
 }
 # lmf
 |resource|quartus|lmf|maxplus2.lmf

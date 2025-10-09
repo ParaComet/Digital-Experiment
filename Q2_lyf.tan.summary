@@ -5,9 +5,9 @@ Timing Analyzer Summary
 Type           : Worst-case tsu
 Slack          : N/A
 Required Time  : None
-Actual Time    : 3.102 ns
+Actual Time    : 3.459 ns
 From           : rst
-To             : auto_stage[1]
+To             : Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|scl_clk
 From Clock     : --
 To Clock       : clk
 Failed Paths   : 0
@@ -15,9 +15,9 @@ Failed Paths   : 0
 Type           : Worst-case tco
 Slack          : N/A
 Required Time  : None
-Actual Time    : 36.679 ns
-From           : Tempreature:Temp_Inst|temp_twice[3]
-To             : deg_out[2]
+Actual Time    : 37.767 ns
+From           : Tempreature:Temp_Inst|temp_twice[0]
+To             : deg_out[3]
 From Clock     : clk
 To Clock       : --
 Failed Paths   : 0
@@ -25,9 +25,9 @@ Failed Paths   : 0
 Type           : Worst-case th
 Slack          : N/A
 Required Time  : None
-Actual Time    : 8.613 ns
+Actual Time    : 8.126 ns
 From           : rst
-To             : LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[41]
+To             : LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[48]
 From Clock     : --
 To Clock       : clk
 Failed Paths   : 0
@@ -35,9 +35,9 @@ Failed Paths   : 0
 Type           : Clock Setup: 'clk'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 44.00 MHz ( period = 22.729 ns )
+Actual Time    : 44.49 MHz ( period = 22.477 ns )
 From           : is_manual
-To             : Beep:Beep_Inst|cnt[31]
+To             : Beep:Beep_Inst|cnt[4]
 From Clock     : clk
 To Clock       : clk
 Failed Paths   : 0
@@ -47,10 +47,10 @@ Slack          : Not operational: Clock Skew > Data Delay
 Required Time  : None
 Actual Time    : N/A
 From           : auto_stage[0]
-To             : LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[53]
+To             : LedMatrix:LedMatrix_Inst|LedMatrix_Animation:LedMatrix_Animation_Inst|pwm_out_G[62]
 From Clock     : clk
 To Clock       : clk
-Failed Paths   : 56
+Failed Paths   : 32
 
 Type           : Total number of failed paths
 Slack          : 
@@ -60,7 +60,7 @@ From           :
 To             : 
 From Clock     : 
 To Clock       : 
-Failed Paths   : 56
+Failed Paths   : 32
 
 --------------------------------------------------------------------------------------
 

@@ -55,7 +55,7 @@ begin
         integer_temp := v / 2; -- 恢复实际温度（向下取整）
         temp_tens  <= integer_temp / 10;
         temp_units <= integer_temp mod 10;
-        if (v mod 2) = 1 then
+        if (v mod 2) = 0 then
             tempdot <= '1';
         else
             tempdot <= '0';

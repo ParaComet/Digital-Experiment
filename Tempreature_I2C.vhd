@@ -1,18 +1,19 @@
+
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+use ieee.std_logic_unsigned.all;
 
 entity Temperature_I2C is
   generic (
-    INPUT_CLK : integer := 1_000_000;  -- FPGA 主时钟 (Hz)
-    I2C_CLK   : integer := 100_000     -- I2C 总线速率 (Hz)
+    INPUT_CLK : integer := 1_000_000;
+    I2C_CLK   : integer := 100_000
   );
   port (
     clk       : in  std_logic;
     rst       : in  std_logic;
     ena       : in  std_logic;
     addr      : in  std_logic_vector(6 downto 0);
-    rw        : in  std_logic;               -- 0=write, 1=read
+    rw        : in  std_logic;
     data_wr   : in  std_logic_vector(7 downto 0);
     data_rd   : out std_logic_vector(7 downto 0);
     busy      : out std_logic;
@@ -23,227 +24,194 @@ entity Temperature_I2C is
   );
 end entity;
 
-architecture rtl of Temperature_I2C is
-
-  constant HALF_TICKS : integer := INPUT_CLK / (2 * I2C_CLK);
-
-  signal scl_reg    : std_logic := '1';
-  signal sda_reg    : std_logic := '1';
-  signal sda_dir    : std_logic := '1'; -- 1: drive, 0: release
-  signal scl_enable : std_logic := '0';
-
-  signal data_rd_r  : std_logic_vector(7 downto 0) := (others => '0');
-  signal busy_r     : std_logic := '0';
-  signal ack_err_r  : std_logic := '0';
-  signal byte_valid_r : std_logic := '0';
-
-  type state_type is (
-    IDLE, START, SEND_ADDR, ACK_SLAVE, SEND_DATA, ACK_AFTER_SEND,
-    RECV_DATA, RECV_ACK_MASTER, AFTER_NACK_LOW, STOP_WAIT
-  );
-  signal state     : state_type := IDLE;
-
-  signal recv_left : integer range 0 to 2 := 0;
+architecture logic of Temperature_I2C is
+  constant divider : integer := (INPUT_CLK/I2C_CLK)/4;
+  type machine is(ready, start, command, slv_ack1, wr, rd, slv_ack2, mstr_ack, stop);
+  signal state         : machine;
+  signal data_clk      : std_logic;
+  signal data_clk_prev : std_logic;
+  signal scl_clk       : std_logic;
+  signal scl_ena       : std_logic := '0';
+  signal sda_int       : std_logic := '1';
+  signal sda_ena_n     : std_logic;
+  signal addr_rw       : std_logic_vector(7 downto 0);
+  signal data_tx       : std_logic_vector(7 downto 0);
+  signal data_rx       : std_logic_vector(7 downto 0);
+  signal bit_cnt       : integer range 0 to 7 := 7;
+  --signal stretch       : std_logic := '0';
+  signal busy_sig      : std_logic := '0';
+  signal ack_error_sig : std_logic := '0';
+  signal byte_valid_sig: std_logic := '0';
+  signal read_count    : integer range 0 to 2 := 0;
 
 begin
+  busy      <= busy_sig;
+  ack_error <= ack_error_sig;
+  byte_valid<= byte_valid_sig;
 
-  scl <= scl_reg;
-  sda <= sda_reg when sda_dir = '1' else 'Z';
-  data_rd <= data_rd_r;
-  busy    <= busy_r;
-  ack_error <= ack_err_r;
-  byte_valid <= byte_valid_r;
+  scl <= '0' when (scl_ena = '1' and scl_clk = '0') else 'Z';
+  sda <= '0' when sda_ena_n = '0' else 'Z';
 
-  combined_proc: process(clk, rst)
-    variable clk_cnt_v  : integer := 0;
-    variable scl_v      : std_logic := '1';
-    variable scl_prev_v : std_logic := '1';
-    variable rising_ev  : boolean := false;
-    variable falling_ev : boolean := false;
-    variable bit_cnt_v  : integer := 7;
-    variable shifter_v  : std_logic_vector(7 downto 0) := (others => '0');
+  
+  with state select
+    sda_ena_n <= data_clk_prev when start,
+                 not data_clk_prev when stop,
+                 sda_int when others;
+
+  process (clk, rst)
+    variable count : integer range 0 to divider * 4;
   begin
     if rst = '1' then
-      clk_cnt_v := 0;
-      scl_v := '1';
-      scl_prev_v := '1';
-      rising_ev := false;
-      falling_ev := false;
-
-      scl_reg <= '1';
-      sda_reg <= '1';
-      sda_dir <= '1';
-      scl_enable <= '0';
-
-      busy_r <= '0';
-      ack_err_r <= '0';
-      data_rd_r <= (others => '0');
-      byte_valid_r <= '0';
-      recv_left <= 0;
-
-      state <= IDLE;
-      bit_cnt_v := 7;
-      shifter_v := (others => '0');
-
+      count := 0;
+      data_clk_prev <= '0';
     elsif rising_edge(clk) then
-
-      -- SCL 分频逻辑
-      if scl_enable = '1' then
-        if clk_cnt_v >= HALF_TICKS - 1 then
-          clk_cnt_v := 0;
-          scl_v := not scl_v;
-        else
-          clk_cnt_v := clk_cnt_v + 1;
-        end if;
+      data_clk_prev <= data_clk;
+      if (count = divider * 4 - 1) then
+        count := 0;
       else
-        clk_cnt_v := 0;
-        scl_v := '1';
+        count := count + 1;
       end if;
-
-      -- 边沿检测
-      rising_ev  := (scl_prev_v = '0' and scl_v = '1');
-      falling_ev := (scl_prev_v = '1' and scl_v = '0');
-
-      scl_reg <= scl_v;
-      scl_prev_v := scl_v;
-
-      byte_valid_r <= '0';
-
-      case state is
-        when IDLE =>
-          busy_r <= '0';
-          scl_enable <= '0';
-          if ena = '1' then
-            busy_r <= '1';
-            ack_err_r <= '0';
-            shifter_v := addr & rw;
-            bit_cnt_v := 7;
-            sda_dir <= '1';
-            sda_reg <= '1';
-            state <= START;
-          end if;
-
-        when START =>
-          sda_reg <= '0';
-          sda_dir <= '1';
-          scl_enable <= '1';
-          bit_cnt_v := 7;
-          state <= SEND_ADDR;
-
-        when SEND_ADDR =>
-          if falling_ev then
-            sda_reg <= shifter_v(bit_cnt_v);
-            sda_dir <= '1';
-          end if;
-          if rising_ev then
-            if bit_cnt_v = 0 then
-              bit_cnt_v := 7;
-              sda_dir <= '0'; -- release for ACK
-              state <= ACK_SLAVE;
-            else
-              bit_cnt_v := bit_cnt_v - 1;
-            end if;
-          end if;
-
-        when ACK_SLAVE =>
-          if rising_ev then
-            if sda = '1' then
-              ack_err_r <= '1';
-            else
-              ack_err_r <= '0';
-            end if;
-            if rw = '0' then
-              shifter_v := data_wr;
-              bit_cnt_v := 7;
-              sda_dir <= '1';
-              state <= SEND_DATA;
-            else
-              recv_left <= 2;
-              sda_dir <= '0';
-              bit_cnt_v := 7;
-              state <= RECV_DATA;
-            end if;
-          end if;
-
-        when SEND_DATA =>
-          if falling_ev then
-            sda_reg <= shifter_v(bit_cnt_v);
-            sda_dir <= '1';
-          end if;
-          if rising_ev then
-            if bit_cnt_v = 0 then
-              bit_cnt_v := 7;
-              sda_dir <= '0';
-              state <= ACK_AFTER_SEND;
-            else
-              bit_cnt_v := bit_cnt_v - 1;
-            end if;
-          end if;
-
-        when ACK_AFTER_SEND =>
-          if rising_ev then
-            if sda = '1' then
-              ack_err_r <= '1';
-            else
-              ack_err_r <= '0';
-            end if;
-            sda_dir <= '1';
-            sda_reg <= '1';
-            scl_enable <= '0';
-            state <= STOP_WAIT;
-          end if;
-
-        when RECV_DATA =>
-          sda_dir <= '0';
-          if rising_ev then
-            shifter_v(bit_cnt_v) := sda;
-            if bit_cnt_v = 0 then
-              data_rd_r <= shifter_v;
-              byte_valid_r <= '1';
-              bit_cnt_v := 7;
-              if recv_left > 1 then
-                sda_dir <= '1';
-                sda_reg <= '0';  -- ACK
-                state <= RECV_ACK_MASTER;
-              else
-                sda_dir <= '1';
-                sda_reg <= '1';  -- NACK
-                state <= AFTER_NACK_LOW;
-              end if;
-            else
-              bit_cnt_v := bit_cnt_v - 1;
-            end if;
-          end if;
-
-        when RECV_ACK_MASTER =>
-          -- 保持 ACK 至 SCL 下降沿
-          if falling_ev then
-            sda_dir <= '0';
-            sda_reg <= '1';
-            recv_left <= recv_left - 1;
-            bit_cnt_v := 7;
-            state <= RECV_DATA;
-          end if;
-
-        when AFTER_NACK_LOW =>
-          if falling_ev then
-            sda_dir <= '1';
-            sda_reg <= '0';  -- 拉低准备 STOP
-            state <= STOP_WAIT;
-          end if;
-
-        when STOP_WAIT =>
-          if scl_v = '1' then
-            sda_dir <= '1';
-            sda_reg <= '1';  -- STOP: SDA 上升
-            busy_r <= '0';
-            state <= IDLE;
-          end if;
-
+      case count is
+        when 0 to divider - 1 =>
+          scl_clk  <= '0';
+          data_clk <= '0';
+        when divider to divider * 2 - 1 =>
+          scl_clk  <= '0';
+          data_clk <= '1';
+        when divider * 2 to divider * 3 - 1 =>
+          scl_clk <= '1';
+          data_clk <= '1';
         when others =>
-          state <= IDLE;
+          scl_clk  <= '1';
+          data_clk <= '0';
       end case;
     end if;
-  end process combined_proc;
+  end process;
 
-end rtl;
+  process (clk, rst)
+  begin
+    if rst = '1' then
+      state     <= ready;
+      busy_sig  <= '0';
+      scl_ena   <= '0';
+      sda_int   <= '1';
+      ack_error_sig <= '0';
+      bit_cnt   <= 7;
+      data_rx   <= (others => '0');
+      byte_valid_sig <= '0';
+      read_count <= 0;
+    elsif rising_edge(clk) then
+      byte_valid_sig <= '0';
+      if (data_clk = '1' and data_clk_prev = '0') then
+        case state is
+          when ready =>
+            if (ena = '1') then
+              busy_sig <= '1';
+              addr_rw  <= addr & rw;
+              data_tx  <= data_wr;
+              state    <= start;
+            else
+              busy_sig <= '0';
+              state    <= ready;
+            end if;
+          when start =>
+            busy_sig <= '1';
+            sda_int  <= addr_rw(bit_cnt);
+            state    <= command;
+          when command =>
+            if (bit_cnt = 0) then
+              sda_int <= '1';
+              bit_cnt <= 7;
+              state   <= slv_ack1;
+            else
+              bit_cnt <= bit_cnt - 1;
+              sda_int <= addr_rw(bit_cnt - 1);
+              state   <= command;
+            end if;
+          when slv_ack1 =>
+            if (addr_rw(0) = '0') then
+              sda_int <= data_tx(bit_cnt);
+              state   <= wr;
+            else
+              sda_int <= '1';
+              read_count <= 0;
+              state   <= rd;
+            end if;
+          when wr =>
+            if (bit_cnt = 0) then
+              sda_int <= '1';
+              bit_cnt <= 7;
+              state   <= slv_ack2;
+            else
+              bit_cnt <= bit_cnt - 1;
+              sda_int <= data_tx(bit_cnt - 1);
+              state   <= wr;
+            end if;
+          when rd =>
+            if (bit_cnt = 0) then
+              if (read_count = 0) then
+                sda_int <= '0';
+              else
+                sda_int <= '1';
+              end if;
+              byte_valid_sig <= '1';
+              data_rd <= data_rx;
+              read_count <= read_count + 1;
+              state <= mstr_ack;
+              bit_cnt <= 7;
+            else
+              bit_cnt <= bit_cnt - 1;
+              state   <= rd;
+            end if;
+          when slv_ack2 =>
+            if (ena = '1') then
+              busy_sig <= '0';
+              addr_rw <= addr & rw;
+              data_tx <= data_wr;
+              if (addr_rw = addr & rw) then
+                sda_int <= data_wr(bit_cnt);
+                state <= wr;
+              else
+                state <= start;
+              end if;
+            else
+              state <= stop;
+            end if;
+          when mstr_ack =>
+            if (read_count = 2 or ack_error_sig = '1') then
+              state   <= stop;
+            else
+              sda_int <= '1';
+              state   <= rd;
+            end if;
+          when stop =>
+            busy_sig <= '0';
+            state   <= ready;
+        end case;
+      elsif (data_clk = '0' and data_clk_prev = '1') then
+        case state is
+          when start =>
+            if (scl_ena = '0') then
+              scl_ena   <= '1';
+              ack_error_sig <= '0';
+            end if;
+          when slv_ack1 =>
+            if (sda /= '0' or ack_error_sig = '1') then
+              ack_error_sig <= '1';
+            end if;
+          when rd =>
+            data_rx(bit_cnt) <= sda;
+          when slv_ack2 =>
+            if (sda /= '0' or ack_error_sig = '1') then
+              ack_error_sig <= '1';
+            end if;
+          when stop =>
+            scl_ena <= '0';
+          when others =>
+            null;
+        end case;
+      end if;
+    end if;
+  end process;
+
+end logic;

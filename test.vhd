@@ -1,9 +1,12 @@
 
+--------------------------------------------------------------------------------
+-- 锟斤拷植锟斤拷 i2c_master.vhd锟斤拷锟接口硷拷锟斤拷 Tempreature.vhd锟斤拷支锟街讹拷锟街节讹拷取锟斤拷 byte_valid 锟脚猴拷
+--------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 
-entity Temperature_I2C is
+entity Temperature_I2C2 is
   generic (
     INPUT_CLK : integer := 1_000_000;
     I2C_CLK   : integer := 100_000
@@ -24,7 +27,7 @@ entity Temperature_I2C is
   );
 end entity;
 
-architecture logic of Temperature_I2C is
+architecture logic of Temperature_I2C2 is
   constant divider : integer := (INPUT_CLK/I2C_CLK)/4;
   type machine is(ready, start, command, slv_ack1, wr, rd, slv_ack2, mstr_ack, stop);
   signal state         : machine;

@@ -18,9 +18,9 @@ end entity;
 
 architecture rtl of LedMatrix is
 
-    type Frequency is array (0 to 4) of integer range 0 to 62;
+    type Frequency is array (0 to 4) of integer range 0 to 63;
 
-    constant ANIMATION_UPDATE_FREQ : Frequency := (60, 60, 40, 20, 10);  -- 100Hz
+    constant ANIMATION_UPDATE_FREQ : Frequency := (60, 60, 35, 16, 8);  -- 100Hz
 
     component LedMatrix_Animation is
         port (
