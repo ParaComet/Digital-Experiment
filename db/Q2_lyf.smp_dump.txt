@@ -1,0 +1,26 @@
+
+State Machine - |Q2_lyf|rstate_sig
+Name rstate_sig.R_WAIT_BUSY_DONE rstate_sig.R_WAIT_BUSY_START rstate_sig.R_IDLE 
+rstate_sig.R_IDLE 0 0 0 
+rstate_sig.R_WAIT_BUSY_START 0 1 1 
+rstate_sig.R_WAIT_BUSY_DONE 1 0 1 
+
+State Machine - |Q2_lyf|Tempreature:Temp_Inst|seq_state
+Name seq_state.S_READ_WAIT seq_state.S_READ_START seq_state.S_WRITE_WAIT seq_state.S_WRITE_PTR seq_state.S_IDLE 
+seq_state.S_IDLE 0 0 0 0 0 
+seq_state.S_WRITE_PTR 0 0 0 1 1 
+seq_state.S_WRITE_WAIT 0 0 1 0 1 
+seq_state.S_READ_START 0 1 0 0 1 
+seq_state.S_READ_WAIT 1 0 0 0 1 
+
+State Machine - |Q2_lyf|Tempreature:Temp_Inst|Temperature_I2C:I2C_Master|state
+Name state.stop state.mstr_ack state.slv_ack2 state.rd state.wr state.slv_ack1 state.command state.start state.ready 
+state.ready 0 0 0 0 0 0 0 0 0 
+state.start 0 0 0 0 0 0 0 1 1 
+state.command 0 0 0 0 0 0 1 0 1 
+state.slv_ack1 0 0 0 0 0 1 0 0 1 
+state.wr 0 0 0 0 1 0 0 0 1 
+state.rd 0 0 0 1 0 0 0 0 1 
+state.slv_ack2 0 0 1 0 0 0 0 0 1 
+state.mstr_ack 0 1 0 0 0 0 0 0 1 
+state.stop 1 0 0 0 0 0 0 0 1 

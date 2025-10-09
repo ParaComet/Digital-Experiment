@@ -1,0 +1,199 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity Tempreature is
+    port (
+        clk         : in  std_logic;
+        rst         : in  std_logic;
+        ena         : in  std_logic;
+        button      : in  std_logic;
+
+        temp        : out integer range 0 to 80;
+
+        scl         : out std_logic;
+        sda         : inout std_logic;
+        busy        : out std_logic;
+        debug       : out std_logic;
+        
+
+        debug_msb   : out std_logic;
+        debug_lsb   : out std_logic;
+        debug_state : out integer range 0 to 7
+    );
+end entity Tempreature;
+
+architecture rtl of Tempreature is
+
+component Temperature_I2C is
+    generic (
+        INPUT_CLK : integer := 1_000_000;
+        I2C_CLK   : integer := 100_000
+    );
+    port (
+        clk       : in  std_logic;
+        rst       : in  std_logic;
+        ena       : in  std_logic;
+        addr      : in  std_logic_vector(6 downto 0);
+        rw        : in  std_logic;
+        data_wr   : in  std_logic_vector(7 downto 0);
+        data_rd   : out std_logic_vector(7 downto 0);
+        busy      : out std_logic;
+        ack_error : out std_logic;
+        scl       : out std_logic;
+        sda       : inout std_logic;
+        byte_valid: out std_logic
+    );
+end component;
+
+signal ena_i2c    : std_logic := '0';
+signal busy_i2c   : std_logic := '0';
+signal rw_i2c     : std_logic := '0';
+signal data_wr_sig: std_logic_vector(7 downto 0) := (others => '0');
+signal data_rd_i2c: std_logic_vector(7 downto 0);
+signal byte_valid_i2c : std_logic := '0';
+
+signal msb_byte   : std_logic_vector(7 downto 0) := (others => '0');
+signal lsb_byte   : std_logic_vector(7 downto 0) := (others => '0');
+
+type seq_type is (S_IDLE, S_WRITE_PTR, S_WRITE_WAIT, S_READ_START, S_READ_WAIT);
+signal seq_state : seq_type := S_IDLE;
+
+signal temp_twice : integer range 0 to 80 := 0;
+signal debug_sig  : std_logic := '0';
+
+signal byte_count : integer range 0 to 3 := 0;
+signal byte_valid_prev : std_logic := '0';
+
+begin
+
+    busy <= busy_i2c;
+    temp <= temp_twice;
+	debug <= '1';
+    --debug_msb <= msb_byte;
+    --debug_lsb <= lsb_byte;
+    debug_state <= seq_type'pos(seq_state);
+
+    I2C_Master : Temperature_I2C
+        generic map (
+            INPUT_CLK => 1_000_000,
+            I2C_CLK   => 100_000
+        )
+        port map(
+            clk => clk,
+            rst => rst,
+            ena => ena_i2c,
+            addr => "1001000",
+            rw => rw_i2c,
+            data_wr => data_wr_sig,
+            data_rd => data_rd_i2c,
+            busy => busy_i2c,
+            ack_error => open,
+            scl => scl,
+            sda => sda,
+            byte_valid => byte_valid_i2c
+        );
+
+    process(clk, rst)
+        variable signed_msb : integer range -128 to 127;
+        variable half_bit   : integer range 0 to 1:=0;
+        variable result     : integer;
+    begin
+        if rst = '1' then
+            ena_i2c <= '0';
+            rw_i2c <= '0';
+            data_wr_sig <= (others => '0');
+            msb_byte <= (others => '0');
+            lsb_byte <= (others => '0');
+            seq_state <= S_IDLE;
+            temp_twice <= 0;
+            debug <= '0';
+            byte_count <= 0;
+            byte_valid_prev <= '0';
+            
+        elsif rising_edge(clk) then
+            
+            byte_valid_prev <= byte_valid_i2c;
+            
+        
+            ena_i2c <= '0';
+
+            case seq_state is
+                when S_IDLE =>
+                    if ena = '1' then
+                       
+                        data_wr_sig <= x"00";
+                        rw_i2c <= '0';
+                        ena_i2c <= '1';
+                        seq_state <= S_WRITE_PTR;
+                    end if;
+
+                when S_WRITE_PTR =>
+                    if busy_i2c = '1' then
+                        seq_state <= S_WRITE_WAIT;
+                    end if;
+
+                when S_WRITE_WAIT =>
+                    if busy_i2c = '0' then
+                        
+                        rw_i2c <= '1';
+                        ena_i2c <= '1';
+                        byte_count <= 0;
+                        seq_state <= S_READ_START;
+                    end if;
+
+                when S_READ_START =>
+                    if busy_i2c = '1' then
+                        
+                        msb_byte <= (others => '0');
+                        lsb_byte <= (others => '0');
+                        byte_count <= 0;
+                        seq_state <= S_READ_WAIT;
+                    end if;
+
+                when S_READ_WAIT =>
+                   
+                    if byte_valid_i2c = '1' and byte_valid_prev = '0' then
+                        if byte_count = 0 then
+                            msb_byte <= data_rd_i2c;
+                            byte_count <= 1;
+                        elsif byte_count = 1 then
+                            lsb_byte <= data_rd_i2c;
+                            byte_count <= 2;
+                        end if;
+                    end if;
+
+                
+                    if busy_i2c = '0' then
+                        
+                        if byte_count >= 2 then
+                            signed_msb := to_integer(signed(msb_byte));
+                            
+                            if lsb_byte(7) = '0' then
+                                half_bit := 1;
+                                debug_sig <= '1';
+                            else
+                                half_bit := 0;
+                                debug_sig <= '0';
+                            end if;
+                            
+                            result := signed_msb * 2 + half_bit;
+                            
+                
+                            if result < 0 then
+                                temp_twice <= 0;
+                            elsif result > 80 then
+                                temp_twice <= 80;
+                            else
+                                temp_twice <= result;
+                            end if;
+                        end if;
+                        
+                        seq_state <= S_IDLE;
+                    end if;
+
+            end case;
+        end if;
+    end process;
+
+end architecture;
