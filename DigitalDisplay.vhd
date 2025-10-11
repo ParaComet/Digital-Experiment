@@ -9,6 +9,7 @@ entity DigitalDisplay is
         temp_int     : in  integer range 0 to 63; -- temp * 2 (定点表示)
         temp_dot     : in  std_logic;
         stage        : in  integer range 0 to 4;  -- 外部状态，用于第7位显示
+        is_manual    : in  integer range 0 to 1;              -- 是否手动模式，用于第6位显示
 
         en_out       : out std_logic_vector(7 downto 0);
         deg_out      : out std_logic_vector(7 downto 0)
@@ -67,7 +68,7 @@ begin
                 end if;
             when 3 => deg_index <= 10;  -- C
             when 4 => deg_index <= 11;
-            when 5 => deg_index <= 11;   
+            when 5 => deg_index <= is_manual;  -- 显示 5 或 空白
             when 6 => deg_index <= 11;   
             when 7 => 
                 if stage >= 0 and stage <= 4 then

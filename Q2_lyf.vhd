@@ -59,6 +59,7 @@ architecture behavioral of Q2_lyf is
     signal matrix_R_i   : std_logic_vector(7 downto 0) := (others => '0');
     signal matrix_G_i   : std_logic_vector(7 downto 0) := (others => '0');
     signal beep_en_i    : std_logic := '0';
+    signal is_manual_i  : integer range 0 to 1 := 0;
 
 
 
@@ -89,6 +90,7 @@ architecture behavioral of Q2_lyf is
             temp_int   : in  integer range 0 to 63;
             temp_dot   : in  std_logic;
             stage      : in  integer range 0 to 4;
+            is_manual  : in  integer range 0 to 1;
 
             en_out     : out std_logic_vector(7 downto 0);
             deg_out    : out std_logic_vector(7 downto 0)
@@ -158,6 +160,7 @@ begin
             temp_int   => temp_reg,
             temp_dot   => temp_dot_reg,
             stage      => stage,
+            is_manual  => is_manual_i,
             en_out     => en_out_i,
             deg_out    => deg_out_i
         );
@@ -201,6 +204,7 @@ begin
     matrix_en<= (others => '1') when power_on = '0' else matrix_en_i;
     matrix_R <= (others => '0') when power_on = '0' else matrix_R_i;
     matrix_G <= (others => '0') when power_on = '0' else matrix_G_i;
+    is_manual_i <= 1 when is_manual = '1' else 0;
     beep_en_i <= power_on; 
 
     process(clk_1khz, rst)
