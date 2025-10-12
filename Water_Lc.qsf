@@ -54,3 +54,8 @@ set_global_assignment -name VHDL_FILE LedMatrix_Controller.vhd
 set_global_assignment -name VHDL_FILE LedMatrix_Anime.vhd
 set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
 set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
+set_global_assignment -name VHDL_FILE Button.vhd
+set_global_assignment -name VHDL_FILE Clk_Generater.vhd
+set_global_assignment -name VHDL_FILE DigitalDisplay.vhd
+set_global_assignment -name VHDL_FILE UltraSonic.vhd
+set_global_assignment -name VHDL_FILE Beep.vhd

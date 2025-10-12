@@ -29,7 +29,7 @@ begin
     process(stage)
     begin
         case stage is
-            when 0 => cnt_max <= 0;          -- é™éŸ³
+            when 0 => cnt_max <= 0;          -- ¾²Òô
             when 1 => cnt_max <= FREQ_300;   -- 300 Hz
             when 2 => cnt_max <= FREQ_500;   -- 500 Hz
             when 3 => cnt_max <= FREQ_700;   -- 700 Hz

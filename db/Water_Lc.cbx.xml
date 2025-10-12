@@ -1,5 +1,10 @@
 <?xml version="1.0" ?>
 <LOG_ROOT>
 	<PROJECT NAME="Water_Lc">
+		<CBX_INST_ENTRY INSTANCE_NAME="|Water_Lc|DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_61m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|Water_Lc|DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod1" CBX_FILE_NAME="lpm_divide_jql.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|Water_Lc|UltraSonic:UltraSonic_inst|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_b1m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|Water_Lc|DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1" CBX_FILE_NAME="lpm_divide_31m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|Water_Lc|DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0" CBX_FILE_NAME="lpm_divide_jql.tdf"/>
 	</PROJECT>
 </LOG_ROOT>

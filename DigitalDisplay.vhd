@@ -6,9 +6,9 @@ entity DigitalDisplay is
     port (
         clk          : in  std_logic;
         rst          : in  std_logic;
-        dist_int     : in  integer range 0 to 999; -- dist * 2 (å®šç‚¹è¡¨ç¤º)
-        stage        : in  integer range 0 to 8;  -- æ°´ä½çŠ¶æ€ï¼Œç”¨äºç¬¬7ä½æ˜¾ç¤º
-        level        : in  integer range 0 to 4;   -- é‡Šæ”¾ç­‰çº§ï¼Œç”¨äºç¬¬6ä½æ˜¾ç¤º
+        dist_int     : in  integer range 0 to 999; -- dist * 2 (¶¨µã±íÊ¾)
+        stage        : in  integer range 0 to 8;  -- Ë®Î»×´Ì¬£¬ÓÃÓÚµÚ7Î»ÏÔÊ¾
+        level        : in  integer range 0 to 4;   -- ÊÍ·ÅµÈ¼¶£¬ÓÃÓÚµÚ6Î»ÏÔÊ¾
 
         en_out       : out std_logic_vector(7 downto 0);
         deg_out      : out std_logic_vector(7 downto 0)
@@ -21,10 +21,10 @@ architecture rtl of DigitalDisplay is
     signal deg_index : integer range 0 to 11 := 0;
     signal stage_reg : integer range 0 to 4 := 0;
     
-    signal dist_1     : integer range 0 to 9 := 0; -- ä¸ªä½
-    signal dist_2     : integer range 0 to 9 := 0; -- åä½
-    signal dist_3     : integer range 0 to 9 := 0; -- ç™¾ä½
-    signal dp_now     : std_logic := '0';          -- å½“å‰æ‰«æä½æ˜¯å¦æ˜¾ç¤ºå°æ•°ç‚¹
+    signal dist_1     : integer range 0 to 9 := 0; -- ¸öÎ»
+    signal dist_2     : integer range 0 to 9 := 0; -- Ê®Î»
+    signal dist_3     : integer range 0 to 9 := 0; -- °ÙÎ»
+    signal dp_now     : std_logic := '0';          -- µ±Ç°É¨ÃèÎ»ÊÇ·ñÏÔÊ¾Ğ¡Êıµã
 
     signal deg_out_reg : std_logic_vector(7 downto 0) := (others => '0');
 
@@ -53,27 +53,27 @@ begin
         dist_1  <= v mod 10;
     end process;
 
-    -- æ ¹æ®å½“å‰ä½é€‰æ‹©è¦æ˜¾ç¤ºçš„å­—ç¬¦ç´¢å¼•ï¼ˆç»„åˆé€»è¾‘ï¼‰
+    -- ¸ù¾İµ±Ç°Î»Ñ¡ÔñÒªÏÔÊ¾µÄ×Ö·ûË÷Òı£¨×éºÏÂß¼­£©
     process(en_index, dist_1, dist_2, dist_3)
     begin
         case en_index is
             when 0 => 
                 if stage_reg < 5 then
-                    deg_index <= stage_reg;  -- æ˜¾ç¤ºæ°´ä½é˜¶æ®µ 0-4
+                    deg_index <= stage_reg;  -- ÏÔÊ¾Ë®Î»½×¶Î 0-4
                 else
-                    deg_index <= 11;  -- æ˜¾ç¤ºç©ºç™½
+                    deg_index <= 11;  -- ÏÔÊ¾¿Õ°×
                 end if;
-            when 1 => deg_index <= dist_3;   -- ç™¾ä½
+            when 1 => deg_index <= dist_3;   -- °ÙÎ»
             when 2 => 
-                deg_index <= dist_2;  -- åä½
+                deg_index <= dist_2;  -- Ê®Î»
             when 3 => 
-                deg_index <= dist_1;  -- ä¸ªä½
-            when 6 => deg_index <= level;  -- æ˜¾ç¤º 5 æˆ– ç©ºç™½
+                deg_index <= dist_1;  -- ¸öÎ»
+            when 6 => deg_index <= level;  -- ÏÔÊ¾ 5 »ò ¿Õ°×
             when others => deg_index <= 11;
         end case;
     end process;
 
-    -- 7 æ®µå’Œå°æ•°ç‚¹ç¼–ç ï¼ˆ8 ä½ï¼Œbit7 = DPï¼‰
+    -- 7 ¶ÎºÍĞ¡Êıµã±àÂë£¨8 Î»£¬bit7 = DP£©
     with deg_index select
         deg_out_reg(6 downto 0) <=  "0111111" when 0,  -- 0
                                     "0000110" when 1,  -- 1
@@ -86,16 +86,16 @@ begin
                                     "1111111" when 8,  -- 8
                                     "1101111" when 9,  -- 9
                                     "0111001" when 10, -- C
-                                    "0000000" when others; -- ç©ºç™½ / é»˜è®¤
+                                    "0000000" when others; -- ¿Õ°× / Ä¬ÈÏ
     
     with stage select
         stage_reg <= 1 when 0 | 1 | 2 | 3,
                      2 when 4 | 5,
                      3 when 6 | 7,
                      4 when 8;
-                     -- æ˜¾ç¤º 5 æˆ– ç©ºç™½
+                     -- ÏÔÊ¾ 5 »ò ¿Õ°×
 
-    deg_out_reg(7) <= dp_now; -- å°æ•°ç‚¹ï¼ˆä»…ç”± dp_now æ§åˆ¶ï¼‰
+    deg_out_reg(7) <= dp_now; -- Ğ¡Êıµã£¨½öÓÉ dp_now ¿ØÖÆ£©
     deg_out <= deg_out_reg;
 
 end architecture rtl;

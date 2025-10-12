@@ -10,9 +10,9 @@ entity LedMatrix is
         rst : in std_logic;
 
         stage : in integer range 0 to 8;
-        release_i : in std_logic; --�Ƿ��ͷ�
-        release_auto : in std_logic; --�Զ��ͷŻ��ֶ��ͷ�
-        release_stage : in integer range 0 to 3; --�ͷ��ٶȣ���ֵԽ��Խ��
+        release_i : in std_logic; --??????
+        release_auto : in std_logic; --?????????????
+        release_stage : in integer range 0 to 3; --????????????????
         
         matrix_en : out std_logic_vector(7 downto 0);
         matrix_R : out std_logic_vector(7 downto 0);

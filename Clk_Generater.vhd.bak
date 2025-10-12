@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity Clk_Generater is
     generic (
-        INPUT_CLK : integer := 1_000_000  -- 主时钟（Hz）
+        INPUT_CLK : integer := 50_000_000  -- 主时钟（Hz）
     );
     port (
         clk       : in  std_logic;  -- 主时钟

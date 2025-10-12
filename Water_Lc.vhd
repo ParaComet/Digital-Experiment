@@ -27,19 +27,19 @@ end entity;
 
 architecture rtl of Water_Lc is
 
-constant INPUT_CLK : integer := 50_000_000;  -- ä¸»æ—¶é’Ÿï¼ˆHzï¼‰
+constant INPUT_CLK : integer := 50_000_000;  -- Ö÷Ê±ÖÓ£¨Hz£©
 constant DETECT_TICKS : integer := INPUT_CLK / 1_000 * 100; -- 100ms
 
 signal clk_1mhz : std_logic;
 signal clk_1khz : std_logic;
 signal clk_100hz : std_logic;
 
-signal stage : integer range 0 to 8 := 0; -- å½“å‰æ°´ä½é˜¶æ®µ 0-8
+signal stage : integer range 0 to 8 := 0; -- µ±Ç°Ë®Î»½×¶Î 0-8
 signal Detect_cnt : integer range 0 to 100 := 0;
 
-signal release_i : std_logic := '0'; --æ˜¯å¦é‡Šæ”¾
-signal release_auto : std_logic := '0'; --è‡ªåŠ¨é‡Šæ”¾æˆ–æ‰‹åŠ¨é‡Šæ”¾
-signal release_stage : integer range 0 to 3 := 0; --æ‰‹åŠ¨é‡Šæ”¾æŒ¡ä½
+signal release_i : std_logic := '0'; --ÊÇ·ñÊÍ·Å
+signal release_auto : std_logic := '0'; --×Ô¶¯ÊÍ·Å»òÊÖ¶¯ÊÍ·Å
+signal release_stage : integer range 0 to 3 := 0; --ÊÖ¶¯ÊÍ·Åµ²Î»
 
 signal matrix_en_i : std_logic_vector(7 downto 0);
 signal matrix_R_i : std_logic_vector(7 downto 0);
@@ -48,14 +48,14 @@ signal en_out_i : std_logic_vector(7 downto 0);
 signal deg_out_i : std_logic_vector(7 downto 0);
 signal key_flag : integer range 0 to 2;
 
-signal level : integer range 0 to 4 := 0; -- é‡Šæ”¾ç­‰çº§ 0-4
+signal level : integer range 0 to 4 := 0; -- ÊÍ·ÅµÈ¼¶ 0-4
 signal is_time_to_release : std_logic := '0';
 signal is_time_to_detect : std_logic := '0';
 signal start : std_logic := '0';
 signal busy_r : std_logic;
 signal valid : std_logic;
 signal beep_en : std_logic := '0';
-signal stage_beep : integer range 0 to 4 := 0; -- èœ‚é¸£å™¨å“åº¦ç­‰çº§ 0-4
+signal stage_beep : integer range 0 to 4 := 0; -- ·äÃùÆ÷Ïì¶ÈµÈ¼¶ 0-4
 signal shine : std_logic := '0';
 
 signal dist_int : integer range 0 to 999 := 0;
@@ -225,35 +225,35 @@ begin
             release_stage <= 0;
         elsif rising_edge(clk_1khz) then
 
-            -- BTN7 æ§åˆ¶æ‰‹åŠ¨å¼€/å…³æ³„æ´ª
+            -- BTN7 ¿ØÖÆÊÖ¶¯¿ª/¹ØĞ¹ºé
             if key_flag = 1 then
                 if (dist_int >= 600 and dist_int <= 800) then
                     release_i <= not release_i;
                 end if;
             end if;
 
-            -- è‹¥æ­£åœ¨æ³„æ´ªï¼Œä½†æ°´ä½ä½äºå®‰å…¨çº¿ï¼Œåˆ™è‡ªåŠ¨å…³é—­
+            -- ÈôÕıÔÚĞ¹ºé£¬µ«Ë®Î»µÍÓÚ°²È«Ïß£¬Ôò×Ô¶¯¹Ø±Õ
             if (release_i = '1' and dist_int < 600) then
                 release_i <= '0';
             end if;
 
-            -- æ¨¡å¼åˆ¤æ–­
+            -- Ä£Ê½ÅĞ¶Ï
             if sw0 = '0' then
-                -- è‡ªåŠ¨æ¨¡å¼
+                -- ×Ô¶¯Ä£Ê½
                 release_auto <= '1';
                 case dist_int is
                     when 400 to 600 =>
-                        release_stage <= 1; -- ä½é€Ÿ
+                        release_stage <= 1; -- µÍËÙ
                     when 601 to 800 =>
-                        release_stage <= 2; -- ä¸­é€Ÿ
+                        release_stage <= 2; -- ÖĞËÙ
                     when 801 to 999 =>
-                        release_stage <= 3; -- é«˜é€Ÿ
+                        release_stage <= 3; -- ¸ßËÙ
                     when others =>
                         release_stage <= 0;
                 end case;
 
             else
-                -- æ‰‹åŠ¨æ¨¡å¼
+                -- ÊÖ¶¯Ä£Ê½
                 release_auto <= '0';
                 if key_flag = 2 then
                     if release_i = '1' then

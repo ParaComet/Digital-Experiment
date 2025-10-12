@@ -1,0 +1,985 @@
+Classic Timing Analyzer report for Water_Lc
+Sun Oct 12 19:07:07 2025
+Quartus II 64-Bit Version 9.1 Build 222 10/21/2009 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Timing Analyzer Summary
+  3. Timing Analyzer Settings
+  4. Clock Settings Summary
+  5. Parallel Compilation
+  6. Clock Setup: 'clk_50mhz'
+  7. Clock Hold: 'clk_50mhz'
+  8. tsu
+  9. tco
+ 10. th
+ 11. Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                                                                                                                                                                                                      ;
++------------------------------+------------------------------------------+---------------+----------------------------------+------------------------------------------------+----------------------------------------+------------+-----------+--------------+
+; Type                         ; Slack                                    ; Required Time ; Actual Time                      ; From                                           ; To                                     ; From Clock ; To Clock  ; Failed Paths ;
++------------------------------+------------------------------------------+---------------+----------------------------------+------------------------------------------------+----------------------------------------+------------+-----------+--------------+
+; Worst-case tsu               ; N/A                                      ; None          ; 7.567 ns                         ; echo                                           ; UltraSonic:UltraSonic_inst|echo_cnt[0] ; --         ; clk_50mhz ; 0            ;
+; Worst-case tco               ; N/A                                      ; None          ; 62.942 ns                        ; UltraSonic:UltraSonic_inst|dist_r[7]           ; deg_out[3]                             ; clk_50mhz  ; --        ; 0            ;
+; Worst-case th                ; N/A                                      ; None          ; 4.661 ns                         ; rst                                            ; en_out[7]~reg0                         ; --         ; clk_50mhz ; 0            ;
+; Clock Setup: 'clk_50mhz'     ; N/A                                      ; None          ; 6.45 MHz ( period = 155.144 ns ) ; UltraSonic:UltraSonic_inst|echo_cnt[5]         ; UltraSonic:UltraSonic_inst|dist_r[6]   ; clk_50mhz  ; clk_50mhz ; 0            ;
+; Clock Hold: 'clk_50mhz'      ; Not operational: Clock Skew > Data Delay ; None          ; N/A                              ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[5]~reg0                         ; clk_50mhz  ; clk_50mhz ; 32           ;
+; Total number of failed paths ;                                          ;               ;                                  ;                                                ;                                        ;            ;           ; 32           ;
++------------------------------+------------------------------------------+---------------+----------------------------------+------------------------------------------------+----------------------------------------+------------+-----------+--------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Settings                                                                                                                            ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+; Option                                                                                               ; Setting            ; From ; To ; Entity Name ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+; Device Name                                                                                          ; EPM1270T144C5      ;      ;    ;             ;
+; Timing Models                                                                                        ; Final              ;      ;    ;             ;
+; Default hold multicycle                                                                              ; Same as Multicycle ;      ;    ;             ;
+; Cut paths between unrelated clock domains                                                            ; On                 ;      ;    ;             ;
+; Cut off read during write signal paths                                                               ; On                 ;      ;    ;             ;
+; Cut off feedback from I/O pins                                                                       ; On                 ;      ;    ;             ;
+; Report Combined Fast/Slow Timing                                                                     ; Off                ;      ;    ;             ;
+; Ignore Clock Settings                                                                                ; Off                ;      ;    ;             ;
+; Analyze latches as synchronous elements                                                              ; On                 ;      ;    ;             ;
+; Enable Recovery/Removal analysis                                                                     ; Off                ;      ;    ;             ;
+; Enable Clock Latency                                                                                 ; Off                ;      ;    ;             ;
+; Use TimeQuest Timing Analyzer                                                                        ; Off                ;      ;    ;             ;
+; Minimum Core Junction Temperature                                                                    ; 0                  ;      ;    ;             ;
+; Maximum Core Junction Temperature                                                                    ; 85                 ;      ;    ;             ;
+; Number of source nodes to report per destination node                                                ; 10                 ;      ;    ;             ;
+; Number of destination nodes to report                                                                ; 10                 ;      ;    ;             ;
+; Number of paths to report                                                                            ; 200                ;      ;    ;             ;
+; Report Minimum Timing Checks                                                                         ; Off                ;      ;    ;             ;
+; Use Fast Timing Models                                                                               ; Off                ;      ;    ;             ;
+; Report IO Paths Separately                                                                           ; Off                ;      ;    ;             ;
+; Perform Multicorner Analysis                                                                         ; Off                ;      ;    ;             ;
+; Reports the worst-case path for each clock domain and analysis                                       ; Off                ;      ;    ;             ;
+; Reports worst-case timing paths for each clock domain and analysis                                   ; On                 ;      ;    ;             ;
+; Specifies the maximum number of worst-case timing paths to report for each clock domain and analysis ; 100                ;      ;    ;             ;
+; Removes common clock path pessimism (CCPP) during slack computation                                  ; Off                ;      ;    ;             ;
+; Output I/O Timing Endpoint                                                                           ; Near End           ;      ;    ;             ;
++------------------------------------------------------------------------------------------------------+--------------------+------+----+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Settings Summary                                                                                                                                                             ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; Clock Node Name ; Clock Setting Name ; Type     ; Fmax Requirement ; Early Latency ; Late Latency ; Based on ; Multiply Base Fmax by ; Divide Base Fmax by ; Offset ; Phase offset ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; clk_50mhz       ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 10          ;
+; Maximum allowed            ; 10          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2-10 processors        ;   0.0%      ;
++----------------------------+-------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Setup: 'clk_50mhz'                                                                                                                                                                                                                                                                    ;
++-----------------------------------------+-----------------------------------------------------+-----------------------------------------+--------------------------------------+------------+-----------+-----------------------------+---------------------------+-------------------------+
+; Slack                                   ; Actual fmax (period)                                ; From                                    ; To                                   ; From Clock ; To Clock  ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
++-----------------------------------------+-----------------------------------------------------+-----------------------------------------+--------------------------------------+------------+-----------+-----------------------------+---------------------------+-------------------------+
+; N/A                                     ; 6.45 MHz ( period = 155.144 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 154.435 ns              ;
+; N/A                                     ; 6.45 MHz ( period = 155.126 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 154.417 ns              ;
+; N/A                                     ; 6.45 MHz ( period = 155.010 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 154.301 ns              ;
+; N/A                                     ; 6.45 MHz ( period = 154.996 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 154.287 ns              ;
+; N/A                                     ; 6.46 MHz ( period = 154.884 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 154.175 ns              ;
+; N/A                                     ; 6.46 MHz ( period = 154.845 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 154.136 ns              ;
+; N/A                                     ; 6.46 MHz ( period = 154.744 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 154.035 ns              ;
+; N/A                                     ; 6.46 MHz ( period = 154.703 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.994 ns              ;
+; N/A                                     ; 6.47 MHz ( period = 154.656 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.947 ns              ;
+; N/A                                     ; 6.47 MHz ( period = 154.529 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.820 ns              ;
+; N/A                                     ; 6.47 MHz ( period = 154.527 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.818 ns              ;
+; N/A                                     ; 6.47 MHz ( period = 154.461 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.752 ns              ;
+; N/A                                     ; 6.48 MHz ( period = 154.404 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.695 ns              ;
+; N/A                                     ; 6.48 MHz ( period = 154.374 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.665 ns              ;
+; N/A                                     ; 6.48 MHz ( period = 154.232 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.523 ns              ;
+; N/A                                     ; 6.48 MHz ( period = 154.214 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.505 ns              ;
+; N/A                                     ; 6.49 MHz ( period = 154.167 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.458 ns              ;
+; N/A                                     ; 6.49 MHz ( period = 154.078 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[10] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.369 ns              ;
+; N/A                                     ; 6.49 MHz ( period = 154.035 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.326 ns              ;
+; N/A                                     ; 6.49 MHz ( period = 154.031 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.322 ns              ;
+; N/A                                     ; 6.49 MHz ( period = 154.017 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.308 ns              ;
+; N/A                                     ; 6.49 MHz ( period = 154.013 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.304 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.963 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.254 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.961 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.252 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.957 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.248 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.945 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.236 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.943 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.234 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.939 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.230 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.921 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.212 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.903 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.194 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.903 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[18] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.194 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.901 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.192 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.897 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.188 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.887 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.178 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.883 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.174 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.829 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.120 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.827 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.118 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.823 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.114 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.815 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.106 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.813 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.104 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.809 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.100 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.787 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.078 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.775 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.066 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.773 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.064 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.771 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.062 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.736 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.027 ns              ;
+; N/A                                     ; 6.50 MHz ( period = 153.732 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 153.023 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.703 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.994 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.701 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.992 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.697 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.988 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.664 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.955 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.662 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.953 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.661 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.952 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.658 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.949 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.635 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.926 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.631 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.922 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.622 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.913 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.607 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[19] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.898 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.594 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.885 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.590 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.881 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.563 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.854 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.561 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.852 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.557 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.848 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.547 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.838 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.543 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.834 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.533 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.824 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.522 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.813 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.521 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.812 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.520 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.811 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.516 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.807 ns              ;
+; N/A                                     ; 6.51 MHz ( period = 153.515 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.806 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.480 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.771 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.475 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.766 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.473 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.764 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.469 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.760 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.433 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.724 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.420 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.711 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.418 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.709 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.416 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.707 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.414 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.705 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.399 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.690 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.385 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.676 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.352 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.643 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.348 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.639 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.348 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.639 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.346 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.637 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.346 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.637 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.344 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.635 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.342 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.633 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.340 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.631 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.306 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.597 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.304 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.595 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.295 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.586 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.291 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.582 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.280 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.571 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.278 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.569 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.274 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.565 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.273 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.564 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.265 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.556 ns              ;
+; N/A                                     ; 6.52 MHz ( period = 153.261 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.552 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.238 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.529 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.234 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.525 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.223 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.514 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.221 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.512 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.217 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.508 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.193 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.484 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.191 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.482 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.187 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.478 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.181 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.472 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.151 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.442 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.133 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.424 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.123 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.414 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.119 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.410 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.105 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.396 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.101 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.392 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.092 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.383 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.087 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[20] ; UltraSonic:UltraSonic_inst|dist_r[6] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.378 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.058 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.349 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.054 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.345 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.051 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.342 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.049 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.340 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.045 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.336 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.045 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.336 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.033 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.324 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.031 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.322 ns              ;
+; N/A                                     ; 6.53 MHz ( period = 153.027 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.318 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 153.009 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.300 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.991 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.282 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.986 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.277 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.984 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.275 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.980 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.271 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.969 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[10] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.260 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.965 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[10] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.256 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.944 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.235 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.918 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.209 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.916 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.207 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.897 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[10] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.188 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.895 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[10] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.186 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.891 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[10] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.182 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.855 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[10] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.146 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.850 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.141 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.794 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[18] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.085 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.793 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.084 ns              ;
+; N/A                                     ; 6.54 MHz ( period = 152.790 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[18] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.081 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.783 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.074 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.765 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.056 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.763 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.054 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.722 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[18] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.013 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.720 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[18] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.011 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.716 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[18] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 152.007 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.683 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[5]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.974 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.680 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[18] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.971 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.665 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[15] ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.956 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.649 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.940 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.635 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.926 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.621 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.912 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.603 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.894 ns              ;
+; N/A                                     ; 6.55 MHz ( period = 152.556 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.847 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.549 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[6]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.840 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.535 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[4]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.826 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.523 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.814 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.498 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[19] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.789 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.494 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[19] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.785 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.484 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.775 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.467 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[10] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.758 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.426 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[19] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.717 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.424 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[19] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.715 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.423 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[14] ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.714 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.420 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[19] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.711 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.384 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[1]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.675 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.384 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[19] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.675 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.383 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.674 ns              ;
+; N/A                                     ; 6.56 MHz ( period = 152.342 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.633 ns              ;
+; N/A                                     ; 6.57 MHz ( period = 152.295 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.586 ns              ;
+; N/A                                     ; 6.57 MHz ( period = 152.292 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[18] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.583 ns              ;
+; N/A                                     ; 6.57 MHz ( period = 152.283 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[8]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.574 ns              ;
+; N/A                                     ; 6.57 MHz ( period = 152.242 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[2]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.533 ns              ;
+; N/A                                     ; 6.57 MHz ( period = 152.195 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[7]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.486 ns              ;
+; N/A                                     ; 6.57 MHz ( period = 152.168 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.459 ns              ;
+; N/A                                     ; 6.57 MHz ( period = 152.166 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.457 ns              ;
+; N/A                                     ; 6.57 MHz ( period = 152.100 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.391 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 152.068 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[13] ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.359 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 152.066 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[9]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.357 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 152.043 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.334 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 152.013 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.304 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 152.000 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[16] ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.291 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.996 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[19] ; UltraSonic:UltraSonic_inst|dist_r[2] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.287 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.978 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[20] ; UltraSonic:UltraSonic_inst|dist_r[1] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.269 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.974 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[20] ; UltraSonic:UltraSonic_inst|dist_r[5] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.265 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.943 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[0]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.234 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.913 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[11] ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.204 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.906 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[20] ; UltraSonic:UltraSonic_inst|dist_r[8] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.197 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.904 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[20] ; UltraSonic:UltraSonic_inst|dist_r[9] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.195 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.900 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[20] ; UltraSonic:UltraSonic_inst|dist_r[7] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.191 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.871 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.162 ns              ;
+; N/A                                     ; 6.58 MHz ( period = 151.864 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[20] ; UltraSonic:UltraSonic_inst|dist_r[4] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.155 ns              ;
+; N/A                                     ; 6.59 MHz ( period = 151.853 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.144 ns              ;
+; N/A                                     ; 6.59 MHz ( period = 151.806 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[17] ; UltraSonic:UltraSonic_inst|dist_r[0] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.097 ns              ;
+; N/A                                     ; 6.59 MHz ( period = 151.771 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[12] ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.062 ns              ;
+; N/A                                     ; 6.59 MHz ( period = 151.753 ns )                    ; UltraSonic:UltraSonic_inst|echo_cnt[3]  ; UltraSonic:UltraSonic_inst|dist_r[3] ; clk_50mhz  ; clk_50mhz ; None                        ; None                      ; 151.044 ns              ;
+; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;                                         ;                                      ;            ;           ;                             ;                           ;                         ;
++-----------------------------------------+-----------------------------------------------------+-----------------------------------------+--------------------------------------+------------+-----------+-----------------------------+---------------------------+-------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Hold: 'clk_50mhz'                                                                                                                                                                                                  ;
++------------------------------------------+------------------------------------------------+----------------+------------+-----------+----------------------------+----------------------------+--------------------------+
+; Minimum Slack                            ; From                                           ; To             ; From Clock ; To Clock  ; Required Hold Relationship ; Required Shortest P2P Time ; Actual Shortest P2P Time ;
++------------------------------------------+------------------------------------------------+----------------+------------+-----------+----------------------------+----------------------------+--------------------------+
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[5]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 3.664 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[7]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 3.669 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[4]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 3.673 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[6]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 3.680 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[0]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 3.687 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[2]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 3.689 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[3]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 3.690 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[1] ; en_out[1]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 3.691 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[2] ; en_out[7]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.458 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[2] ; en_out[0]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.469 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[2] ; en_out[2]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.470 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[2] ; en_out[3]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.471 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[2] ; en_out[1]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.472 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[0] ; en_out[6]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.907 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[0] ; en_out[4]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.910 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[0] ; en_out[7]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.911 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[0] ; en_out[5]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.912 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[0] ; en_out[0]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.913 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[0] ; en_out[1]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.915 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[0] ; en_out[2]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.915 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[0] ; en_out[3]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 4.915 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[2] ; en_out[4]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.413 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[2] ; en_out[5]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.413 ns                 ;
+; Not operational: Clock Skew > Data Delay ; DigitalDisplay:DigitalDisplay_inst|en_index[2] ; en_out[6]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.413 ns                 ;
+; Not operational: Clock Skew > Data Delay ; shine                                          ; en_out[0]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.854 ns                 ;
+; Not operational: Clock Skew > Data Delay ; shine                                          ; en_out[1]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.854 ns                 ;
+; Not operational: Clock Skew > Data Delay ; shine                                          ; en_out[2]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.854 ns                 ;
+; Not operational: Clock Skew > Data Delay ; shine                                          ; en_out[3]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.854 ns                 ;
+; Not operational: Clock Skew > Data Delay ; shine                                          ; en_out[4]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.854 ns                 ;
+; Not operational: Clock Skew > Data Delay ; shine                                          ; en_out[5]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.854 ns                 ;
+; Not operational: Clock Skew > Data Delay ; shine                                          ; en_out[6]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.854 ns                 ;
+; Not operational: Clock Skew > Data Delay ; shine                                          ; en_out[7]~reg0 ; clk_50mhz  ; clk_50mhz ; None                       ; None                       ; 5.854 ns                 ;
++------------------------------------------+------------------------------------------------+----------------+------------+-----------+----------------------------+----------------------------+--------------------------+
+
+
++----------------------------------------------------------------------------------------------------+
+; tsu                                                                                                ;
++-------+--------------+------------+------+---------------------------------------------+-----------+
+; Slack ; Required tsu ; Actual tsu ; From ; To                                          ; To Clock  ;
++-------+--------------+------------+------+---------------------------------------------+-----------+
+; N/A   ; None         ; 7.567 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[4]      ; clk_50mhz ;
+; N/A   ; None         ; 7.567 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[3]      ; clk_50mhz ;
+; N/A   ; None         ; 7.567 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[2]      ; clk_50mhz ;
+; N/A   ; None         ; 7.567 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[1]      ; clk_50mhz ;
+; N/A   ; None         ; 7.567 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[0]      ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[14]     ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[13]     ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[9]      ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[12]     ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[11]     ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[10]     ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[8]      ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[7]      ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[6]      ; clk_50mhz ;
+; N/A   ; None         ; 7.108 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[5]      ; clk_50mhz ;
+; N/A   ; None         ; 7.074 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[20]     ; clk_50mhz ;
+; N/A   ; None         ; 7.074 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[19]     ; clk_50mhz ;
+; N/A   ; None         ; 7.074 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[18]     ; clk_50mhz ;
+; N/A   ; None         ; 7.074 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[17]     ; clk_50mhz ;
+; N/A   ; None         ; 7.074 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[16]     ; clk_50mhz ;
+; N/A   ; None         ; 7.074 ns   ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[15]     ; clk_50mhz ;
+; N/A   ; None         ; 6.938 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[6]        ; clk_50mhz ;
+; N/A   ; None         ; 6.762 ns   ; echo ; UltraSonic:UltraSonic_inst|state.MEASURE    ; clk_50mhz ;
+; N/A   ; None         ; 6.606 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[3]        ; clk_50mhz ;
+; N/A   ; None         ; 6.577 ns   ; echo ; UltraSonic:UltraSonic_inst|state.IDLE       ; clk_50mhz ;
+; N/A   ; None         ; 5.829 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[1]        ; clk_50mhz ;
+; N/A   ; None         ; 5.825 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[5]        ; clk_50mhz ;
+; N/A   ; None         ; 5.757 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[8]        ; clk_50mhz ;
+; N/A   ; None         ; 5.755 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[9]        ; clk_50mhz ;
+; N/A   ; None         ; 5.751 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[7]        ; clk_50mhz ;
+; N/A   ; None         ; 5.715 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[4]        ; clk_50mhz ;
+; N/A   ; None         ; 5.327 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[2]        ; clk_50mhz ;
+; N/A   ; None         ; 5.095 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[4]      ; clk_50mhz ;
+; N/A   ; None         ; 5.095 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[3]      ; clk_50mhz ;
+; N/A   ; None         ; 5.095 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[2]      ; clk_50mhz ;
+; N/A   ; None         ; 5.095 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[1]      ; clk_50mhz ;
+; N/A   ; None         ; 5.095 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[0]      ; clk_50mhz ;
+; N/A   ; None         ; 4.811 ns   ; echo ; UltraSonic:UltraSonic_inst|state.WAIT_ECHO  ; clk_50mhz ;
+; N/A   ; None         ; 4.811 ns   ; echo ; UltraSonic:UltraSonic_inst|state.TRIG_PULSE ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[14]     ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[13]     ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[9]      ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[12]     ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[11]     ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[10]     ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[8]      ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[7]      ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[6]      ; clk_50mhz ;
+; N/A   ; None         ; 4.601 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[5]      ; clk_50mhz ;
+; N/A   ; None         ; 4.577 ns   ; echo ; UltraSonic:UltraSonic_inst|dist_r[0]        ; clk_50mhz ;
+; N/A   ; None         ; 4.187 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[20]     ; clk_50mhz ;
+; N/A   ; None         ; 4.187 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[19]     ; clk_50mhz ;
+; N/A   ; None         ; 4.187 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[18]     ; clk_50mhz ;
+; N/A   ; None         ; 4.187 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[17]     ; clk_50mhz ;
+; N/A   ; None         ; 4.187 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[16]     ; clk_50mhz ;
+; N/A   ; None         ; 4.187 ns   ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[15]     ; clk_50mhz ;
+; N/A   ; None         ; 4.161 ns   ; echo ; UltraSonic:UltraSonic_inst|busy_r           ; clk_50mhz ;
+; N/A   ; None         ; 3.715 ns   ; rst  ; stage_beep[0]                               ; clk_50mhz ;
+; N/A   ; None         ; 3.715 ns   ; rst  ; shine                                       ; clk_50mhz ;
+; N/A   ; None         ; 3.583 ns   ; rst  ; stage[1]                                    ; clk_50mhz ;
+; N/A   ; None         ; 3.583 ns   ; rst  ; stage[2]                                    ; clk_50mhz ;
+; N/A   ; None         ; 3.583 ns   ; rst  ; stage[3]                                    ; clk_50mhz ;
+; N/A   ; None         ; 3.583 ns   ; rst  ; stage[0]                                    ; clk_50mhz ;
+; N/A   ; None         ; 3.546 ns   ; echo ; UltraSonic:UltraSonic_inst|valid_r          ; clk_50mhz ;
+; N/A   ; None         ; 2.784 ns   ; rst  ; start                                       ; clk_50mhz ;
+; N/A   ; None         ; -2.316 ns  ; rst  ; shine_state                                 ; clk_50mhz ;
+; N/A   ; None         ; -2.366 ns  ; rst  ; shine_counter[31]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.366 ns  ; rst  ; shine_counter[30]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.366 ns  ; rst  ; shine_counter[26]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.366 ns  ; rst  ; shine_counter[27]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.366 ns  ; rst  ; shine_counter[28]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.366 ns  ; rst  ; shine_counter[29]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[16]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[17]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[18]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[19]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[20]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[21]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[22]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[23]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[24]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.369 ns  ; rst  ; shine_counter[25]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.930 ns  ; rst  ; shine_counter[5]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.930 ns  ; rst  ; shine_counter[1]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.930 ns  ; rst  ; shine_counter[0]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.930 ns  ; rst  ; shine_counter[2]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.930 ns  ; rst  ; shine_counter[3]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.930 ns  ; rst  ; shine_counter[4]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[6]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[7]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[8]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[9]                            ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[10]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[11]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[12]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[13]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[14]                           ; clk_50mhz ;
+; N/A   ; None         ; -2.949 ns  ; rst  ; shine_counter[15]                           ; clk_50mhz ;
+; N/A   ; None         ; -4.107 ns  ; rst  ; en_out[0]~reg0                              ; clk_50mhz ;
+; N/A   ; None         ; -4.107 ns  ; rst  ; en_out[1]~reg0                              ; clk_50mhz ;
+; N/A   ; None         ; -4.107 ns  ; rst  ; en_out[2]~reg0                              ; clk_50mhz ;
+; N/A   ; None         ; -4.107 ns  ; rst  ; en_out[3]~reg0                              ; clk_50mhz ;
+; N/A   ; None         ; -4.107 ns  ; rst  ; en_out[4]~reg0                              ; clk_50mhz ;
+; N/A   ; None         ; -4.107 ns  ; rst  ; en_out[5]~reg0                              ; clk_50mhz ;
+; N/A   ; None         ; -4.107 ns  ; rst  ; en_out[6]~reg0                              ; clk_50mhz ;
+; N/A   ; None         ; -4.107 ns  ; rst  ; en_out[7]~reg0                              ; clk_50mhz ;
++-------+--------------+------------+------+---------------------------------------------+-----------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; tco                                                                                                                                                       ;
++-------+--------------+------------+---------------------------------------------------------------------------------------+------------------+------------+
+; Slack ; Required tco ; Actual tco ; From                                                                                  ; To               ; From Clock ;
++-------+--------------+------------+---------------------------------------------------------------------------------------+------------------+------------+
+; N/A   ; None         ; 62.942 ns  ; UltraSonic:UltraSonic_inst|dist_r[7]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 62.479 ns  ; UltraSonic:UltraSonic_inst|dist_r[7]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 62.214 ns  ; UltraSonic:UltraSonic_inst|dist_r[7]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 62.092 ns  ; UltraSonic:UltraSonic_inst|dist_r[7]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 62.077 ns  ; UltraSonic:UltraSonic_inst|dist_r[7]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 61.461 ns  ; UltraSonic:UltraSonic_inst|dist_r[7]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 61.368 ns  ; UltraSonic:UltraSonic_inst|dist_r[7]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 60.966 ns  ; UltraSonic:UltraSonic_inst|dist_r[6]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 60.503 ns  ; UltraSonic:UltraSonic_inst|dist_r[6]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 60.238 ns  ; UltraSonic:UltraSonic_inst|dist_r[6]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 60.116 ns  ; UltraSonic:UltraSonic_inst|dist_r[6]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 60.101 ns  ; UltraSonic:UltraSonic_inst|dist_r[6]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 59.485 ns  ; UltraSonic:UltraSonic_inst|dist_r[6]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 59.392 ns  ; UltraSonic:UltraSonic_inst|dist_r[6]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 58.895 ns  ; UltraSonic:UltraSonic_inst|dist_r[8]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 58.536 ns  ; UltraSonic:UltraSonic_inst|dist_r[9]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 58.464 ns  ; UltraSonic:UltraSonic_inst|dist_r[9]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 58.432 ns  ; UltraSonic:UltraSonic_inst|dist_r[8]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 58.167 ns  ; UltraSonic:UltraSonic_inst|dist_r[8]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 58.045 ns  ; UltraSonic:UltraSonic_inst|dist_r[8]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 58.030 ns  ; UltraSonic:UltraSonic_inst|dist_r[8]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 57.808 ns  ; UltraSonic:UltraSonic_inst|dist_r[9]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 57.686 ns  ; UltraSonic:UltraSonic_inst|dist_r[9]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 57.671 ns  ; UltraSonic:UltraSonic_inst|dist_r[9]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 57.453 ns  ; UltraSonic:UltraSonic_inst|dist_r[9]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 57.414 ns  ; UltraSonic:UltraSonic_inst|dist_r[8]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 57.369 ns  ; UltraSonic:UltraSonic_inst|dist_r[9]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 57.321 ns  ; UltraSonic:UltraSonic_inst|dist_r[8]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 55.632 ns  ; UltraSonic:UltraSonic_inst|dist_r[5]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 55.236 ns  ; UltraSonic:UltraSonic_inst|dist_r[5]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 54.621 ns  ; UltraSonic:UltraSonic_inst|dist_r[5]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 54.537 ns  ; UltraSonic:UltraSonic_inst|dist_r[5]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 54.508 ns  ; UltraSonic:UltraSonic_inst|dist_r[5]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 54.386 ns  ; UltraSonic:UltraSonic_inst|dist_r[5]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 54.371 ns  ; UltraSonic:UltraSonic_inst|dist_r[5]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 47.131 ns  ; UltraSonic:UltraSonic_inst|dist_r[4]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 46.735 ns  ; UltraSonic:UltraSonic_inst|dist_r[4]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 46.277 ns  ; UltraSonic:UltraSonic_inst|dist_r[3]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 46.120 ns  ; UltraSonic:UltraSonic_inst|dist_r[4]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 46.036 ns  ; UltraSonic:UltraSonic_inst|dist_r[4]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 46.007 ns  ; UltraSonic:UltraSonic_inst|dist_r[4]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 45.885 ns  ; UltraSonic:UltraSonic_inst|dist_r[4]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 45.870 ns  ; UltraSonic:UltraSonic_inst|dist_r[4]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 45.814 ns  ; UltraSonic:UltraSonic_inst|dist_r[3]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 45.549 ns  ; UltraSonic:UltraSonic_inst|dist_r[3]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 45.427 ns  ; UltraSonic:UltraSonic_inst|dist_r[3]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 45.412 ns  ; UltraSonic:UltraSonic_inst|dist_r[3]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 44.796 ns  ; UltraSonic:UltraSonic_inst|dist_r[3]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 44.703 ns  ; UltraSonic:UltraSonic_inst|dist_r[3]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 39.743 ns  ; UltraSonic:UltraSonic_inst|dist_r[2]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 39.280 ns  ; UltraSonic:UltraSonic_inst|dist_r[2]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 39.015 ns  ; UltraSonic:UltraSonic_inst|dist_r[2]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 38.893 ns  ; UltraSonic:UltraSonic_inst|dist_r[2]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 38.878 ns  ; UltraSonic:UltraSonic_inst|dist_r[2]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 38.262 ns  ; UltraSonic:UltraSonic_inst|dist_r[2]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 38.169 ns  ; UltraSonic:UltraSonic_inst|dist_r[2]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 30.248 ns  ; UltraSonic:UltraSonic_inst|dist_r[1]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 29.852 ns  ; UltraSonic:UltraSonic_inst|dist_r[1]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 29.237 ns  ; UltraSonic:UltraSonic_inst|dist_r[1]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 29.153 ns  ; UltraSonic:UltraSonic_inst|dist_r[1]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 29.124 ns  ; UltraSonic:UltraSonic_inst|dist_r[1]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 29.002 ns  ; UltraSonic:UltraSonic_inst|dist_r[1]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 28.987 ns  ; UltraSonic:UltraSonic_inst|dist_r[1]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.922 ns  ; stage[3]                                                                              ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.759 ns  ; stage[2]                                                                              ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.462 ns  ; stage[3]                                                                              ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.299 ns  ; stage[2]                                                                              ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.224 ns  ; stage[1]                                                                              ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.194 ns  ; stage[3]                                                                              ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.072 ns  ; stage[3]                                                                              ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.057 ns  ; stage[3]                                                                              ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 25.031 ns  ; stage[2]                                                                              ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.909 ns  ; stage[2]                                                                              ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.894 ns  ; stage[2]                                                                              ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.764 ns  ; stage[1]                                                                              ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.496 ns  ; stage[1]                                                                              ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.444 ns  ; stage[3]                                                                              ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.374 ns  ; stage[1]                                                                              ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.359 ns  ; stage[1]                                                                              ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.351 ns  ; stage[3]                                                                              ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.281 ns  ; stage[2]                                                                              ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 24.188 ns  ; stage[2]                                                                              ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 23.746 ns  ; stage[1]                                                                              ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 23.653 ns  ; stage[1]                                                                              ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 21.784 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[1]                                        ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 21.324 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[1]                                        ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 21.061 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[0]                                        ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 21.056 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[1]                                        ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 20.934 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[1]                                        ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 20.919 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[1]                                        ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 20.601 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[0]                                        ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 20.333 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[0]                                        ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 20.306 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[1]                                        ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 20.213 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[1]                                        ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 20.211 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[0]                                        ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 20.196 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[0]                                        ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 19.583 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[0]                                        ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 19.490 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[0]                                        ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 16.945 ns  ; en_out[7]~reg0                                                                        ; en_out[7]        ; clk_50mhz  ;
+; N/A   ; None         ; 16.455 ns  ; UltraSonic:UltraSonic_inst|dist_r[0]                                                  ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 16.003 ns  ; UltraSonic:UltraSonic_inst|dist_r[0]                                                  ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 15.666 ns  ; UltraSonic:UltraSonic_inst|dist_r[0]                                                  ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 15.622 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[2]                                        ; deg_out[4]       ; clk_50mhz  ;
+; N/A   ; None         ; 15.528 ns  ; UltraSonic:UltraSonic_inst|dist_r[0]                                                  ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 15.522 ns  ; UltraSonic:UltraSonic_inst|dist_r[0]                                                  ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 15.465 ns  ; en_out[6]~reg0                                                                        ; en_out[6]        ; clk_50mhz  ;
+; N/A   ; None         ; 15.161 ns  ; en_out[2]~reg0                                                                        ; en_out[2]        ; clk_50mhz  ;
+; N/A   ; None         ; 15.137 ns  ; en_out[5]~reg0                                                                        ; en_out[5]        ; clk_50mhz  ;
+; N/A   ; None         ; 14.985 ns  ; UltraSonic:UltraSonic_inst|dist_r[0]                                                  ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 14.959 ns  ; LedMatrix:LedMatrix_inst|LedMatrix_Controller:LedMatrix_PwmController_Inst|Row_out[3] ; LedMatrix_Row[3] ; clk_50mhz  ;
+; N/A   ; None         ; 14.925 ns  ; en_out[3]~reg0                                                                        ; en_out[3]        ; clk_50mhz  ;
+; N/A   ; None         ; 14.891 ns  ; UltraSonic:UltraSonic_inst|dist_r[0]                                                  ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 14.732 ns  ; LedMatrix:LedMatrix_inst|LedMatrix_Controller:LedMatrix_PwmController_Inst|Row_out[1] ; LedMatrix_Row[1] ; clk_50mhz  ;
+; N/A   ; None         ; 14.681 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[2]                                        ; deg_out[3]       ; clk_50mhz  ;
+; N/A   ; None         ; 14.656 ns  ; LedMatrix:LedMatrix_inst|LedMatrix_Controller:LedMatrix_PwmController_Inst|Row_out[0] ; LedMatrix_Row[0] ; clk_50mhz  ;
+; N/A   ; None         ; 14.611 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[2]                                        ; deg_out[0]       ; clk_50mhz  ;
+; N/A   ; None         ; 14.527 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[2]                                        ; deg_out[1]       ; clk_50mhz  ;
+; N/A   ; None         ; 14.272 ns  ; LedMatrix:LedMatrix_inst|LedMatrix_Controller:LedMatrix_PwmController_Inst|Row_out[7] ; LedMatrix_Row[7] ; clk_50mhz  ;
+; N/A   ; None         ; 14.246 ns  ; LedMatrix:LedMatrix_inst|LedMatrix_Controller:LedMatrix_PwmController_Inst|Row_out[6] ; LedMatrix_Row[6] ; clk_50mhz  ;
+; N/A   ; None         ; 14.238 ns  ; LedMatrix:LedMatrix_inst|LedMatrix_Controller:LedMatrix_PwmController_Inst|Row_out[4] ; LedMatrix_Row[4] ; clk_50mhz  ;
+; N/A   ; None         ; 14.216 ns  ; LedMatrix:LedMatrix_inst|LedMatrix_Controller:LedMatrix_PwmController_Inst|Row_out[5] ; LedMatrix_Row[5] ; clk_50mhz  ;
+; N/A   ; None         ; 14.096 ns  ; LedMatrix:LedMatrix_inst|LedMatrix_Controller:LedMatrix_PwmController_Inst|Row_out[2] ; LedMatrix_Row[2] ; clk_50mhz  ;
+; N/A   ; None         ; 13.876 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[2]                                        ; deg_out[5]       ; clk_50mhz  ;
+; N/A   ; None         ; 13.832 ns  ; en_out[4]~reg0                                                                        ; en_out[4]        ; clk_50mhz  ;
+; N/A   ; None         ; 13.828 ns  ; en_out[1]~reg0                                                                        ; en_out[1]        ; clk_50mhz  ;
+; N/A   ; None         ; 13.827 ns  ; en_out[0]~reg0                                                                        ; en_out[0]        ; clk_50mhz  ;
+; N/A   ; None         ; 13.757 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[2]                                        ; deg_out[6]       ; clk_50mhz  ;
+; N/A   ; None         ; 13.740 ns  ; DigitalDisplay:DigitalDisplay_inst|en_index[2]                                        ; deg_out[2]       ; clk_50mhz  ;
+; N/A   ; None         ; 8.673 ns   ; Beep:Beep_inst|beep_reg                                                               ; beep             ; clk_50mhz  ;
+; N/A   ; None         ; 8.531 ns   ; UltraSonic:UltraSonic_inst|trig_r                                                     ; trig             ; clk_50mhz  ;
++-------+--------------+------------+---------------------------------------------------------------------------------------+------------------+------------+
+
+
++----------------------------------------------------------------------------------------------------------+
+; th                                                                                                       ;
++---------------+-------------+-----------+------+---------------------------------------------+-----------+
+; Minimum Slack ; Required th ; Actual th ; From ; To                                          ; To Clock  ;
++---------------+-------------+-----------+------+---------------------------------------------+-----------+
+; N/A           ; None        ; 4.661 ns  ; rst  ; en_out[0]~reg0                              ; clk_50mhz ;
+; N/A           ; None        ; 4.661 ns  ; rst  ; en_out[1]~reg0                              ; clk_50mhz ;
+; N/A           ; None        ; 4.661 ns  ; rst  ; en_out[2]~reg0                              ; clk_50mhz ;
+; N/A           ; None        ; 4.661 ns  ; rst  ; en_out[3]~reg0                              ; clk_50mhz ;
+; N/A           ; None        ; 4.661 ns  ; rst  ; en_out[4]~reg0                              ; clk_50mhz ;
+; N/A           ; None        ; 4.661 ns  ; rst  ; en_out[5]~reg0                              ; clk_50mhz ;
+; N/A           ; None        ; 4.661 ns  ; rst  ; en_out[6]~reg0                              ; clk_50mhz ;
+; N/A           ; None        ; 4.661 ns  ; rst  ; en_out[7]~reg0                              ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[6]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[7]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[8]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[9]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[10]                           ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[11]                           ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[12]                           ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[13]                           ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[14]                           ; clk_50mhz ;
+; N/A           ; None        ; 3.503 ns  ; rst  ; shine_counter[15]                           ; clk_50mhz ;
+; N/A           ; None        ; 3.484 ns  ; rst  ; shine_counter[5]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.484 ns  ; rst  ; shine_counter[1]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.484 ns  ; rst  ; shine_counter[0]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.484 ns  ; rst  ; shine_counter[2]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.484 ns  ; rst  ; shine_counter[3]                            ; clk_50mhz ;
+; N/A           ; None        ; 3.484 ns  ; rst  ; shine_counter[4]                            ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[16]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[17]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[18]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[19]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[20]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[21]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[22]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[23]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[24]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.923 ns  ; rst  ; shine_counter[25]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.920 ns  ; rst  ; shine_counter[31]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.920 ns  ; rst  ; shine_counter[30]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.920 ns  ; rst  ; shine_counter[26]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.920 ns  ; rst  ; shine_counter[27]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.920 ns  ; rst  ; shine_counter[28]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.920 ns  ; rst  ; shine_counter[29]                           ; clk_50mhz ;
+; N/A           ; None        ; 2.870 ns  ; rst  ; shine_state                                 ; clk_50mhz ;
+; N/A           ; None        ; -1.533 ns ; echo ; UltraSonic:UltraSonic_inst|state.MEASURE    ; clk_50mhz ;
+; N/A           ; None        ; -2.230 ns ; rst  ; start                                       ; clk_50mhz ;
+; N/A           ; None        ; -2.251 ns ; echo ; UltraSonic:UltraSonic_inst|valid_r          ; clk_50mhz ;
+; N/A           ; None        ; -2.264 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[0]        ; clk_50mhz ;
+; N/A           ; None        ; -2.264 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[1]        ; clk_50mhz ;
+; N/A           ; None        ; -2.264 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[4]        ; clk_50mhz ;
+; N/A           ; None        ; -2.264 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[5]        ; clk_50mhz ;
+; N/A           ; None        ; -2.763 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[2]        ; clk_50mhz ;
+; N/A           ; None        ; -2.909 ns ; echo ; UltraSonic:UltraSonic_inst|busy_r           ; clk_50mhz ;
+; N/A           ; None        ; -3.029 ns ; rst  ; stage[1]                                    ; clk_50mhz ;
+; N/A           ; None        ; -3.029 ns ; rst  ; stage[2]                                    ; clk_50mhz ;
+; N/A           ; None        ; -3.029 ns ; rst  ; stage[3]                                    ; clk_50mhz ;
+; N/A           ; None        ; -3.029 ns ; rst  ; stage[0]                                    ; clk_50mhz ;
+; N/A           ; None        ; -3.161 ns ; rst  ; stage_beep[0]                               ; clk_50mhz ;
+; N/A           ; None        ; -3.161 ns ; rst  ; shine                                       ; clk_50mhz ;
+; N/A           ; None        ; -3.293 ns ; echo ; UltraSonic:UltraSonic_inst|state.IDLE       ; clk_50mhz ;
+; N/A           ; None        ; -3.633 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[20]     ; clk_50mhz ;
+; N/A           ; None        ; -3.633 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[19]     ; clk_50mhz ;
+; N/A           ; None        ; -3.633 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[18]     ; clk_50mhz ;
+; N/A           ; None        ; -3.633 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[17]     ; clk_50mhz ;
+; N/A           ; None        ; -3.633 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[16]     ; clk_50mhz ;
+; N/A           ; None        ; -3.633 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[15]     ; clk_50mhz ;
+; N/A           ; None        ; -3.753 ns ; echo ; UltraSonic:UltraSonic_inst|state.WAIT_ECHO  ; clk_50mhz ;
+; N/A           ; None        ; -3.753 ns ; echo ; UltraSonic:UltraSonic_inst|state.TRIG_PULSE ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[14]     ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[13]     ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[9]      ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[12]     ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[11]     ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[10]     ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[8]      ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[7]      ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[6]      ; clk_50mhz ;
+; N/A           ; None        ; -4.047 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[5]      ; clk_50mhz ;
+; N/A           ; None        ; -4.138 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[9]        ; clk_50mhz ;
+; N/A           ; None        ; -4.154 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[8]        ; clk_50mhz ;
+; N/A           ; None        ; -4.154 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[7]        ; clk_50mhz ;
+; N/A           ; None        ; -4.180 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[3]        ; clk_50mhz ;
+; N/A           ; None        ; -4.180 ns ; echo ; UltraSonic:UltraSonic_inst|dist_r[6]        ; clk_50mhz ;
+; N/A           ; None        ; -4.541 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[4]      ; clk_50mhz ;
+; N/A           ; None        ; -4.541 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[3]      ; clk_50mhz ;
+; N/A           ; None        ; -4.541 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[2]      ; clk_50mhz ;
+; N/A           ; None        ; -4.541 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[1]      ; clk_50mhz ;
+; N/A           ; None        ; -4.541 ns ; echo ; UltraSonic:UltraSonic_inst|wait_cnt[0]      ; clk_50mhz ;
+; N/A           ; None        ; -5.120 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[20]     ; clk_50mhz ;
+; N/A           ; None        ; -5.120 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[19]     ; clk_50mhz ;
+; N/A           ; None        ; -5.120 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[18]     ; clk_50mhz ;
+; N/A           ; None        ; -5.120 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[17]     ; clk_50mhz ;
+; N/A           ; None        ; -5.120 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[16]     ; clk_50mhz ;
+; N/A           ; None        ; -5.120 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[15]     ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[14]     ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[13]     ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[9]      ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[12]     ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[11]     ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[10]     ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[8]      ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[7]      ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[6]      ; clk_50mhz ;
+; N/A           ; None        ; -5.154 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[5]      ; clk_50mhz ;
+; N/A           ; None        ; -5.613 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[4]      ; clk_50mhz ;
+; N/A           ; None        ; -5.613 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[3]      ; clk_50mhz ;
+; N/A           ; None        ; -5.613 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[2]      ; clk_50mhz ;
+; N/A           ; None        ; -5.613 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[1]      ; clk_50mhz ;
+; N/A           ; None        ; -5.613 ns ; echo ; UltraSonic:UltraSonic_inst|echo_cnt[0]      ; clk_50mhz ;
++---------------+-------------+-----------+------+---------------------------------------------+-----------+
+
+
++--------------------------+
+; Timing Analyzer Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Classic Timing Analyzer
+    Info: Version 9.1 Build 222 10/21/2009 SJ Full Version
+    Info: Processing started: Sun Oct 12 19:07:06 2025
+Info: Command: quartus_tan --read_settings_files=off --write_settings_files=off Water_Lc -c Water_Lc
+Info: Parallel compilation is enabled and will use 10 of the 10 processors detected
+Info: Started post-fitting delay annotation
+Info: Delay annotation completed successfully
+Warning: Found pins functioning as undefined clocks and/or memory enables
+    Info: Assuming node "clk_50mhz" is an undefined clock
+Warning: Found 2 node(s) in clock paths which may be acting as ripple and/or gated clocks -- node(s) analyzed as buffer(s) resulting in clock skew
+    Info: Detected ripple clock "Clk_Generater:Clk_Generater_Inst|clk100_r" as buffer
+    Info: Detected ripple clock "Clk_Generater:Clk_Generater_Inst|clk1k_r" as buffer
+Info: Clock "clk_50mhz" has Internal fmax of 6.45 MHz between source register "UltraSonic:UltraSonic_inst|echo_cnt[5]" and destination register "UltraSonic:UltraSonic_inst|dist_r[6]" (period= 155.144 ns)
+    Info: + Longest register to register delay is 154.435 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LC_X2_Y5_N0; Fanout = 9; REG Node = 'UltraSonic:UltraSonic_inst|echo_cnt[5]'
+        Info: 2: + IC(2.674 ns) + CELL(0.747 ns) = 3.421 ns; Loc. = LC_X1_Y6_N5; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|Add3~12'
+        Info: 3: + IC(0.000 ns) + CELL(0.123 ns) = 3.544 ns; Loc. = LC_X1_Y6_N6; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|Add3~7'
+        Info: 4: + IC(0.000 ns) + CELL(0.123 ns) = 3.667 ns; Loc. = LC_X1_Y6_N7; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|Add3~32'
+        Info: 5: + IC(0.000 ns) + CELL(0.123 ns) = 3.790 ns; Loc. = LC_X1_Y6_N8; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|Add3~27'
+        Info: 6: + IC(0.000 ns) + CELL(0.399 ns) = 4.189 ns; Loc. = LC_X1_Y6_N9; Fanout = 6; COMB Node = 'UltraSonic:UltraSonic_inst|Add3~22'
+        Info: 7: + IC(0.000 ns) + CELL(0.246 ns) = 4.435 ns; Loc. = LC_X2_Y6_N4; Fanout = 6; COMB Node = 'UltraSonic:UltraSonic_inst|Add3~52'
+        Info: 8: + IC(0.000 ns) + CELL(0.349 ns) = 4.784 ns; Loc. = LC_X2_Y6_N9; Fanout = 6; COMB Node = 'UltraSonic:UltraSonic_inst|Add3~67'
+        Info: 9: + IC(0.000 ns) + CELL(1.234 ns) = 6.018 ns; Loc. = LC_X3_Y6_N3; Fanout = 5; COMB Node = 'UltraSonic:UltraSonic_inst|Add3~90'
+        Info: 10: + IC(0.703 ns) + CELL(0.978 ns) = 7.699 ns; Loc. = LC_X3_Y6_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_h7c:add_sub_3|add_sub_cella[1]~COUT'
+        Info: 11: + IC(0.000 ns) + CELL(0.815 ns) = 8.514 ns; Loc. = LC_X3_Y6_N9; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~22'
+        Info: 12: + IC(2.298 ns) + CELL(0.747 ns) = 11.559 ns; Loc. = LC_X2_Y7_N0; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~17'
+        Info: 13: + IC(0.000 ns) + CELL(0.123 ns) = 11.682 ns; Loc. = LC_X2_Y7_N1; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~12'
+        Info: 14: + IC(0.000 ns) + CELL(0.123 ns) = 11.805 ns; Loc. = LC_X2_Y7_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~7'
+        Info: 15: + IC(0.000 ns) + CELL(0.815 ns) = 12.620 ns; Loc. = LC_X2_Y7_N3; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~0'
+        Info: 16: + IC(0.795 ns) + CELL(0.200 ns) = 13.615 ns; Loc. = LC_X2_Y7_N7; Fanout = 3; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[16]~127'
+        Info: 17: + IC(2.342 ns) + CELL(0.978 ns) = 16.935 ns; Loc. = LC_X1_Y4_N6; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_4|add_sub_cella[2]~17'
+        Info: 18: + IC(0.000 ns) + CELL(0.123 ns) = 17.058 ns; Loc. = LC_X1_Y4_N7; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_4|add_sub_cella[2]~12'
+        Info: 19: + IC(0.000 ns) + CELL(0.123 ns) = 17.181 ns; Loc. = LC_X1_Y4_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_4|add_sub_cella[2]~7'
+        Info: 20: + IC(0.000 ns) + CELL(0.815 ns) = 17.996 ns; Loc. = LC_X1_Y4_N9; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_4|add_sub_cella[2]~0'
+        Info: 21: + IC(2.459 ns) + CELL(0.200 ns) = 20.655 ns; Loc. = LC_X3_Y6_N6; Fanout = 4; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[22]~60'
+        Info: 22: + IC(1.816 ns) + CELL(0.747 ns) = 23.218 ns; Loc. = LC_X2_Y4_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_5|add_sub_cella[2]~12'
+        Info: 23: + IC(0.000 ns) + CELL(0.123 ns) = 23.341 ns; Loc. = LC_X2_Y4_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_5|add_sub_cella[2]~7'
+        Info: 24: + IC(0.000 ns) + CELL(0.815 ns) = 24.156 ns; Loc. = LC_X2_Y4_N4; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_5|add_sub_cella[2]~0'
+        Info: 25: + IC(0.798 ns) + CELL(0.511 ns) = 25.465 ns; Loc. = LC_X2_Y4_N9; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[28]~62'
+        Info: 26: + IC(1.682 ns) + CELL(0.747 ns) = 27.894 ns; Loc. = LC_X3_Y4_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_6|add_sub_cella[2]~7'
+        Info: 27: + IC(0.000 ns) + CELL(0.815 ns) = 28.709 ns; Loc. = LC_X3_Y4_N9; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_6|add_sub_cella[2]~0'
+        Info: 28: + IC(1.215 ns) + CELL(0.511 ns) = 30.435 ns; Loc. = LC_X4_Y4_N6; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[33]~64'
+        Info: 29: + IC(0.723 ns) + CELL(0.978 ns) = 32.136 ns; Loc. = LC_X4_Y4_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_7|add_sub_cella[2]~7'
+        Info: 30: + IC(0.000 ns) + CELL(0.815 ns) = 32.951 ns; Loc. = LC_X4_Y4_N4; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_7|add_sub_cella[2]~0'
+        Info: 31: + IC(0.806 ns) + CELL(0.511 ns) = 34.268 ns; Loc. = LC_X4_Y4_N9; Fanout = 3; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[36]~112'
+        Info: 32: + IC(1.676 ns) + CELL(0.978 ns) = 36.922 ns; Loc. = LC_X6_Y4_N1; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_8|add_sub_cella[2]~12'
+        Info: 33: + IC(0.000 ns) + CELL(0.123 ns) = 37.045 ns; Loc. = LC_X6_Y4_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_8|add_sub_cella[2]~17'
+        Info: 34: + IC(0.000 ns) + CELL(0.123 ns) = 37.168 ns; Loc. = LC_X6_Y4_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_8|add_sub_cella[2]~7'
+        Info: 35: + IC(0.000 ns) + CELL(0.815 ns) = 37.983 ns; Loc. = LC_X6_Y4_N4; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_8|add_sub_cella[2]~0'
+        Info: 36: + IC(0.788 ns) + CELL(0.511 ns) = 39.282 ns; Loc. = LC_X6_Y4_N9; Fanout = 3; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[41]~117'
+        Info: 37: + IC(1.675 ns) + CELL(0.978 ns) = 41.935 ns; Loc. = LC_X8_Y4_N6; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_9|add_sub_cella[2]~17'
+        Info: 38: + IC(0.000 ns) + CELL(0.123 ns) = 42.058 ns; Loc. = LC_X8_Y4_N7; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_9|add_sub_cella[2]~12'
+        Info: 39: + IC(0.000 ns) + CELL(0.123 ns) = 42.181 ns; Loc. = LC_X8_Y4_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_9|add_sub_cella[2]~7'
+        Info: 40: + IC(0.000 ns) + CELL(0.815 ns) = 42.996 ns; Loc. = LC_X8_Y4_N9; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_9|add_sub_cella[2]~0'
+        Info: 41: + IC(2.625 ns) + CELL(0.200 ns) = 45.821 ns; Loc. = LC_X7_Y6_N5; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[48]~45'
+        Info: 42: + IC(2.360 ns) + CELL(0.747 ns) = 48.928 ns; Loc. = LC_X9_Y4_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_10|add_sub_cella[2]~7'
+        Info: 43: + IC(0.000 ns) + CELL(0.815 ns) = 49.743 ns; Loc. = LC_X9_Y4_N9; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_10|add_sub_cella[2]~0'
+        Info: 44: + IC(3.280 ns) + CELL(0.200 ns) = 53.223 ns; Loc. = LC_X9_Y7_N3; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[53]~49'
+        Info: 45: + IC(0.692 ns) + CELL(0.978 ns) = 54.893 ns; Loc. = LC_X9_Y7_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_11|add_sub_cella[2]~7'
+        Info: 46: + IC(0.000 ns) + CELL(0.815 ns) = 55.708 ns; Loc. = LC_X9_Y7_N9; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_11|add_sub_cella[2]~0'
+        Info: 47: + IC(2.514 ns) + CELL(0.200 ns) = 58.422 ns; Loc. = LC_X14_Y7_N2; Fanout = 3; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[56]~77'
+        Info: 48: + IC(1.119 ns) + CELL(0.978 ns) = 60.519 ns; Loc. = LC_X14_Y7_N6; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_12|add_sub_cella[2]~12'
+        Info: 49: + IC(0.000 ns) + CELL(0.123 ns) = 60.642 ns; Loc. = LC_X14_Y7_N7; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_12|add_sub_cella[2]~17'
+        Info: 50: + IC(0.000 ns) + CELL(0.123 ns) = 60.765 ns; Loc. = LC_X14_Y7_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_12|add_sub_cella[2]~7'
+        Info: 51: + IC(0.000 ns) + CELL(0.815 ns) = 61.580 ns; Loc. = LC_X14_Y7_N9; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_12|add_sub_cella[2]~0'
+        Info: 52: + IC(2.571 ns) + CELL(0.511 ns) = 64.662 ns; Loc. = LC_X9_Y8_N8; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[63]~54'
+        Info: 53: + IC(1.716 ns) + CELL(0.747 ns) = 67.125 ns; Loc. = LC_X13_Y8_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_13|add_sub_cella[2]~7'
+        Info: 54: + IC(0.000 ns) + CELL(0.815 ns) = 67.940 ns; Loc. = LC_X13_Y8_N4; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_13|add_sub_cella[2]~0'
+        Info: 55: + IC(2.284 ns) + CELL(0.200 ns) = 70.424 ns; Loc. = LC_X15_Y9_N6; Fanout = 4; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[67]~38'
+        Info: 56: + IC(1.897 ns) + CELL(0.747 ns) = 73.068 ns; Loc. = LC_X14_Y8_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_14|add_sub_cella[2]~12'
+        Info: 57: + IC(0.000 ns) + CELL(0.123 ns) = 73.191 ns; Loc. = LC_X14_Y8_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_14|add_sub_cella[2]~7'
+        Info: 58: + IC(0.000 ns) + CELL(0.815 ns) = 74.006 ns; Loc. = LC_X14_Y8_N4; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_14|add_sub_cella[2]~0'
+        Info: 59: + IC(2.307 ns) + CELL(0.200 ns) = 76.513 ns; Loc. = LC_X15_Y9_N5; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[73]~39'
+        Info: 60: + IC(1.752 ns) + CELL(0.747 ns) = 79.012 ns; Loc. = LC_X15_Y8_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_15|add_sub_cella[2]~7'
+        Info: 61: + IC(0.000 ns) + CELL(0.815 ns) = 79.827 ns; Loc. = LC_X15_Y8_N4; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_15|add_sub_cella[2]~0'
+        Info: 62: + IC(2.214 ns) + CELL(0.200 ns) = 82.241 ns; Loc. = LC_X15_Y9_N3; Fanout = 4; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[77]~29'
+        Info: 63: + IC(1.905 ns) + CELL(0.747 ns) = 84.893 ns; Loc. = LC_X15_Y6_N7; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_16|add_sub_cella[2]~12'
+        Info: 64: + IC(0.000 ns) + CELL(0.123 ns) = 85.016 ns; Loc. = LC_X15_Y6_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_16|add_sub_cella[2]~7'
+        Info: 65: + IC(0.000 ns) + CELL(0.815 ns) = 85.831 ns; Loc. = LC_X15_Y6_N9; Fanout = 9; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_16|add_sub_cella[2]~0'
+        Info: 66: + IC(1.897 ns) + CELL(0.200 ns) = 87.928 ns; Loc. = LC_X13_Y6_N5; Fanout = 4; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[82]~32'
+        Info: 67: + IC(1.114 ns) + CELL(0.978 ns) = 90.020 ns; Loc. = LC_X14_Y6_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_17|add_sub_cella[2]~12'
+        Info: 68: + IC(0.000 ns) + CELL(0.123 ns) = 90.143 ns; Loc. = LC_X14_Y6_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_17|add_sub_cella[2]~7'
+        Info: 69: + IC(0.000 ns) + CELL(0.815 ns) = 90.958 ns; Loc. = LC_X14_Y6_N4; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_17|add_sub_cella[2]~0'
+        Info: 70: + IC(2.387 ns) + CELL(0.200 ns) = 93.545 ns; Loc. = LC_X15_Y7_N3; Fanout = 4; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[87]~35'
+        Info: 71: + IC(0.703 ns) + CELL(0.978 ns) = 95.226 ns; Loc. = LC_X15_Y7_N7; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_18|add_sub_cella[2]~17'
+        Info: 72: + IC(0.000 ns) + CELL(0.123 ns) = 95.349 ns; Loc. = LC_X15_Y7_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_18|add_sub_cella[2]~7'
+        Info: 73: + IC(0.000 ns) + CELL(0.815 ns) = 96.164 ns; Loc. = LC_X15_Y7_N9; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_18|add_sub_cella[2]~0'
+        Info: 74: + IC(1.863 ns) + CELL(0.200 ns) = 98.227 ns; Loc. = LC_X14_Y5_N4; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[93]~36'
+        Info: 75: + IC(2.383 ns) + CELL(0.747 ns) = 101.357 ns; Loc. = LC_X13_Y10_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_19|add_sub_cella[2]~7'
+        Info: 76: + IC(0.000 ns) + CELL(0.815 ns) = 102.172 ns; Loc. = LC_X13_Y10_N9; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_19|add_sub_cella[2]~0'
+        Info: 77: + IC(2.714 ns) + CELL(0.200 ns) = 105.086 ns; Loc. = LC_X13_Y7_N3; Fanout = 3; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[97]~92'
+        Info: 78: + IC(0.703 ns) + CELL(0.978 ns) = 106.767 ns; Loc. = LC_X13_Y7_N7; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_20|add_sub_cella[2]~12'
+        Info: 79: + IC(0.000 ns) + CELL(0.123 ns) = 106.890 ns; Loc. = LC_X13_Y7_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_20|add_sub_cella[2]~7'
+        Info: 80: + IC(0.000 ns) + CELL(0.815 ns) = 107.705 ns; Loc. = LC_X13_Y7_N9; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_20|add_sub_cella[2]~0'
+        Info: 81: + IC(1.871 ns) + CELL(0.200 ns) = 109.776 ns; Loc. = LC_X11_Y7_N4; Fanout = 3; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[101]~80'
+        Info: 82: + IC(1.163 ns) + CELL(0.747 ns) = 111.686 ns; Loc. = LC_X12_Y7_N6; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_21|add_sub_cella[2]~12'
+        Info: 83: + IC(0.000 ns) + CELL(0.123 ns) = 111.809 ns; Loc. = LC_X12_Y7_N7; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_21|add_sub_cella[2]~17'
+        Info: 84: + IC(0.000 ns) + CELL(0.123 ns) = 111.932 ns; Loc. = LC_X12_Y7_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_21|add_sub_cella[2]~7'
+        Info: 85: + IC(0.000 ns) + CELL(0.815 ns) = 112.747 ns; Loc. = LC_X12_Y7_N9; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_21|add_sub_cella[2]~0'
+        Info: 86: + IC(3.186 ns) + CELL(0.200 ns) = 116.133 ns; Loc. = LC_X12_Y9_N5; Fanout = 3; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[106]~85'
+        Info: 87: + IC(0.717 ns) + CELL(0.978 ns) = 117.828 ns; Loc. = LC_X12_Y9_N1; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_22|add_sub_cella[2]~17'
+        Info: 88: + IC(0.000 ns) + CELL(0.123 ns) = 117.951 ns; Loc. = LC_X12_Y9_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_22|add_sub_cella[2]~12'
+        Info: 89: + IC(0.000 ns) + CELL(0.123 ns) = 118.074 ns; Loc. = LC_X12_Y9_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_22|add_sub_cella[2]~7'
+        Info: 90: + IC(0.000 ns) + CELL(0.815 ns) = 118.889 ns; Loc. = LC_X12_Y9_N4; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_22|add_sub_cella[2]~0'
+        Info: 91: + IC(1.301 ns) + CELL(0.200 ns) = 120.390 ns; Loc. = LC_X11_Y9_N6; Fanout = 3; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[111]~87'
+        Info: 92: + IC(0.706 ns) + CELL(0.978 ns) = 122.074 ns; Loc. = LC_X11_Y9_N1; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_23|add_sub_cella[2]~17'
+        Info: 93: + IC(0.000 ns) + CELL(0.123 ns) = 122.197 ns; Loc. = LC_X11_Y9_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_23|add_sub_cella[2]~12'
+        Info: 94: + IC(0.000 ns) + CELL(0.123 ns) = 122.320 ns; Loc. = LC_X11_Y9_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_23|add_sub_cella[2]~7'
+        Info: 95: + IC(0.000 ns) + CELL(0.815 ns) = 123.135 ns; Loc. = LC_X11_Y9_N4; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_23|add_sub_cella[2]~0'
+        Info: 96: + IC(2.715 ns) + CELL(0.511 ns) = 126.361 ns; Loc. = LC_X10_Y8_N2; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[118]~16'
+        Info: 97: + IC(1.746 ns) + CELL(0.747 ns) = 128.854 ns; Loc. = LC_X11_Y10_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_24|add_sub_cella[2]~12'
+        Info: 98: + IC(0.000 ns) + CELL(0.815 ns) = 129.669 ns; Loc. = LC_X11_Y10_N4; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_24|add_sub_cella[2]~0'
+        Info: 99: + IC(2.688 ns) + CELL(0.200 ns) = 132.557 ns; Loc. = LC_X10_Y8_N8; Fanout = 4; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[122]~0'
+        Info: 100: + IC(1.925 ns) + CELL(0.747 ns) = 135.229 ns; Loc. = LC_X10_Y7_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_25|add_sub_cella[2]~7'
+        Info: 101: + IC(0.000 ns) + CELL(0.123 ns) = 135.352 ns; Loc. = LC_X10_Y7_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_25|add_sub_cella[2]~12'
+        Info: 102: + IC(0.000 ns) + CELL(0.815 ns) = 136.167 ns; Loc. = LC_X10_Y7_N4; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_25|add_sub_cella[2]~0'
+        Info: 103: + IC(2.622 ns) + CELL(0.200 ns) = 138.989 ns; Loc. = LC_X10_Y8_N5; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|StageOut[127]~7'
+        Info: 104: + IC(1.109 ns) + CELL(0.978 ns) = 141.076 ns; Loc. = LC_X11_Y8_N7; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_26|add_sub_cella[2]~12'
+        Info: 105: + IC(0.000 ns) + CELL(0.123 ns) = 141.199 ns; Loc. = LC_X11_Y8_N8; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_26|add_sub_cella[2]~7'
+        Info: 106: + IC(0.000 ns) + CELL(0.815 ns) = 142.014 ns; Loc. = LC_X11_Y8_N9; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|lpm_divide:Div0|lpm_divide_b1m:auto_generated|sign_div_unsign_slh:divider|alt_u_div_jle:divider|add_sub_i7c:add_sub_26|add_sub_cella[2]~0'
+        Info: 107: + IC(3.154 ns) + CELL(0.200 ns) = 145.368 ns; Loc. = LC_X11_Y6_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|LessThan3~0'
+        Info: 108: + IC(0.305 ns) + CELL(0.200 ns) = 145.873 ns; Loc. = LC_X11_Y6_N3; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|LessThan3~1'
+        Info: 109: + IC(1.695 ns) + CELL(0.200 ns) = 147.768 ns; Loc. = LC_X13_Y6_N2; Fanout = 1; COMB Node = 'UltraSonic:UltraSonic_inst|LessThan3~2'
+        Info: 110: + IC(0.305 ns) + CELL(0.200 ns) = 148.273 ns; Loc. = LC_X13_Y6_N3; Fanout = 2; COMB Node = 'UltraSonic:UltraSonic_inst|LessThan3~3'
+        Info: 111: + IC(1.761 ns) + CELL(0.200 ns) = 150.234 ns; Loc. = LC_X10_Y6_N4; Fanout = 10; COMB Node = 'UltraSonic:UltraSonic_inst|dist_r[4]~4'
+        Info: 112: + IC(0.534 ns) + CELL(0.200 ns) = 150.968 ns; Loc. = LC_X10_Y6_N5; Fanout = 4; COMB Node = 'UltraSonic:UltraSonic_inst|Selector69~3'
+        Info: 113: + IC(2.663 ns) + CELL(0.804 ns) = 154.435 ns; Loc. = LC_X15_Y3_N1; Fanout = 1; REG Node = 'UltraSonic:UltraSonic_inst|dist_r[6]'
+        Info: Total cell delay = 56.819 ns ( 36.79 % )
+        Info: Total interconnect delay = 97.616 ns ( 63.21 % )
+    Info: - Smallest clock skew is 0.000 ns
+        Info: + Shortest clock path from clock "clk_50mhz" to destination register is 3.819 ns
+            Info: 1: + IC(0.000 ns) + CELL(1.163 ns) = 1.163 ns; Loc. = PIN_18; Fanout = 184; CLK Node = 'clk_50mhz'
+            Info: 2: + IC(1.738 ns) + CELL(0.918 ns) = 3.819 ns; Loc. = LC_X15_Y3_N1; Fanout = 1; REG Node = 'UltraSonic:UltraSonic_inst|dist_r[6]'
+            Info: Total cell delay = 2.081 ns ( 54.49 % )
+            Info: Total interconnect delay = 1.738 ns ( 45.51 % )
+        Info: - Longest clock path from clock "clk_50mhz" to source register is 3.819 ns
+            Info: 1: + IC(0.000 ns) + CELL(1.163 ns) = 1.163 ns; Loc. = PIN_18; Fanout = 184; CLK Node = 'clk_50mhz'
+            Info: 2: + IC(1.738 ns) + CELL(0.918 ns) = 3.819 ns; Loc. = LC_X2_Y5_N0; Fanout = 9; REG Node = 'UltraSonic:UltraSonic_inst|echo_cnt[5]'
+            Info: Total cell delay = 2.081 ns ( 54.49 % )
+            Info: Total interconnect delay = 1.738 ns ( 45.51 % )
+    Info: + Micro clock to output delay of source is 0.376 ns
+    Info: + Micro setup delay of destination is 0.333 ns
+Warning: Circuit may not operate. Detected 32 non-operational path(s) clocked by clock "clk_50mhz" with clock skew larger than data delay. See Compilation Report for details.
+Info: Found hold time violation between source  pin or register "DigitalDisplay:DigitalDisplay_inst|en_index[1]" and destination pin or register "en_out[5]~reg0" for clock "clk_50mhz" (Hold time is 2.718 ns)
+    Info: + Largest clock skew is 6.537 ns
+        Info: + Longest clock path from clock "clk_50mhz" to destination register is 10.356 ns
+            Info: 1: + IC(0.000 ns) + CELL(1.163 ns) = 1.163 ns; Loc. = PIN_18; Fanout = 184; CLK Node = 'clk_50mhz'
+            Info: 2: + IC(1.738 ns) + CELL(1.294 ns) = 4.195 ns; Loc. = LC_X9_Y9_N9; Fanout = 42; REG Node = 'Clk_Generater:Clk_Generater_Inst|clk100_r'
+            Info: 3: + IC(5.243 ns) + CELL(0.918 ns) = 10.356 ns; Loc. = LC_X1_Y10_N5; Fanout = 1; REG Node = 'en_out[5]~reg0'
+            Info: Total cell delay = 3.375 ns ( 32.59 % )
+            Info: Total interconnect delay = 6.981 ns ( 67.41 % )
+        Info: - Shortest clock path from clock "clk_50mhz" to source register is 3.819 ns
+            Info: 1: + IC(0.000 ns) + CELL(1.163 ns) = 1.163 ns; Loc. = PIN_18; Fanout = 184; CLK Node = 'clk_50mhz'
+            Info: 2: + IC(1.738 ns) + CELL(0.918 ns) = 3.819 ns; Loc. = LC_X6_Y6_N5; Fanout = 19; REG Node = 'DigitalDisplay:DigitalDisplay_inst|en_index[1]'
+            Info: Total cell delay = 2.081 ns ( 54.49 % )
+            Info: Total interconnect delay = 1.738 ns ( 45.51 % )
+    Info: - Micro clock to output delay of source is 0.376 ns
+    Info: - Shortest register to register delay is 3.664 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LC_X6_Y6_N5; Fanout = 19; REG Node = 'DigitalDisplay:DigitalDisplay_inst|en_index[1]'
+        Info: 2: + IC(3.073 ns) + CELL(0.591 ns) = 3.664 ns; Loc. = LC_X1_Y10_N5; Fanout = 1; REG Node = 'en_out[5]~reg0'
+        Info: Total cell delay = 0.591 ns ( 16.13 % )
+        Info: Total interconnect delay = 3.073 ns ( 83.87 % )
+    Info: + Micro hold delay of destination is 0.221 ns
+Info: tsu for register "UltraSonic:UltraSonic_inst|echo_cnt[4]" (data pin = "echo", clock pin = "clk_50mhz") is 7.567 ns
+    Info: + Longest pin to register delay is 11.053 ns
+        Info: 1: + IC(0.000 ns) + CELL(1.132 ns) = 1.132 ns; Loc. = PIN_120; Fanout = 11; PIN Node = 'echo'
+        Info: 2: + IC(3.024 ns) + CELL(0.740 ns) = 4.896 ns; Loc. = LC_X10_Y6_N7; Fanout = 6; COMB Node = 'UltraSonic:UltraSonic_inst|dist_r[4]~5'
+        Info: 3: + IC(0.772 ns) + CELL(0.740 ns) = 6.408 ns; Loc. = LC_X10_Y6_N1; Fanout = 21; COMB Node = 'UltraSonic:UltraSonic_inst|echo_cnt[13]~32'
+        Info: 4: + IC(3.402 ns) + CELL(1.243 ns) = 11.053 ns; Loc. = LC_X1_Y5_N9; Fanout = 7; REG Node = 'UltraSonic:UltraSonic_inst|echo_cnt[4]'
+        Info: Total cell delay = 3.855 ns ( 34.88 % )
+        Info: Total interconnect delay = 7.198 ns ( 65.12 % )
+    Info: + Micro setup delay of destination is 0.333 ns
+    Info: - Shortest clock path from clock "clk_50mhz" to destination register is 3.819 ns
+        Info: 1: + IC(0.000 ns) + CELL(1.163 ns) = 1.163 ns; Loc. = PIN_18; Fanout = 184; CLK Node = 'clk_50mhz'
+        Info: 2: + IC(1.738 ns) + CELL(0.918 ns) = 3.819 ns; Loc. = LC_X1_Y5_N9; Fanout = 7; REG Node = 'UltraSonic:UltraSonic_inst|echo_cnt[4]'
+        Info: Total cell delay = 2.081 ns ( 54.49 % )
+        Info: Total interconnect delay = 1.738 ns ( 45.51 % )
+Info: tco from clock "clk_50mhz" to destination pin "deg_out[3]" through register "UltraSonic:UltraSonic_inst|dist_r[7]" is 62.942 ns
+    Info: + Longest clock path from clock "clk_50mhz" to source register is 3.819 ns
+        Info: 1: + IC(0.000 ns) + CELL(1.163 ns) = 1.163 ns; Loc. = PIN_18; Fanout = 184; CLK Node = 'clk_50mhz'
+        Info: 2: + IC(1.738 ns) + CELL(0.918 ns) = 3.819 ns; Loc. = LC_X8_Y5_N0; Fanout = 1; REG Node = 'UltraSonic:UltraSonic_inst|dist_r[7]'
+        Info: Total cell delay = 2.081 ns ( 54.49 % )
+        Info: Total interconnect delay = 1.738 ns ( 45.51 % )
+    Info: + Micro clock to output delay of source is 0.376 ns
+    Info: + Longest register to pin delay is 58.747 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LC_X8_Y5_N0; Fanout = 1; REG Node = 'UltraSonic:UltraSonic_inst|dist_r[7]'
+        Info: 2: + IC(0.895 ns) + CELL(0.740 ns) = 1.635 ns; Loc. = LC_X8_Y5_N3; Fanout = 22; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_h7c:add_sub_3|add_sub_cella[1]'
+        Info: 3: + IC(0.710 ns) + CELL(0.978 ns) = 3.323 ns; Loc. = LC_X8_Y5_N3; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_h7c:add_sub_3|add_sub_cella[1]~COUT'
+        Info: 4: + IC(0.000 ns) + CELL(0.815 ns) = 4.138 ns; Loc. = LC_X8_Y5_N4; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~21'
+        Info: 5: + IC(1.130 ns) + CELL(0.747 ns) = 6.015 ns; Loc. = LC_X7_Y5_N6; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~17'
+        Info: 6: + IC(0.000 ns) + CELL(0.123 ns) = 6.138 ns; Loc. = LC_X7_Y5_N7; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~12'
+        Info: 7: + IC(0.000 ns) + CELL(0.123 ns) = 6.261 ns; Loc. = LC_X7_Y5_N8; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~7'
+        Info: 8: + IC(0.000 ns) + CELL(0.815 ns) = 7.076 ns; Loc. = LC_X7_Y5_N9; Fanout = 13; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_h7c:add_sub_3|add_sub_cella[2]~0'
+        Info: 9: + IC(1.906 ns) + CELL(0.200 ns) = 9.182 ns; Loc. = LC_X5_Y5_N2; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|StageOut[18]~32'
+        Info: 10: + IC(1.121 ns) + CELL(0.747 ns) = 11.050 ns; Loc. = LC_X6_Y5_N8; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_4|add_sub_cella[2]~12'
+        Info: 11: + IC(0.000 ns) + CELL(0.815 ns) = 11.865 ns; Loc. = LC_X6_Y5_N9; Fanout = 13; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_4|add_sub_cella[2]~0'
+        Info: 12: + IC(2.477 ns) + CELL(0.200 ns) = 14.542 ns; Loc. = LC_X7_Y7_N5; Fanout = 3; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|StageOut[22]~25'
+        Info: 13: + IC(1.832 ns) + CELL(0.978 ns) = 17.352 ns; Loc. = LC_X9_Y6_N7; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_5|add_sub_cella[2]~12'
+        Info: 14: + IC(0.000 ns) + CELL(0.123 ns) = 17.475 ns; Loc. = LC_X9_Y6_N8; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_5|add_sub_cella[2]~17'
+        Info: 15: + IC(0.000 ns) + CELL(0.815 ns) = 18.290 ns; Loc. = LC_X9_Y6_N9; Fanout = 13; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_5|add_sub_cella[2]~0'
+        Info: 16: + IC(3.223 ns) + CELL(0.200 ns) = 21.713 ns; Loc. = LC_X13_Y9_N5; Fanout = 4; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|StageOut[27]~6'
+        Info: 17: + IC(1.746 ns) + CELL(0.747 ns) = 24.206 ns; Loc. = LC_X14_Y10_N2; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_6|add_sub_cella[2]~17'
+        Info: 18: + IC(0.000 ns) + CELL(0.123 ns) = 24.329 ns; Loc. = LC_X14_Y10_N3; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_6|add_sub_cella[2]~7'
+        Info: 19: + IC(0.000 ns) + CELL(0.815 ns) = 25.144 ns; Loc. = LC_X14_Y10_N4; Fanout = 13; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_6|add_sub_cella[2]~0'
+        Info: 20: + IC(2.537 ns) + CELL(0.200 ns) = 27.881 ns; Loc. = LC_X13_Y9_N3; Fanout = 4; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|StageOut[32]~3'
+        Info: 21: + IC(1.110 ns) + CELL(0.747 ns) = 29.738 ns; Loc. = LC_X14_Y9_N7; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_7|add_sub_cella[2]~17'
+        Info: 22: + IC(0.000 ns) + CELL(0.123 ns) = 29.861 ns; Loc. = LC_X14_Y9_N8; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_7|add_sub_cella[2]~7'
+        Info: 23: + IC(0.000 ns) + CELL(0.815 ns) = 30.676 ns; Loc. = LC_X14_Y9_N9; Fanout = 12; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Div1|lpm_divide_31m:auto_generated|sign_div_unsign_klh:divider|alt_u_div_3le:divider|add_sub_i7c:add_sub_7|add_sub_cella[2]~0'
+        Info: 24: + IC(0.710 ns) + CELL(0.747 ns) = 32.133 ns; Loc. = LC_X14_Y9_N1; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_m7c:add_sub_8|add_sub_cella[1]~COUT'
+        Info: 25: + IC(0.000 ns) + CELL(0.815 ns) = 32.948 ns; Loc. = LC_X14_Y9_N2; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_m7c:add_sub_8|add_sub_cella[2]~47'
+        Info: 26: + IC(2.987 ns) + CELL(0.747 ns) = 36.682 ns; Loc. = LC_X7_Y10_N0; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_m7c:add_sub_8|add_sub_cella[2]~17'
+        Info: 27: + IC(0.000 ns) + CELL(0.123 ns) = 36.805 ns; Loc. = LC_X7_Y10_N1; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_m7c:add_sub_8|add_sub_cella[2]~7'
+        Info: 28: + IC(0.000 ns) + CELL(0.123 ns) = 36.928 ns; Loc. = LC_X7_Y10_N2; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_m7c:add_sub_8|add_sub_cella[2]~42'
+        Info: 29: + IC(0.000 ns) + CELL(0.123 ns) = 37.051 ns; Loc. = LC_X7_Y10_N3; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_m7c:add_sub_8|add_sub_cella[2]~37'
+        Info: 30: + IC(0.000 ns) + CELL(0.261 ns) = 37.312 ns; Loc. = LC_X7_Y10_N4; Fanout = 4; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_m7c:add_sub_8|add_sub_cella[2]~32'
+        Info: 31: + IC(0.000 ns) + CELL(0.975 ns) = 38.287 ns; Loc. = LC_X7_Y10_N8; Fanout = 16; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_m7c:add_sub_8|add_sub_cella[2]~0'
+        Info: 32: + IC(2.051 ns) + CELL(0.200 ns) = 40.538 ns; Loc. = LC_X6_Y6_N1; Fanout = 4; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|StageOut[81]~1'
+        Info: 33: + IC(1.843 ns) + CELL(0.978 ns) = 43.359 ns; Loc. = LC_X5_Y10_N1; Fanout = 2; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_u8c:add_sub_9|add_sub_cella[2]~7'
+        Info: 34: + IC(0.000 ns) + CELL(0.123 ns) = 43.482 ns; Loc. = LC_X5_Y10_N2; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_u8c:add_sub_9|add_sub_cella[2]~12'
+        Info: 35: + IC(0.000 ns) + CELL(0.123 ns) = 43.605 ns; Loc. = LC_X5_Y10_N3; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_u8c:add_sub_9|add_sub_cella[2]~47'
+        Info: 36: + IC(0.000 ns) + CELL(0.261 ns) = 43.866 ns; Loc. = LC_X5_Y10_N4; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_u8c:add_sub_9|add_sub_cella[2]~42'
+        Info: 37: + IC(0.000 ns) + CELL(0.975 ns) = 44.841 ns; Loc. = LC_X5_Y10_N9; Fanout = 3; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|add_sub_u8c:add_sub_9|add_sub_cella[2]~0'
+        Info: 38: + IC(2.573 ns) + CELL(0.200 ns) = 47.614 ns; Loc. = LC_X6_Y6_N3; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|lpm_divide:Mod0|lpm_divide_jql:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_tne:divider|StageOut[91]~0'
+        Info: 39: + IC(0.305 ns) + CELL(0.200 ns) = 48.119 ns; Loc. = LC_X6_Y6_N4; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|Mux2~0'
+        Info: 40: + IC(1.927 ns) + CELL(0.511 ns) = 50.557 ns; Loc. = LC_X5_Y9_N3; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|Mux2~1'
+        Info: 41: + IC(0.710 ns) + CELL(0.200 ns) = 51.467 ns; Loc. = LC_X5_Y9_N0; Fanout = 7; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|Mux2~2'
+        Info: 42: + IC(1.876 ns) + CELL(0.200 ns) = 53.543 ns; Loc. = LC_X6_Y7_N9; Fanout = 1; COMB Node = 'DigitalDisplay:DigitalDisplay_inst|Mux7~0'
+        Info: 43: + IC(2.882 ns) + CELL(2.322 ns) = 58.747 ns; Loc. = PIN_102; Fanout = 0; PIN Node = 'deg_out[3]'
+        Info: Total cell delay = 22.196 ns ( 37.78 % )
+        Info: Total interconnect delay = 36.551 ns ( 62.22 % )
+Info: th for register "en_out[0]~reg0" (data pin = "rst", clock pin = "clk_50mhz") is 4.661 ns
+    Info: + Longest clock path from clock "clk_50mhz" to destination register is 10.356 ns
+        Info: 1: + IC(0.000 ns) + CELL(1.163 ns) = 1.163 ns; Loc. = PIN_18; Fanout = 184; CLK Node = 'clk_50mhz'
+        Info: 2: + IC(1.738 ns) + CELL(1.294 ns) = 4.195 ns; Loc. = LC_X9_Y9_N9; Fanout = 42; REG Node = 'Clk_Generater:Clk_Generater_Inst|clk100_r'
+        Info: 3: + IC(5.243 ns) + CELL(0.918 ns) = 10.356 ns; Loc. = LC_X1_Y10_N4; Fanout = 1; REG Node = 'en_out[0]~reg0'
+        Info: Total cell delay = 3.375 ns ( 32.59 % )
+        Info: Total interconnect delay = 6.981 ns ( 67.41 % )
+    Info: + Micro hold delay of destination is 0.221 ns
+    Info: - Shortest pin to register delay is 5.916 ns
+        Info: 1: + IC(0.000 ns) + CELL(1.163 ns) = 1.163 ns; Loc. = PIN_20; Fanout = 192; PIN Node = 'rst'
+        Info: 2: + IC(2.646 ns) + CELL(0.200 ns) = 4.009 ns; Loc. = LC_X1_Y10_N0; Fanout = 41; COMB Node = 'shine_counter[26]~0'
+        Info: 3: + IC(0.664 ns) + CELL(1.243 ns) = 5.916 ns; Loc. = LC_X1_Y10_N4; Fanout = 1; REG Node = 'en_out[0]~reg0'
+        Info: Total cell delay = 2.606 ns ( 44.05 % )
+        Info: Total interconnect delay = 3.310 ns ( 55.95 % )
+Info: Quartus II 64-Bit Classic Timing Analyzer was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 4364 megabytes
+    Info: Processing ended: Sun Oct 12 19:07:07 2025
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+

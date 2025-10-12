@@ -31,7 +31,7 @@ architecture rtl of LedMatrix_Anime is
     signal stage_reg  : integer range 0 to 8 := 0;
 
 begin
-    -- stage锟侥达拷锟斤拷
+    -- stage?????
     stage_reg <= stage-1 when stage > 0 else 0;
 
 process(clk_Update, rst)
@@ -46,7 +46,7 @@ begin
         tempR := (others => '0');
 
         if is_release = '0' then
-            -- 鏅�氭按浣嶆樉绀猴細浜綋鍓嶆按浣嶈
+            -- 普通水位显示：亮当前水位行
             for j in 0 to 63 loop
                 if (j >= (8*stage_reg)) and (j <= (8*stage_reg + 7)) then
                     tempG(j) := '1';

@@ -1,0 +1,11 @@
+Fitter Status : Successful - Sun Oct 12 19:07:04 2025
+Quartus II 64-Bit Version : 9.1 Build 222 10/21/2009 SJ Full Version
+Revision Name : Water_Lc
+Top-level Entity Name : Water_Lc
+Family : MAX II
+Device : EPM1270T144C5
+Timing Models : Final
+Total logic elements : 1,072 / 1,270 ( 84 % )
+Total pins : 48 / 116 ( 41 % )
+Total virtual pins : 0
+UFM blocks : 0 / 1 ( 0 % )
