@@ -10,9 +10,9 @@ entity LedMatrix is
         rst : in std_logic;
 
         stage : in integer range 0 to 8;
-        release_i : in std_logic; --是否释放
-        release_auto : in std_logic; --自动释放或手动释放
-        release_stage : in integer range 0 to 3; --释放速度，数值越大越快
+        release_i : in std_logic; --锟角凤拷锟酵凤拷
+        release_auto : in std_logic; --锟皆讹拷锟酵放伙拷锟街讹拷锟酵凤拷
+        release_stage : in integer range 0 to 3; --锟酵凤拷锟劫度ｏ拷锟斤拷值越锟斤拷越锟斤拷
         
         matrix_en : out std_logic_vector(7 downto 0);
         matrix_R : out std_logic_vector(7 downto 0);
@@ -40,11 +40,13 @@ architecture rtl of LedMatrix is
     signal stage_i : integer range 0 to 8;
     
     signal release_speed_reg : integer range 0 to 63 := 0;
-    signal release_speed_stage : integer range 0 to 3 := 0; -- 自动释放速度档位寄存器
+    signal release_speed_stage : integer range 0 to 3 := 0;
 
     signal stage_hold : integer range 0 to 8 := 0;
     signal pre_release_i : std_logic := '0';
     signal release_tick_cnt : integer range 0 to 1 := 0;
+
+    signal busy : std_logic := '0';
 
 begin
 
@@ -65,7 +67,6 @@ begin
         if (rst = '1') then
             clk_div <= '0';
             clkcount <= 0;
-            stage_i <= 0;
             release_pos_i <= 0;
 
         elsif rising_edge(clk_100hz) then
@@ -79,7 +80,7 @@ begin
                 if release_pos_i > 0 then
                     release_pos_i <= release_pos_i - 1;
                 else
-                    release_pos_i <= 0;
+                    release_pos_i <= 7;
                 end if;
             else
                 clk_div <= '0';
@@ -95,46 +96,42 @@ begin
             pre_release_i <= '0';
             release_tick_cnt <= 0;
             stage_hold <= 0;
-            release_speed_stage <= 0;
         elsif rising_edge(clk_100hz) then
             pre_release_i <= release_i;
 
             if (release_i = '1' and pre_release_i = '0') then
                 stage_hold <= stage;
                 release_tick_cnt <= 0;
-                release_pos_i <= 7;
             end if;
 
-            if (release_i = '1') then
+            if (release_i = '1' ) then
                 if (release_auto = '1') then
                     release_speed_reg <= ANIMATION_UPDATE_FREQ(release_speed_stage);
                 else
-                    release_speed_reg <= ANIMATION_UPDATE_FREQ(release_stage); --- 手动释放速度档位
+                    release_speed_reg <= ANIMATION_UPDATE_FREQ(release_stage);
                 end if;
 
                 if (release_pos_i = 0) then
-                    if (stage_hold > 0) then
+                    if (stage_hold > 3) then
                         stage_hold <= stage_hold - 1;
-                        release_pos_i <= 7;
+
                     else
-                        release_pos_i <= 0;
+                        stage_hold <= stage;
                     end if;
                 end if;
                 stage_i <= stage_hold;
             else
                 stage_i <= stage;
-                release_pos_i <= 0;
-                release_speed_stage <= 0;
             end if;
             
 
         end if;
     end process;
 
-    process(stage_i)
+    process(stage)
     begin
-        case stage_i is
-            when 0 | 1 | 2 | 3 =>
+        case stage is
+            when 0 | 1 | 2 |  3 =>
                 release_speed_stage <= 1;
             when 4 | 5 =>
                 release_speed_stage <= 2;
