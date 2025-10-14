@@ -4,19 +4,19 @@ use ieee.numeric_std.all;
 
 entity Clk_Generater is
     generic (
-        INPUT_CLK : integer := 50_000_000  -- Ö÷Ê±ÖÓ£¨Hz£©
+        INPUT_CLK : integer := 50_000_000  -- ä¸»æ—¶é’Ÿï¼ˆHzï¼‰
     );
     port (
-        clk       : in  std_logic;  -- Ö÷Ê±ÖÓ
-        rst       : in  std_logic;  -- Òì²½¸´Î»£¬¸ßÓĞĞ§
-        clk_1khz  : out std_logic;  -- 1 kHz Ê±ÖÓÊä³ö
-        clk_100hz : out std_logic;  -- 100 Hz Ê±ÖÓÊä³ö
-        clk_1mhz  : out std_logic   -- 1 MHz Ê±ÖÓÊä³ö
+        clk       : in  std_logic;  -- ä¸»æ—¶é’Ÿ
+        rst       : in  std_logic;  -- å¼‚æ­¥å¤ä½ï¼Œé«˜æœ‰æ•ˆ
+        clk_1khz  : out std_logic;  -- 1 kHz æ—¶é’Ÿè¾“å‡º
+        clk_100hz : out std_logic;  -- 100 Hz æ—¶é’Ÿè¾“å‡º
+        clk_1mhz  : out std_logic   -- 1 MHz æ—¶é’Ÿè¾“å‡º
     );
 end entity Clk_Generater;
 
 architecture rtl of Clk_Generater is
-    -- °ëÖÜÆÚ¼ÆÊı£º´Ó INPUT_CLK ²úÉúÄ¿±êÆµÂÊµÄ·½²¨
+    -- åŠå‘¨æœŸè®¡æ•°ï¼šä» INPUT_CLK äº§ç”Ÿç›®æ ‡é¢‘ç‡çš„æ–¹æ³¢
     constant HALF_TICKS_1K  : integer := INPUT_CLK / (2 * 1000);
     constant HALF_TICKS_100 : integer := INPUT_CLK / (2 * 100);
     constant HALF_TICKS_1M : integer := INPUT_CLK / (2 * 1_000_000);
@@ -39,14 +39,14 @@ begin
             clk1k_r   <= '0';
             clk100_r  <= '0';
         elsif rising_edge(clk) then
-            -- 1 MHz ·ÖÆµ£¨ÇĞ»»²úÉú·½²¨£©
+            -- 1 MHz åˆ†é¢‘ï¼ˆåˆ‡æ¢äº§ç”Ÿæ–¹æ³¢ï¼‰
             if cnt1m >= HALF_TICKS_1M - 1 then
                 cnt1m <= 0;
             else
                 cnt1m <= cnt1m + 1;
             end if;
 
-            -- 1 kHz ·ÖÆµ£¨ÇĞ»»²úÉú·½²¨£©
+            -- 1 kHz åˆ†é¢‘ï¼ˆåˆ‡æ¢äº§ç”Ÿæ–¹æ³¢ï¼‰
             if cnt1k >= HALF_TICKS_1K - 1 then
                 cnt1k <= 0;
                 clk1k_r <= not clk1k_r;
@@ -54,7 +54,7 @@ begin
                 cnt1k <= cnt1k + 1;
             end if;
 
-            -- 100 Hz ·ÖÆµ
+            -- 100 Hz åˆ†é¢‘
             if cnt100 >= HALF_TICKS_100 - 1 then
                 cnt100 <= 0;
                 clk100_r <= not clk100_r;

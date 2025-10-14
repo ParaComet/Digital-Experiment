@@ -4,14 +4,14 @@ use ieee.numeric_std.all;
 
 entity UltraSonic is
     port (
-        clk         : in  std_logic;  -- 50 MHz Ê±ÖÓ
+        clk         : in  std_logic;  -- 50 MHz æ—¶é’Ÿ
         rst         : in  std_logic;
-        start       : in  std_logic;  -- Íâ²¿Ê¹ÄÜÂö³å£¨¼ì²âÉÏÉıÑØ£¬Æô¶¯Ò»´Î²âÁ¿£©
-        echo        : in  std_logic;  -- HC-SR04 ECHO ÊäÈë
-        trig        : out std_logic;  -- HC-SR04 TRIG Êä³ö£¨²úÉú >=10us Âö³å£©
-        busy        : out std_logic;  -- ²âÁ¿ÆÚ¼äÎª '1'
-        distance_mm : out integer range 0 to 5000; -- ²âÁ¿½á¹û£¬µ¥Î» mm£¨³¬¹ı·¶Î§·µ»Ø 5000£©
-        valid       : out std_logic   -- ²âÁ¿Íê³Éµ¥ÖÜÆÚÓĞĞ§Âö³å
+        start       : in  std_logic;  -- å¤–éƒ¨ä½¿èƒ½è„‰å†²ï¼ˆæ£€æµ‹ä¸Šå‡æ²¿ï¼Œå¯åŠ¨ä¸€æ¬¡æµ‹é‡ï¼‰
+        echo        : in  std_logic;  -- HC-SR04 ECHO è¾“å…¥
+        trig        : out std_logic;  -- HC-SR04 TRIG è¾“å‡ºï¼ˆäº§ç”Ÿ >=10us è„‰å†²ï¼‰
+        busy        : out std_logic;  -- æµ‹é‡æœŸé—´ä¸º '1'
+        distance_mm : out integer range 0 to 5000; -- æµ‹é‡ç»“æœï¼Œå•ä½ mmï¼ˆè¶…è¿‡èŒƒå›´è¿”å› 5000ï¼‰
+        valid       : out std_logic   -- æµ‹é‡å®Œæˆå•å‘¨æœŸæœ‰æ•ˆè„‰å†²
     );
 end entity;
 
@@ -21,13 +21,13 @@ architecture rtl of UltraSonic is
     signal state       : state_t := IDLE;
     signal start_prev  : std_logic := '0';
 
-    -- ²ÎÊı£º50MHz Ê±ÖÓ
+    -- å‚æ•°ï¼š50MHz æ—¶é’Ÿ
     constant CLK_FREQ           : integer := 50000000;
     constant TRIG_US            : integer := 10;  -- 10 us trigger
     constant TRIG_CYCLES        : integer := (CLK_FREQ / 1000000) * TRIG_US; -- 500 cycles
 
-    -- ×î´ó²â¾à 4000mm ¶ÔÓ¦»Ø²¨Ê±¼äÔ¼ 23.53 ms -> 1_176_470 cycles @50MHz
-    constant MAX_ECHO_CYCLES    : integer := 1500000; -- °²È«³¬Ê±Ê±¼ä£¨Ô¼30ms£©
+    -- æœ€å¤§æµ‹è· 4000mm å¯¹åº”å›æ³¢æ—¶é—´çº¦ 23.53 ms -> 1_176_470 cycles @50MHz
+    constant MAX_ECHO_CYCLES    : integer := 1500000; -- å®‰å…¨è¶…æ—¶æ—¶é—´ï¼ˆçº¦30msï¼‰
 
     signal trig_cnt    : integer range 0 to TRIG_CYCLES := 0;
     signal wait_cnt    : integer range 0 to MAX_ECHO_CYCLES := 0;
@@ -71,7 +71,7 @@ begin
                     trig_cnt <= 0;
                     wait_cnt <= 0;
                     echo_cnt <= 0;
-                    if (start = '1' and start_prev = '0') then  -- ÉÏÉıÑØ´¥·¢Ò»´Î²âÁ¿
+                    if (start = '1' and start_prev = '0') then  -- ä¸Šå‡æ²¿è§¦å‘ä¸€æ¬¡æµ‹é‡
                         busy_r <= '1';
                         trig_r <= '1';
                         trig_cnt <= 0;
@@ -79,7 +79,7 @@ begin
                     end if;
 
                 when TRIG_PULSE =>
-                    -- ²úÉú >=10us µÄ TRIG ¸ßµçÆ½
+                    -- äº§ç”Ÿ >=10us çš„ TRIG é«˜ç”µå¹³
                     if trig_cnt < TRIG_CYCLES - 1 then
                         trig_cnt <= trig_cnt + 1;
                     else
@@ -89,7 +89,7 @@ begin
                     end if;
 
                 when WAIT_ECHO =>
-                    -- µÈ´ı ECHO ÉÏÉı£¬³¬Ê±Ôò¸ø³ö´íÎó£¨dist=5000£¬valid=0£©
+                    -- ç­‰å¾… ECHO ä¸Šå‡ï¼Œè¶…æ—¶åˆ™ç»™å‡ºé”™è¯¯ï¼ˆdist=5000ï¼Œvalid=0ï¼‰
                     if echo = '1' then
                         echo_cnt <= 0;
                         state <= MEASURE;
@@ -97,29 +97,29 @@ begin
                         if wait_cnt < MAX_ECHO_CYCLES then
                             wait_cnt <= wait_cnt + 1;
                         else
-                            -- ³¬Ê±Î´ÊÕµ½»Ø²¨
+                            -- è¶…æ—¶æœªæ”¶åˆ°å›æ³¢
                             busy_r <= '0';
-                            dist_r <= 5000;  -- ³¬ÏŞ±êÖ¾
-                            valid_r <= '1';  -- ¿ÉÒÔÊÓÎª²âÁ¿Íê³Éµ«½á¹ûÎª³¬Ê±
+                            dist_r <= 5000;  -- è¶…é™æ ‡å¿—
+                            valid_r <= '1';  -- å¯ä»¥è§†ä¸ºæµ‹é‡å®Œæˆä½†ç»“æœä¸ºè¶…æ—¶
                             state <= IDLE;
                         end if;
                     end if;
 
                 when MEASURE =>
-                    -- ¼ÆÊı ECHO ¸ßµçÆ½Ê±¼ä£¬Ö±µ½ ECHO ÏÂ½µ»ò³¬Ê±
+                    -- è®¡æ•° ECHO é«˜ç”µå¹³æ—¶é—´ï¼Œç›´åˆ° ECHO ä¸‹é™æˆ–è¶…æ—¶
                     if echo = '1' then
                         if echo_cnt < MAX_ECHO_CYCLES then
                             echo_cnt <= echo_cnt + 1;
                         else
-                            -- ³¬Ê±£¨·ÀÖ¹ÎŞÏŞ¼ÆÊı£©
+                            -- è¶…æ—¶ï¼ˆé˜²æ­¢æ— é™è®¡æ•°ï¼‰
                             busy_r <= '0';
                             dist_r <= 5000;
                             valid_r <= '1';
                             state <= IDLE;
                         end if;
                     else
-                        -- ECHO ½áÊø£¬¼ÆËã¾àÀë£¨mm£©
-                        -- ¼ÆËã·½·¨£ºdistance_mm = echo_time_s * 340000 / 2
+                        -- ECHO ç»“æŸï¼Œè®¡ç®—è·ç¦»ï¼ˆmmï¼‰
+                        -- è®¡ç®—æ–¹æ³•ï¼šdistance_mm = echo_time_s * 340000 / 2
                         -- echo_time_s = echo_cnt * (1/50e6) -> distance_mm = echo_cnt * 34 / 10
                         prod := echo_cnt * 34;
                         tmp_mm := prod / 10;
@@ -136,7 +136,7 @@ begin
                     end if;
 
                 when DONE =>
-                    -- Î´Ê¹ÓÃµÄÕ¼Î»×´Ì¬£¨±£Áô£©
+                    -- æœªä½¿ç”¨çš„å ä½çŠ¶æ€ï¼ˆä¿ç•™ï¼‰
                     state <= IDLE;
 
                 when others =>

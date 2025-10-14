@@ -14,26 +14,26 @@ end entity Button;
 
 architecture rtl of Button is
 
-    -- debounce ²ÎÊı£¨¿É¸ù¾İĞèÒªµ÷Õû£©
+    -- debounce å‚æ•°ï¼ˆå¯æ ¹æ®éœ€è¦è°ƒæ•´ï¼‰
     constant DEBOUNCE_MS : integer := 20; -- 20 ms
 
-    -- Í¬²½ÓëÏû¶¶ĞÅºÅ
+    -- åŒæ­¥ä¸æ¶ˆæŠ–ä¿¡å·
     signal btn0_sync1, btn0_sync2 : std_logic := '0';
     signal btn2_sync1, btn2_sync2 : std_logic := '0';
 
     signal btn0_cnt : integer range 0 to 1000 := 0;
     signal btn2_cnt : integer range 0 to 1000 := 0;
 
-    signal deb0, deb2       : std_logic := '0'; -- ÎÈ¶¨ºóµÄ°´¼ü×´Ì¬
+    signal deb0, deb2       : std_logic := '0'; -- ç¨³å®šåçš„æŒ‰é”®çŠ¶æ€
     signal prev_deb0, prev_deb2 : std_logic := '0';
 
     signal key_flag_reg : integer range 0 to 2 := 0;
 
 begin
 
-    -- Á½¼¶Í¬²½£¬±ÜÃâÑÇÎÈÌ¬£¨½«Òì²½°´¼üĞÅºÅ°²È«Í¬²½µ½ clk_1khz Óò£©
-    -- ËµÃ÷£ºµÚÒ»ÅÄ²ÉÑùÒì²½ÊäÈë£¬µÚ¶şÅÄ²ÉÑùµÚÒ»ÅÄÊä³ö£¬´Ó¶ø´ó·ù½µµÍÑÇÎÈÌ¬´«²¥·çÏÕ¡£
-    -- Èç¹û°´¼üÎªµÍÓĞĞ§£¨°´ÏÂÎª '0'£©£¬¿É°ÑÏÂÃæ btnX_sync1 <= btnX ¸ÄÎª btnX_sync1 <= not btnX
+    -- ä¸¤çº§åŒæ­¥ï¼Œé¿å…äºšç¨³æ€ï¼ˆå°†å¼‚æ­¥æŒ‰é”®ä¿¡å·å®‰å…¨åŒæ­¥åˆ° clk_1khz åŸŸï¼‰
+    -- è¯´æ˜ï¼šç¬¬ä¸€æ‹é‡‡æ ·å¼‚æ­¥è¾“å…¥ï¼Œç¬¬äºŒæ‹é‡‡æ ·ç¬¬ä¸€æ‹è¾“å‡ºï¼Œä»è€Œå¤§å¹…é™ä½äºšç¨³æ€ä¼ æ’­é£é™©ã€‚
+    -- å¦‚æœæŒ‰é”®ä¸ºä½æœ‰æ•ˆï¼ˆæŒ‰ä¸‹ä¸º '0'ï¼‰ï¼Œå¯æŠŠä¸‹é¢ btnX_sync1 <= btnX æ”¹ä¸º btnX_sync1 <= not btnX
     sync_proc: process(clk_1khz)
     begin
         if rising_edge(clk_1khz) then
@@ -43,18 +43,18 @@ begin
                 btn2_sync1 <= '0';
                 btn2_sync2 <= '0';
             else
-                -- Ò»¼¶²ÉÑù£º°ÑÒì²½ÊäÈë²Éµ½µÚÒ»¼¶´¥·¢Æ÷
-                btn0_sync1 <= btn0;     -- ÈôµÍÓĞĞ§£º btn0_sync1 <= not btn0;
-                btn2_sync1 <= btn2;     -- ÈôµÍÓĞĞ§£º btn2_sync1 <= not btn2;
+                -- ä¸€çº§é‡‡æ ·ï¼šæŠŠå¼‚æ­¥è¾“å…¥é‡‡åˆ°ç¬¬ä¸€çº§è§¦å‘å™¨
+                btn0_sync1 <= btn0;     -- è‹¥ä½æœ‰æ•ˆï¼š btn0_sync1 <= not btn0;
+                btn2_sync1 <= btn2;     -- è‹¥ä½æœ‰æ•ˆï¼š btn2_sync1 <= not btn2;
 
-                -- ¶ş¼¶²ÉÑù£º¼õĞ¡ÑÇÎÈÌ¬Ó°Ïì£¬×÷ÎªºóĞøÏû¶¶µÄÎÈ¶¨²ÉÑùĞÅºÅ
+                -- äºŒçº§é‡‡æ ·ï¼šå‡å°äºšç¨³æ€å½±å“ï¼Œä½œä¸ºåç»­æ¶ˆæŠ–çš„ç¨³å®šé‡‡æ ·ä¿¡å·
                 btn0_sync2 <= btn0_sync1;
                 btn2_sync2 <= btn2_sync1;
             end if;
         end if;
     end process sync_proc;
 
-    -- Ïû¶¶£ºÊäÈëÔÚ DEBOUNCE_MS ºÁÃëÄÚÎÈ¶¨ºó²Å¸Ä±ä debX
+    -- æ¶ˆæŠ–ï¼šè¾“å…¥åœ¨ DEBOUNCE_MS æ¯«ç§’å†…ç¨³å®šåæ‰æ”¹å˜ debX
     debounce_proc: process(clk_1khz)
     begin
         if rising_edge(clk_1khz) then
@@ -93,7 +93,7 @@ begin
         end if;
     end process debounce_proc;
 
-    -- ²úÉú°´¼üÉÏÉıÑØÂö³åµ½ key_flag£¨ÓÅÏÈ btn0 -> 1£¬Æä´Î btn2 -> 2£©
+    -- äº§ç”ŸæŒ‰é”®ä¸Šå‡æ²¿è„‰å†²åˆ° key_flagï¼ˆä¼˜å…ˆ btn0 -> 1ï¼Œå…¶æ¬¡ btn2 -> 2ï¼‰
     keyflag_proc: process(clk_1khz)
     begin
         if rising_edge(clk_1khz) then

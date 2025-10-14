@@ -46,7 +46,7 @@ begin
         tempR := (others => '0');
 
         if is_release = '0' then
-            -- 普通水位显示：亮当前水位行
+            -- 鏅�氭按浣嶆樉绀猴細浜綋鍓嶆按浣嶈
             for j in 0 to 63 loop
                 if (j >= (8*stage_reg)) and (j <= (8*stage_reg + 7)) then
                     tempG(j) := '1';
