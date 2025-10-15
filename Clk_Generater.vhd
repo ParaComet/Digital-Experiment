@@ -38,6 +38,8 @@ begin
         if rst = '1' then
             cnt1k     <= 0;
             cnt100    <= 0;
+            cnt1m     <= 0;
+            clk1m_r   <= '0';
             clk1k_r   <= '0';
             clk100_r  <= '0';
         elsif rising_edge(clk) then
