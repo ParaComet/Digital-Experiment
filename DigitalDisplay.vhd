@@ -7,8 +7,9 @@ entity DigitalDisplay is
         clk          : in  std_logic;
         rst          : in  std_logic;
         dist_int     : in  integer range 0 to 999; 
-        stage        : in  integer range 0 to 8;  -- 水位状态，用于第7位显示
-        level        : in  integer range 0 to 4;   -- 释放等级，用于第6位显示
+        warning_stage : in  integer range 0 to 4;  -- ，用于第0位显示
+        level        : in  integer range 0 to 4;   -- 释放速度，用于第6位显示
+        is_release  : in  std_logic;  -- 是否在释放，用于第3位显示
 
         en_out       : out std_logic_vector(7 downto 0);
         deg_out      : out std_logic_vector(7 downto 0)
@@ -53,17 +54,21 @@ begin
     end process;
 
     -- 根据当前位选择要显示的字符索引（组合逻辑）
-    process(en_index, dist_1, dist_2, dist_3, stage, level)
+    process(en_index)
     begin
         case en_index is
-            when 0 => 
-                deg_index <= stage_reg;  -- 水位状态
-            when 1 => deg_index <= dist_3;   -- 百位
-            when 2 => 
+            when 0 => deg_index <= dist_3;   -- 百位
+            when 1 => 
                 deg_index <= dist_2;  -- 十位
-            when 3 => 
+            when 2 => 
                 deg_index <= dist_1;  -- 个位
-            when 6 => deg_index <= level;  -- 显示 5 或 空白
+            when 5 => 
+                if is_release = '1' then
+                    deg_index <= level;
+                else
+                    deg_index <= 11;  -- 显示 C
+                end if;
+            when 7 => deg_index <= warning_stage;  -- 显示 1-4 或 空白
             when others => deg_index <= 11;
         end case;
     end process;
@@ -83,13 +88,6 @@ begin
                                     "0111001" when 10, -- C
                                     "0000000" when others; -- 空白 / 默认
     
-    with stage select
-        stage_reg <= 1 when 0 | 1 | 2 | 3,
-                     2 when 4 | 5,
-                     3 when 6 | 7,
-                     4 when 8;
-                     -- 显示 5 或 空白
-
     deg_out_reg(7) <= '0'; -- 小数点（仅由 dp_now 控制）
     deg_out <= deg_out_reg;
 

@@ -38,8 +38,7 @@ signal stage : integer range 0 to 8 := 0; -- 当前水位阶段 0-8
 signal Detect_cnt : integer range 0 to 100 := 0;
 
 signal release_i : std_logic := '0'; --是否释放
-signal release_auto : std_logic := '0'; --自动释放或手动释放
-signal release_stage : integer range 0 to 3 := 0; --手动释放挡位
+
 
 signal matrix_en_i : std_logic_vector(7 downto 0);
 signal matrix_R_i : std_logic_vector(7 downto 0);
@@ -48,15 +47,18 @@ signal en_out_i : std_logic_vector(7 downto 0);
 signal deg_out_i : std_logic_vector(7 downto 0);
 signal key_flag : integer range 0 to 2;
 
-signal level : integer range 0 to 4 := 0; -- 释放等级 0-4
+signal release_level_auto : integer range 0 to 4 := 0; -- 释放等级 0-4
+signal release_level_manual : integer range 0 to 4 := 0;
+signal level : integer range 0 to 4;
 signal is_time_to_release : std_logic := '0';
-signal is_time_to_detect : std_logic := '0';
+
 signal start : std_logic := '0';
 signal busy_r : std_logic;
 signal valid : std_logic;
 signal beep_en : std_logic := '0';
-signal stage_beep : integer range 0 to 4 := 0; -- 蜂鸣器响度等级 0-4
-signal shine : std_logic := '0';
+signal warning_stage : integer range 0 to 4 := 0; 
+
+signal is_release : std_logic := '0'; -- 是否在释放
 
 signal dist_int : integer range 0 to 999 := 0;
 
@@ -93,9 +95,8 @@ begin
         clk_100hz => clk_100hz,
         rst => rst,
         stage => stage,
-        release_i => release_i,
-        release_auto => release_auto,
-        release_stage => release_stage,
+        level => level,
+        release_i => is_release,
         matrix_en => matrix_en_i,
         matrix_R => matrix_R_i,
         matrix_G => matrix_G_i
@@ -106,8 +107,9 @@ begin
         clk => clk_50mhz,
         rst => rst,
         dist_int => dist_int,
-        stage => stage,
+        warning_stage => warning_stage,
         level => level,
+        is_release => is_release,
         en_out => en_out_i,
         deg_out => deg_out_i
     );
@@ -129,7 +131,7 @@ begin
         clk => clk_50mhz,
         rst => rst,
         beep_en => beep_en,
-        stage => stage_beep,
+        stage => stage,
         beep => beep
     );
 
@@ -165,25 +167,32 @@ begin
                     if busy_r = '0' then
                         if valid = '1' then
                             if dist_int < 200 then
-                                stage <= 8;
-                                is_time_to_release <= '1'; 
+                                stage <= 8; 
+                                warning_stage <= 4;
                             elsif dist_int < 300 then
                                 stage <= 7;
-
+                                warning_stage <= 3;
                             elsif dist_int < 400 then
                                 stage <= 6;
+                                warning_stage <= 3;
                             elsif dist_int < 500 then
                                 stage <= 5;
+                                warning_stage <= 2;
                             elsif dist_int < 600 then
                                 stage <= 4;
+                                warning_stage <= 2;
                             elsif dist_int < 700 then
                                 stage <= 3;
+                                warning_stage <= 1;
                             elsif dist_int < 800 then
                                 stage <= 2;
+                                warning_stage <= 1;
                             elsif dist_int < 900 then
                                 stage <= 1;
+                                warning_stage <= 1;
                             else
                                 stage <= 0;
+                                warning_stage <= 0;
                             end if;
                         end if;
                         next_state <= WAIT_RELEASE_END;
@@ -191,26 +200,11 @@ begin
                         next_state <= WAIT_DETECT_END;
                     end if;
                 when WAIT_RELEASE_END =>
-
-                    if stage = 8 or stage = 7 then
-                        shine <= '1';
-                    else
-                        shine <= '0';
+                    if stage = 8 then
+                        is_time_to_release <= '1';
+                    elsif stage <=3 then
+                        is_time_to_release <= '0';
                     end if;
-                    if stage = 8 or stage = 7 then
-                        stage_beep <= 3;
-                        beep_en <= '1';
-
-                    elsif stage = 6 or stage = 5 then
-                        stage_beep <= 1;
-                        beep_en <= '1';
-
-                    else
-                        stage_beep <= 0;
-                        beep_en <= '0';
-
-                    end if;
-
                     next_state <= IDLE;
                 when others =>
                     next_state <= IDLE;
@@ -220,79 +214,35 @@ begin
     process(clk_1khz, rst)
     begin
         if rst = '1' then
-            release_i <= '0';
-            release_auto <= '0';
-            release_stage <= 0;
+            is_release <= '0';
+
         elsif rising_edge(clk_1khz) then
 
-            -- BTN7 控制手动开/关泄洪
-            if key_flag = 1 then
-                if (dist_int >= 600 and dist_int <= 800) then
-                    release_i <= not release_i;
-                end if;
-            end if;
-
-            -- 若正在泄洪，但水位低于安全线，则自动关闭
-            if (release_i = '1' and dist_int < 600) then
-                release_i <= '0';
-            end if;
-
-            -- 模式判断
-            if sw0 = '0' then
-                -- 自动模式
-                release_auto <= '0';
-                case dist_int is
-                    when 400 to 600 =>
-                        release_stage <= 1; -- 低速
-                    when 601 to 800 =>
-                        release_stage <= 2; -- 中速
-                    when 801 to 999 =>
-                        release_stage <= 3; -- 高速
-                    when others =>
-                        release_stage <= 0;
-                end case;
-
+            if is_time_to_release <= '1' then
+                is_release <= '1';
             else
-                -- 手动模式
-                release_auto <= '1';
-                if key_flag = 2 then
-                    if release_i = '1' then
-                        if release_stage = 3 then
-                            release_stage <= 0;
-                        else
-                            release_stage <= release_stage + 1;
-                        end if;
+                if stage <= 3 then
+                    is_release <= '0';
+                end if;
+
+                if key_flag <= 1 then
+                    if stage =6 or stage =7 then
+                        is_release <= not is_release;
                     end if;
+                elsif key_flag <= 2 then
+                    if release_level_auto = 3 then
+                        release_level_auto <= 1;
+                    else 
+                        release_level_auto <= release_level_auto + 1;
+                    end if; 
                 end if;
             end if;
+
         end if;
     end process;
-
-
-    process(clk_100hz, rst)
-        
-    variable shine_counter : integer := 0;
-    variable shine_state : std_logic := '0';
-    begin
-        if rst = '1' then
-        elsif rising_edge(clk_1khz) then
-            if shine = '1' then
-                if shine_counter < 50 then
-                    shine_counter := shine_counter + 1;
-                    shine_state := not shine_state;
-                else
-                    shine_counter := 0;
-                end if;
-
-                if shine = '1' and shine_state = '1' then
-                    en_out(6 downto 4) <= (others => '1');
-                else
-                end if;
-            end if;
-            en_out <= en_out_i;
-        end if;
-
-    end process;
+    release_level_manual <= warning_stage - 1 when warning_stage > 1 else 1;
+    level <= release_level_manual when sw0 = '1' else release_level_auto; 
+    en_out <= en_out_i;
     deg_out <= deg_out_i;
     LedMatrix_Row <= matrix_en_i;
     LedMatrix_Col_R <= matrix_R_i;

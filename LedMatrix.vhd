@@ -10,9 +10,9 @@ entity LedMatrix is
         rst : in std_logic;
 
         stage : in integer range 0 to 8;
-        release_i : in std_logic; --??????
-        release_auto : in std_logic; --?????????????
-        release_stage : in integer range 0 to 3; --????????????????
+        level : in integer range 0 to 4;
+        release_i : in std_logic;  
+ 
         
         matrix_en : out std_logic_vector(7 downto 0);
         matrix_R : out std_logic_vector(7 downto 0);
@@ -35,11 +35,8 @@ architecture rtl of LedMatrix is
 
     signal pwmlevelR : integer range 0 to 15;
     signal pwmlevelG : integer range 0 to 15;
-
-    signal release_pos_i : integer range 0 to 7;
-    signal stage_i : integer range 0 to 8;
     
-    signal release_speed_reg : integer range 0 to 63 := 0;
+
     signal release_speed_stage : integer range 0 to 3 := 0;
 
     signal stage_hold : integer range 0 to 8 := 0;
@@ -52,7 +49,7 @@ begin
 
 
     LedMatrix_Animation_Inst : entity work.LedMatrix_Anime
-        port map (clk_Update => clk_div, rst => rst, stage => stage_i, release_pos => release_pos_i, 
+        port map (clk_Update => clk_div, rst => rst, stage => stage, 
             is_release => release_i, LedMatrix_Red => Data_red, LedMatrix_Green => Data_green, 
             Pwm_Level_R => pwmlevelR, Pwm_Level_G => pwmlevelG);
 
@@ -62,26 +59,21 @@ begin
             pwm_level_R => pwmlevelR, pwm_level_G => pwmlevelG,
             Row_out => matrix_en, Col_out_Red => matrix_R, Col_out_Green => matrix_G);
 
+    release_speed_stage <= level - 1 when level > 0 else 0;
     process(clk_100hz, rst)
     begin
         if (rst = '1') then
             clk_div <= '0';
             clkcount <= 0;
-            release_pos_i <= 0;
 
         elsif rising_edge(clk_100hz) then
 
             if clkcount = 63 then
                 clkcount <= 0;
             end if;
-            if clkcount = release_speed_reg then
+            if clkcount >= ANIMATION_UPDATE_FREQ(release_speed_stage) then
                 clk_div <= '1';
                 clkcount <= 0;
-                if release_pos_i > 0 then
-                    release_pos_i <= release_pos_i - 1;
-                else
-                    release_pos_i <= 7;
-                end if;
             else
                 clk_div <= '0';
                 clkcount <= clkcount + 1;
@@ -89,60 +81,5 @@ begin
 
         end if;
     end process;
-
-    process(clk_100hz , rst)
-    begin
-        if (rst = '1') then
-            pre_release_i <= '0';
-            release_tick_cnt <= 0;
-            stage_hold <= 0;
-        elsif rising_edge(clk_100hz) then
-            pre_release_i <= release_i;
-
-            if (release_i = '1' and pre_release_i = '0') then
-                stage_hold <= stage;
-                release_tick_cnt <= 0;
-            end if;
-
-            if (release_i = '1' ) then
-                if (release_auto = '1') then
-                    release_speed_reg <= ANIMATION_UPDATE_FREQ(release_speed_stage);
-                else
-                    release_speed_reg <= ANIMATION_UPDATE_FREQ(release_stage);
-                end if;
-
-                if (release_pos_i = 0) then
-                    if (stage_hold > 3) then
-                        stage_hold <= stage_hold - 1;
-
-                    else
-                        stage_hold <= stage;
-                    end if;
-                end if;
-                stage_i <= stage_hold;
-            else
-                stage_i <= stage;
-            end if;
-            
-
-        end if;
-    end process;
-
-    process(stage)
-    begin
-        case stage is
-            when 0 | 1 | 2 |  3 =>
-                release_speed_stage <= 1;
-            when 4 | 5 =>
-                release_speed_stage <= 2;
-            when 6 | 7 =>
-                release_speed_stage <= 3;
-            when 8 =>
-                release_speed_stage <= 3;
-            when others =>
-                release_speed_stage <= 0;
-        end case;
-    end process;
-
 
 end architecture;

@@ -22,9 +22,9 @@ architecture rtl of UltraSonic is
     signal start_prev  : std_logic := '0';
 
     -- 参数：50MHz 时钟
-    constant CLK_FREQ           : integer := 50000000;
+    constant CLK_FREQ           : integer := 50_000_000;
     constant TRIG_US            : integer := 10;  -- 10 us trigger
-    constant TRIG_CYCLES        : integer := (CLK_FREQ / 1000000) * TRIG_US; -- 500 cycles
+    constant TRIG_CYCLES        : integer := (CLK_FREQ / 1_000_000) * TRIG_US; -- 500 cycles
 
     -- 最大测距 4000mm 对应回波时间约 23.53 ms -> 1_176_470 cycles @50MHz
     constant MAX_ECHO_CYCLES    : integer := 1500000; -- 安全超时时间（约30ms）
@@ -91,7 +91,7 @@ begin
                 when WAIT_ECHO =>
                     -- 等待 ECHO 上升，超时则给出错误（dist=5000，valid=0）
                     if echo = '1' then
-                        echo_cnt <= 0;
+                        echo_cnt <= 1;
                         state <= MEASURE;
                     else
                         if wait_cnt < MAX_ECHO_CYCLES then

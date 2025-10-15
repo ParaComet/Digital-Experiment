@@ -26,8 +26,10 @@ architecture rtl of Clk_Generater is
     signal cnt1m  : integer := 0;
     signal clk1k_r  : std_logic := '0';
     signal clk100_r : std_logic := '0';
+    signal clk1m_r  : std_logic := '0';
 begin
 
+    clk_1mhz  <= clk1m_r;
     clk_1khz  <= clk1k_r;
     clk_100hz <= clk100_r;
 
@@ -42,6 +44,7 @@ begin
             -- 1 MHz 分频（切换产生方波）
             if cnt1m >= HALF_TICKS_1M - 1 then
                 cnt1m <= 0;
+                clk1m_r <= not clk1m_r;
             else
                 cnt1m <= cnt1m + 1;
             end if;
