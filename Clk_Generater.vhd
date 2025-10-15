@@ -10,6 +10,7 @@ entity Clk_Generater is
         clk       : in  std_logic;  -- 主时钟
         rst       : in  std_logic;  -- 异步复位，高有效
         clk_1khz  : out std_logic;  -- 1 kHz 时钟输出
+        clk_8khz  : out std_logic;  -- 8 kHz 时钟输出
         clk_100hz : out std_logic   -- 100 Hz 时钟输出
     );
 end entity Clk_Generater;
@@ -17,15 +18,19 @@ end entity Clk_Generater;
 architecture rtl of Clk_Generater is
     -- 半周期计数：从 INPUT_CLK 产生目标频率的方波
     constant HALF_TICKS_1K  : integer := INPUT_CLK / (2 * 1000);
+    constant HALF_TICKS_8K  : integer := INPUT_CLK / (2 * 8000);
     constant HALF_TICKS_100 : integer := INPUT_CLK / (2 * 100);
 
     signal cnt1k  : integer := 0;
+    signal cnt8k  : integer := 0;
     signal cnt100 : integer := 0;
     signal clk1k_r  : std_logic := '0';
+    signal clk8k_r  : std_logic := '0';
     signal clk100_r : std_logic := '0';
 begin
 
     clk_1khz  <= clk1k_r;
+    clk_8khz  <= clk8k_r;
     clk_100hz <= clk100_r;
 
     process(clk, rst)
@@ -36,6 +41,14 @@ begin
             clk1k_r   <= '0';
             clk100_r  <= '0';
         elsif rising_edge(clk) then
+
+            if cnt8k >= HALF_TICKS_8K - 1 then
+                cnt8k <= 0;
+                clk8k_r <= not clk8k_r;
+            else
+                cnt8k <= cnt8k + 1;
+            end if;
+
             -- 1 kHz 分频（切换产生方波）
             if cnt1k >= HALF_TICKS_1K - 1 then
                 cnt1k <= 0;

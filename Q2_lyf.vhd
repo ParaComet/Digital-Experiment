@@ -7,6 +7,7 @@ entity Q2_lyf is
         clk       : in std_logic;
         button1   : in std_logic;
         button2   : in std_logic;
+        remote_in : in std_logic;
         rst       : in std_logic := '0';
 
         matrix_en : out std_logic_vector(7 downto 0);
@@ -31,8 +32,8 @@ architecture behavioral of Q2_lyf is
 
     signal clk_1khz     : std_logic;
     signal clk_100hz    : std_logic;
+    signal clk_8khz     : std_logic;
 
- 
 
     signal is_manual    : std_logic := '0'; -- '0' = Auto, '1' = Manual
     signal power_on     : std_logic := '1'; 
@@ -61,6 +62,11 @@ architecture behavioral of Q2_lyf is
     signal beep_en_i    : std_logic := '0';
     signal is_manual_i  : integer range 0 to 1 := 0;
 
+    -- IR module
+    signal repeat_en    : std_logic;
+    signal data_en      : std_logic;
+    signal data_en_r    : std_logic := '0';
+    signal ir_data      : std_logic_vector(7 downto 0);
 
 
     component Clk_Generater is
@@ -68,6 +74,7 @@ architecture behavioral of Q2_lyf is
         port (
             clk       : in  std_logic;
             rst       : in  std_logic;
+            clk_8khz  : out std_logic;
             clk_1khz  : out std_logic;
             clk_100hz : out std_logic
         );
@@ -137,12 +144,25 @@ architecture behavioral of Q2_lyf is
         );
     end component;
 
+    component Ir_Module is
+        port (
+            clk_8khz   : in  std_logic;
+            rst_n      : in  std_logic;
+            remote_in  : in  std_logic;
+
+            repeat_en  : out std_logic;
+            data_en    : out std_logic;
+            data       : out std_logic_vector (7 downto 0)
+        );
+    end component;
+
 begin
 
 
     clkgen_inst : component Clk_Generater
         generic map (INPUT_CLK => 1_000_000)
-        port map (clk => clk, rst => rst, clk_1khz => clk_1khz, clk_100hz => clk_100hz);
+        port map (clk => clk, rst => rst, clk_8khz => clk_8khz, 
+            clk_1khz => clk_1khz, clk_100hz => clk_100hz);
 
     button_inst : component Button
         port map (
@@ -199,29 +219,78 @@ begin
             busy  => temp_busy
         );
 
+    Ir_Module_inst: component Ir_Module
+     port map(
+        clk_8khz => clk_8khz,
+        rst_n => rst,
+        remote_in => remote_in,
+        repeat_en => repeat_en,
+        data_en => data_en,
+        data => ir_data
+    );
+
     en_out   <= (others => '1') when power_on = '0' else en_out_i;
     deg_out  <= (others => '0') when power_on = '0' else deg_out_i;
     matrix_en<= (others => '1') when power_on = '0' else matrix_en_i;
     matrix_R <= (others => '0') when power_on = '0' else matrix_R_i;
     matrix_G <= (others => '0') when power_on = '0' else matrix_G_i;
     is_manual_i <= 1 when is_manual = '1' else 0;
-    beep_en_i <= power_on; 
+    beep_en_i <= power_on;
+    
 
-    process(clk_1khz, rst)
+    process(clk_8khz, rst)
     begin
         if rst = '1' then
             is_manual <= '0';
             power_on  <= '1';
             manual_stage <= 0;
-        elsif rising_edge(clk_1khz) then
+        elsif rising_edge(clk_8khz) then
 
-            if key_flag = 2 then
-
-                if is_manual = '0' then
-                    is_manual <= '1';
-                else
-                    is_manual <= '0';
+            data_en_r <= data_en;        
+            if data_en_r = '0' and data_en = '1' then
+                if ir_data = x"16" then
+                    is_manual <= not is_manual;
+                elsif ir_data = x"1C" then
+                    power_on <= not power_on;
+                elsif ir_data = x"19" then
+                    if is_manual = '1' then
+                        manual_stage <= 0;
+                    end if;
+                elsif ir_data = x"45" then
+                    if is_manual = '1' then
+                        manual_stage <= 1;
+                    end if;
+                elsif ir_data = x"46" then
+                    if is_manual = '1' then
+                        manual_stage <= 2;
+                    end if;
+                elsif ir_data = x"47" then
+                    if is_manual = '1' then
+                        manual_stage <= 3;
+                    end if;
+                elsif ir_data = x"44" then
+                    if is_manual = '1' then
+                        manual_stage <= 4;
+                    end if;
+                elsif ir_data = x"18" then
+                    if is_manual = '1' then
+                        if manual_stage = 4 then
+                            manual_stage <= 0;
+                        else
+                            manual_stage <= manual_stage + 1;
+                        end if;
+                    end if;
+                elsif ir_data = x"52" then
+                    if is_manual = '1' then
+                        if manual_stage = 0 then
+                            manual_stage <= 4;
+                        else
+                            manual_stage <= manual_stage - 1;
+                        end if;
+                    end if;
                 end if;
+            elsif key_flag = 2 then
+                is_manual <= not is_manual;
             elsif key_flag = 1 then
   
                 if is_manual = '0' then
