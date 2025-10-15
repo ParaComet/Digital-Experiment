@@ -1,6 +1,4 @@
--- ir_rcv.vhd
--- Verilog -> VHDL translation of IR receiver module (NEC-like protocol)
--- Created for user
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -169,7 +167,7 @@ begin
                     end if;
 
                 when START_LOW_9MS =>
-                    -- 9ms: 9/0.125 = 72; acceptable range in Verilog was 69..75
+                    -- 9ms: 9/0.125 = 72;
                     if ir_pos = '1' then
                         time_cnt_clr <= '1';
                         if time_cnt >= to_unsigned(69, time_cnt'length) and time_cnt <= to_unsigned(75, time_cnt'length) then
