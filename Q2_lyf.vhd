@@ -15,6 +15,7 @@ entity Q2_lyf is
         matrix_G  : out std_logic_vector(7 downto 0);
 
         beep_out  : out std_logic;
+        power     : out std_logic;
         en_out    : out std_logic_vector(7 downto 0);
         deg_out   : out std_logic_vector(7 downto 0);
 
@@ -82,7 +83,7 @@ architecture behavioral of Q2_lyf is
 
     component Button is
         port (
-            clk_1khz : in  std_logic;
+            clk_8khz : in  std_logic;
             rst      : in  std_logic;
             btn0     : in  std_logic;  
             btn2     : in  std_logic;  
@@ -166,7 +167,7 @@ begin
 
     button_inst : component Button
         port map (
-            clk_1khz => clk_1khz,
+            clk_8khz => clk_8khz,
             rst      => rst,
             btn0     => button1, 
             btn2     => button2, 
@@ -235,6 +236,7 @@ begin
     matrix_R <= (others => '0') when power_on = '0' else matrix_R_i;
     matrix_G <= (others => '0') when power_on = '0' else matrix_G_i;
     is_manual_i <= 1 when is_manual = '1' else 0;
+    power <= power_on;
     beep_en_i <= power_on;
     
 

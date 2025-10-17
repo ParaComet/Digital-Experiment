@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity Button is
     port (
-        clk_1khz     : in  std_logic;
+        clk_8khz     : in  std_logic;
         rst     : in  std_logic;
         btn0    : in  std_logic;
         btn2    : in  std_logic;
@@ -15,7 +15,7 @@ end entity Button;
 architecture rtl of Button is
 
     -- debounce 参数（可根据需要调整）
-    constant DEBOUNCE_MS : integer := 20; -- 20 ms
+    constant DEBOUNCE_MS : integer := 20*8; -- 20 ms
 
     -- 同步与消抖信号
     signal btn0_sync1, btn0_sync2 : std_logic := '0';
@@ -34,9 +34,9 @@ begin
     -- 两级同步，避免亚稳态（将异步按键信号安全同步到 clk_1khz 域）
     -- 说明：第一拍采样异步输入，第二拍采样第一拍输出，从而大幅降低亚稳态传播风险。
     -- 如果按键为低有效（按下为 '0'），可把下面 btnX_sync1 <= btnX 改为 btnX_sync1 <= not btnX
-    sync_proc: process(clk_1khz)
+    sync_proc: process(clk_8khz)
     begin
-        if rising_edge(clk_1khz) then
+        if rising_edge(clk_8khz) then
             if rst = '1' then
                 btn0_sync1 <= '0';
                 btn0_sync2 <= '0';
@@ -55,9 +55,9 @@ begin
     end process sync_proc;
 
     -- 消抖：输入在 DEBOUNCE_MS 毫秒内稳定后才改变 debX
-    debounce_proc: process(clk_1khz)
+    debounce_proc: process(clk_8khz)
     begin
-        if rising_edge(clk_1khz) then
+        if rising_edge(clk_8khz) then
             if rst = '1' then
                 btn0_cnt <= 0;
                 btn2_cnt <= 0;
@@ -94,9 +94,9 @@ begin
     end process debounce_proc;
 
     -- 产生按键上升沿脉冲到 key_flag（优先 btn0 -> 1，其次 btn2 -> 2）
-    keyflag_proc: process(clk_1khz)
+    keyflag_proc: process(clk_8khz)
     begin
-        if rising_edge(clk_1khz) then
+        if rising_edge(clk_8khz) then
             if rst = '1' then
                 prev_deb0 <= '0';
                 prev_deb2 <= '0';
