@@ -17,7 +17,7 @@ architecture rtl of Beep is
     constant FREQ_300 : integer := 1_000_000 / (300 * 2);   
     constant FREQ_500 : integer := 1_000_000 / (500 * 2);   
     constant FREQ_700 : integer := 1_000_000 / (700 * 2);  
-    constant FREQ_900: integer := 1_000_000 / (900 * 2); 
+    constant FREQ_900: integer := 1_000_000 / (800 * 2); 
 
     signal cnt      : integer := 0;
     signal cnt_max  : integer := FREQ_300;  

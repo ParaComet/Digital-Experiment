@@ -8,6 +8,7 @@ entity LedMatrix_Anime is
         rst           : in  std_logic;
 
         stage         : in  integer range 0 to 8;
+        level         : in integer range 0 to 3;
         is_release    : in  std_logic;
         
         LedMatrix_Red   : out std_logic_vector(63 downto 0);
@@ -21,11 +22,14 @@ end entity LedMatrix_Anime;
 architecture rtl of LedMatrix_Anime is
 
     type pwm_array is array (0 to 8) of integer range 0 to 15;
+    type release_pwm is array (0 to 3) of integer range 0 to 15;
     type level_array is array (0 to 7) of std_logic_vector(63 downto 0);
     type release_array is array (0 to 3) of std_logic_vector(63 downto 0);
 
     constant PwmR : pwm_array := (0, 0, 0, 0, 5, 5, 15, 15, 15);
     constant PwmG : pwm_array := (15, 15, 15, 15, 13, 13, 5, 5, 5);
+    constant release_R : release_pwm := (0, 0, 5, 15);
+    constant release_G : release_pwm := (15,15, 13, 5);
     constant Level1 : std_logic_vector (63 downto 0) := x"00000000000000FF"; -- 64'b
     constant Level2 : std_logic_vector (63 downto 0) := x"000000000000FFFF"; -- 64'b
     constant Level3 : std_logic_vector (63 downto 0) := x"0000000000FFFFFF"; -- 64'b
@@ -68,6 +72,8 @@ begin
             if stage_reg > 0 then
                 tempG := Table_Level(stage_reg - 1);
                 tempR := Table_Level(stage_reg - 1);
+                Pwm_Level_R     <= PwmR(stage_reg);
+                Pwm_Level_G     <= PwmG(stage_reg);
             end if;
         else
             if release_index < 3 then
@@ -77,14 +83,13 @@ begin
             end if;
             tempG := Table_release(release_index);
             tempR := Table_release(release_index);
+            Pwm_Level_R <= release_R(level);
+            Pwm_Level_R <= release_R(level); 
         end if;
 
     end if;
     LedMatrix_Green <= tempG;
     LedMatrix_Red <= tempR;
 end process;
-
-    Pwm_Level_R     <= PwmR(stage_reg);
-    Pwm_Level_G     <= PwmG(stage_reg);
 
 end architecture rtl;

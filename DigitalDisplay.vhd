@@ -8,7 +8,7 @@ entity DigitalDisplay is
         rst          : in  std_logic;
         dist_int     : in  integer range 0 to 1000; 
         warning_stage : in  integer range 0 to 4;  -- ，用于第0位显示
-        level        : in  integer range 0 to 4;   -- 释放速度，用于第6位显示
+        level        : in  integer range 0 to 3;   -- 释放速度，用于第6位显示
         is_release  : in  std_logic;  -- 是否在释放，用于第3位显示
 
         en_out       : out std_logic_vector(7 downto 0);

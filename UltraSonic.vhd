@@ -27,7 +27,7 @@ architecture rtl of UltraSonic is
     constant TRIG_CYCLES        : integer := (CLK_FREQ / 1_000_000) * TRIG_US; -- 500 cycles
 
     -- 最大测距 4000mm 对应回波时间约 23.53 ms -> 1_176_470 cycles @50MHz
-    constant MAX_ECHO_CYCLES    : integer := 50_000; -- 安全超时时间（约30ms）
+    constant MAX_ECHO_CYCLES    : integer := 10_000; -- 安全超时时间（约30ms）
 
     signal trig_cnt    : integer range 0 to TRIG_CYCLES := 0;
     signal wait_cnt    : integer range 0 to MAX_ECHO_CYCLES := 0;

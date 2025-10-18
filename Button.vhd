@@ -21,8 +21,8 @@ architecture rtl of Button is
     signal btn0_sync1, btn0_sync2 : std_logic := '0';
     signal btn2_sync1, btn2_sync2 : std_logic := '0';
 
-    signal btn0_cnt : integer range 0 to 1000 := 0;
-    signal btn2_cnt : integer range 0 to 1000 := 0;
+    signal btn0_cnt : integer range 0 to 20_000 := 0;
+    signal btn2_cnt : integer range 0 to 20_000 := 0;
 
     signal deb0, deb2       : std_logic := '0'; -- 稳定后的按键状态
     signal prev_deb0, prev_deb2 : std_logic := '0';

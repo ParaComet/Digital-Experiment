@@ -10,7 +10,7 @@ entity LedMatrix is
         rst : in std_logic;
 
         stage : in integer range 0 to 8;
-        level : in integer range 0 to 4;
+        level : in integer range 0 to 3;
         release_i : in std_logic;  
  
         
@@ -49,7 +49,7 @@ begin
 
 
     LedMatrix_Animation_Inst : entity work.LedMatrix_Anime
-        port map (clk_Update => clk_div, rst => rst, stage => stage, 
+        port map (clk_Update => clk_div, rst => rst, stage => stage, level => level,
             is_release => release_i, LedMatrix_Red => Data_red, LedMatrix_Green => Data_green, 
             Pwm_Level_R => pwmlevelR, Pwm_Level_G => pwmlevelG);
 

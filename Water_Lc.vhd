@@ -51,9 +51,9 @@ signal en_out_i : std_logic_vector(7 downto 0);
 signal deg_out_i : std_logic_vector(7 downto 0);
 signal key_flag : integer range 0 to 2;
 
-signal release_level_auto : integer range 0 to 4 := 0; -- 释放等级 0-4
-signal release_level_manual : integer range 0 to 4 := 0;
-signal level : integer range 0 to 4;
+signal release_level_auto : integer range 0 to 3 := 0; -- 释放等级 0-4
+signal release_level_manual : integer range 0 to 3 := 0;
+signal level : integer range 0 to 3;
 signal is_time_to_release : std_logic := '0';
 
 signal start : std_logic := '0';
@@ -65,6 +65,7 @@ signal warning_stage : integer range 0 to 4 := 0;
 signal is_release : std_logic := '0'; -- 是否在释放
 
 signal dist_int : integer range 0 to 1001 := 0;
+signal shine    : std_logic := '0';
 
 type State_Type is (IDLE, WAIT_DETECT_START, WAIT_DETECT_END, WAIT_RELEASE_END, WAIT_STATE);
 
@@ -148,7 +149,9 @@ begin
             current_state <= IDLE;
             next_state <= IDLE;
             Detect_cnt <= 0;  
-            is_time_to_release <= '0';  
+            is_time_to_release <= '0';
+            start <= '0';
+            stage <= 1;  
         elsif rising_edge(clk_1mhz) then
             current_state <= next_state;
 
@@ -200,7 +203,7 @@ begin
                                 stage <= 1;
                                 warning_stage <= 1;
                             else
-                                stage <= 0;
+                                stage <= 1;
                                 warning_stage <= 0;
                             end if;
                         end if;
@@ -209,6 +212,10 @@ begin
                         next_state <= WAIT_DETECT_END;
                     end if;
                 when WAIT_RELEASE_END =>
+                    case warning_stage is   
+                        when 4 | 3 | 2 => beep_en <= '1';
+                        when others => beep_en <= '0';
+                    end case;  
                     if stage = 8 then
                         is_time_to_release <= '1';
                     elsif stage < 4 then
@@ -224,7 +231,7 @@ begin
     begin
         if rst = '1' then
             is_release <= '0';
-
+            
         elsif rising_edge(clk_1mhz) then
 
             if is_time_to_release = '1' then
@@ -249,9 +256,29 @@ begin
 
         end if;
     end process;
+
+    process(clk_100hz)
+    variable cnt : integer range 0 to 50 := 0;
+    begin
+        if rst = '1' then
+            shine <= '0';
+        elsif rising_edge(clk_100hz) then
+            if warning_stage = 3 then
+                if cnt = 49 then
+                    cnt := 0;
+                    shine <= not shine;
+                else
+                    cnt := cnt + 1;
+                end if;
+            else
+                shine <= '0';
+            end if;
+        end if;
+    end process;
     release_level_manual <= warning_stage - 1 when warning_stage > 1 else 1;
-    level <= release_level_manual when sw0 = '1' else release_level_auto; 
-    en_out <= en_out_i;
+    level <= release_level_manual when sw0 = '0' else release_level_auto; 
+    en_out(7 downto 3) <= en_out_i(7 downto 3);
+    en_out(2 downto 0) <= en_out_i(2 downto 0) when shine = '0' else (others => '1');
     deg_out <= deg_out_i;
     LedMatrix_Row <= matrix_en_i;
     LedMatrix_Col_R <= matrix_R_i;
