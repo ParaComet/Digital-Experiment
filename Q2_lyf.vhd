@@ -68,7 +68,15 @@ architecture behavioral of Q2_lyf is
     signal data_en      : std_logic;
     signal data_en_r    : std_logic := '0';
     signal ir_data      : std_logic_vector(7 downto 0);
-
+    signal beep_mute    : std_logic := '1';
+    signal timer_en     : integer range 0 to 2 := 0;
+    signal timer_set_r  : integer range 0 to 9 := 0;
+    signal timer_set_c  : integer range 0 to 4 := 0;
+    signal time_ten_r   : integer range 0 to 9 := 0;
+    signal time_int_r   : integer range 0 to 9 := 0;
+    signal time_start   : std_logic := '0';
+    signal time_finish  : std_logic := '0';
+    signal time_show    : std_logic := '0';
 
     component Clk_Generater is
         generic (INPUT_CLK : integer := 1_000_000);
@@ -99,6 +107,12 @@ architecture behavioral of Q2_lyf is
             temp_dot   : in  std_logic;
             stage      : in  integer range 0 to 4;
             is_manual  : in  integer range 0 to 1;
+
+            time_ten   : in integer range 0 to 9;
+            time_int   : in integer range 0 to 9;
+            time_start : in std_logic;
+            time_show  : in std_logic;
+            time_fi    : out std_logic; 
 
             en_out     : out std_logic_vector(7 downto 0);
             deg_out    : out std_logic_vector(7 downto 0)
@@ -182,6 +196,11 @@ begin
             temp_dot   => temp_dot_reg,
             stage      => stage,
             is_manual  => is_manual_i,
+            time_ten   => time_ten_r,
+            time_int   => time_int_r,
+            time_start => time_start,
+            time_show  => time_show,
+            time_fi    => time_finish,
             en_out     => en_out_i,
             deg_out    => deg_out_i
         );
@@ -237,7 +256,7 @@ begin
     matrix_G <= (others => '0') when power_on = '0' else matrix_G_i;
     is_manual_i <= 1 when is_manual = '1' else 0;
     power <= power_on;
-    beep_en_i <= power_on;
+    beep_en_i <= power_on and beep_mute;
     
 
     process(clk_8khz, rst)
@@ -246,33 +265,81 @@ begin
             is_manual <= '0';
             power_on  <= '1';
             manual_stage <= 0;
+
+            time_show <= '0';
+            time_start <= '0';
+            timer_en <= 0;
+            timer_set_c <= 0;
+            time_int_r <= 0;
+            time_ten_r <= 0;
         elsif rising_edge(clk_8khz) then
 
             data_en_r <= data_en;        
             if data_en_r = '0' and data_en = '1' then
+                if timer_en = 1 then
+                    timer_set_c <= timer_set_c + 1;
+                end if;
                 if ir_data = x"16" then
                     is_manual <= not is_manual;
                 elsif ir_data = x"1C" then
                     power_on <= not power_on;
                 elsif ir_data = x"19" then
-                    if is_manual = '1' then
+                    if is_manual = '1' and timer_en /= 1 then
                         manual_stage <= 0;
+                    elsif timer_en = 1 then
+                        timer_set_r <= 0;
                     end if;
                 elsif ir_data = x"45" then
-                    if is_manual = '1' then
+                    if is_manual = '1' and timer_en /= 1 then
                         manual_stage <= 1;
+                    elsif timer_en = 1 then
+                        timer_set_r <= 1;
                     end if;
                 elsif ir_data = x"46" then
-                    if is_manual = '1' then
+                    if is_manual = '1' and timer_en /= 1 then
                         manual_stage <= 2;
+                    elsif timer_en = 1 then
+                        timer_set_r <= 2;
                     end if;
                 elsif ir_data = x"47" then
-                    if is_manual = '1' then
+                    if is_manual = '1' and timer_en /= 1 then
                         manual_stage <= 3;
+                    elsif timer_en = 1 then
+                        timer_set_r <= 3;
                     end if;
                 elsif ir_data = x"44" then
-                    if is_manual = '1' then
+                    if is_manual = '1' and timer_en /= 1 then
                         manual_stage <= 4;
+                    elsif timer_en = 1 then
+                        timer_set_r <= 4;
+                    end if;
+                elsif ir_data = x"40" then
+                    if timer_en = 1 then
+                        timer_set_r <= 5;
+                    end if;
+                elsif ir_data = x"43" then
+                    if timer_en = 1 then
+                        timer_set_r <= 6;
+                    end if;
+                elsif ir_data = x"07" then
+                    if timer_en = 1 then
+                        timer_set_r <= 7;
+                    end if;
+                elsif ir_data = x"15" then
+                    if timer_en = 1 then
+                        timer_set_r <= 8;
+                    end if;
+                elsif ir_data = x"09" then
+                    if timer_en = 1 then
+                        timer_set_r <= 9;
+                    end if;
+                elsif ir_data = x"08" then
+                    beep_mute <= not beep_mute;
+                elsif ir_data = x"0D" then
+                    if timer_en = 2 then
+                        timer_en <= 0;
+                    else
+                        timer_en <= timer_en + 1;
                     end if;
                 elsif ir_data = x"18" then
                     if is_manual = '1' then
@@ -304,6 +371,28 @@ begin
                         manual_stage <= manual_stage + 1;
                     end if;
                 end if;
+            end if;
+
+            if timer_en = 1 then
+                time_show <= '1'; 
+                if timer_set_c = 1 then
+                    time_ten_r <= timer_set_r;
+                elsif timer_set_c = 2 then
+                    time_int_r <= timer_set_r;
+                    timer_set_c <= 0;
+                end if;
+            elsif timer_en = 2 then
+                time_start <= '1';
+                if time_finish = '1' then
+                    timer_en <= 0;
+                    time_start <= '0';
+                    power_on <= '0';
+            
+                end if;
+            else
+                time_show <= '0';
+                time_start <= '0';
+                timer_set_c <= 0;
             end if;
         end if;
     end process;
