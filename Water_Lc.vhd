@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity Water_Lc is
     port (
-        clk_1mhz : in std_logic;
+        clk : in std_logic;
         rst : in std_logic;
 
         btn_1 : in std_logic;
@@ -31,11 +31,12 @@ end entity;
 architecture rtl of Water_Lc is
 
 --constant INPUT_CLK : integer := 1_000_000;  -- 主时钟（Hz）
-constant DETECT_TICKS : integer := 1000_000; -- 100ms
+constant DETECT_TICKS : integer := 1_00_000; -- 100ms
 
 
 signal clk_1khz : std_logic;
 signal clk_100hz : std_logic;
+signal clk_1mhz  : std_logic;
 
 signal stage : integer range 0 to 8 := 0; -- 当前水位阶段 0-8
 signal Detect_cnt : integer range 0 to 100_000 := 0;
@@ -84,7 +85,7 @@ begin
             INPUT_CLK => 1_000_000
         )
         port map (
-            clk => clk_1mhz,
+            clk => clk,
             rst => rst,
             clk_1khz => clk_1khz,
             clk_100hz => clk_100hz
@@ -137,7 +138,7 @@ begin
         beep => beep
     );
 
-
+    clk_1mhz <= clk;
     busy <= busy_r;
     echoled <= echo;
 
