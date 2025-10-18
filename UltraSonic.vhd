@@ -10,7 +10,7 @@ entity UltraSonic is
         echo        : in  std_logic;  -- HC-SR04 ECHO 输入
         trig        : out std_logic;  -- HC-SR04 TRIG 输出（产生 >=10us 脉冲）
         busy        : out std_logic;  -- 测量期间为 '1'
-        distance_mm : out integer range 0 to 5000; -- 测量结果，单位 mm（超过范围返回 5000）
+        distance_mm : out integer range 0 to 1000; -- 测量结果，单位 mm（超过范围返回 5000）
         valid       : out std_logic   -- 测量完成单周期有效脉冲
     );
 end entity;
@@ -22,12 +22,12 @@ architecture rtl of UltraSonic is
     signal start_prev  : std_logic := '0';
 
     -- 参数：50MHz 时钟
-    constant CLK_FREQ           : integer := 50_000_000;
+    constant CLK_FREQ           : integer := 1_000_000;
     constant TRIG_US            : integer := 10;  -- 10 us trigger
     constant TRIG_CYCLES        : integer := (CLK_FREQ / 1_000_000) * TRIG_US; -- 500 cycles
 
     -- 最大测距 4000mm 对应回波时间约 23.53 ms -> 1_176_470 cycles @50MHz
-    constant MAX_ECHO_CYCLES    : integer := 1500000; -- 安全超时时间（约30ms）
+    constant MAX_ECHO_CYCLES    : integer := 50_000; -- 安全超时时间（约30ms）
 
     signal trig_cnt    : integer range 0 to TRIG_CYCLES := 0;
     signal wait_cnt    : integer range 0 to MAX_ECHO_CYCLES := 0;
@@ -35,7 +35,7 @@ architecture rtl of UltraSonic is
 
     signal trig_r      : std_logic := '0';
     signal busy_r      : std_logic := '0';
-    signal dist_r      : integer range 0 to 5000 := 0;
+    signal dist_r      : integer range 0 to 1000 := 0;
     signal valid_r     : std_logic := '0';
 
 begin
@@ -61,16 +61,13 @@ begin
             valid_r    <= '0';
         elsif rising_edge(clk) then
             -- default: clear one-cycle flags
-            valid_r <= '0';
             start_prev <= start;
 
             case state is
                 when IDLE =>
                     trig_r <= '0';
                     busy_r <= '0';
-                    trig_cnt <= 0;
-                    wait_cnt <= 0;
-                    echo_cnt <= 0;
+                    valid_r <= '0';
                     if (start = '1' and start_prev = '0') then  -- 上升沿触发一次测量
                         busy_r <= '1';
                         trig_r <= '1';
@@ -84,6 +81,7 @@ begin
                         trig_cnt <= trig_cnt + 1;
                     else
                         trig_r <= '0';
+                        trig_cnt <= 0;
                         wait_cnt <= 0;
                         state <= WAIT_ECHO;
                     end if;
@@ -99,9 +97,9 @@ begin
                         else
                             -- 超时未收到回波
                             busy_r <= '0';
-                            dist_r <= 5000;  -- 超限标志
+                            dist_r <= 0;  -- 超限标志
                             valid_r <= '1';  -- 可以视为测量完成但结果为超时
-                            state <= IDLE;
+                            state <= DONE;
                         end if;
                     end if;
 
@@ -113,32 +111,32 @@ begin
                         else
                             -- 超时（防止无限计数）
                             busy_r <= '0';
-                            dist_r <= 5000;
+                            dist_r <= 0;
                             valid_r <= '1';
-                            state <= IDLE;
+                            state <= DONE;
                         end if;
                     else
                         -- ECHO 结束，计算距离（mm）
                         -- 计算方法：distance_mm = echo_time_s * 340000 / 2
                         -- echo_time_s = echo_cnt * (1/50e6) -> distance_mm = echo_cnt * 34 / 10
-                        prod := echo_cnt * 34;
-                        tmp_mm := prod / 10;
-                        if tmp_mm > 5000 then
-                            dist_r <= 999;
-                        elsif tmp_mm < 0 then
+                        prod := echo_cnt * 17;
+                        tmp_mm := prod / 100;
+                        if tmp_mm > 999 then
                             dist_r <= 0;
+                        elsif tmp_mm < 0 then
+                            dist_r <= 999;
                         else
-                            dist_r <= tmp_mm;
+                            dist_r <= 1000-tmp_mm;
                         end if;
                         busy_r <= '0';
                         valid_r <= '1';
-                        state <= IDLE;
+                        state <= DONE;
                     end if;
 
                 when DONE =>
                     -- 未使用的占位状态（保留）
                     state <= IDLE;
-
+                    echo_cnt <= 0;
                 when others =>
                     state <= IDLE;
             end case;

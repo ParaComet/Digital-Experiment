@@ -15,7 +15,7 @@ end entity Button;
 architecture rtl of Button is
 
     -- debounce 参数（可根据需要调整）
-    constant DEBOUNCE_MS : integer := 20; -- 20 ms
+    constant DEBOUNCE_MS : integer := 20_000; -- 20 ms
 
     -- 同步与消抖信号
     signal btn0_sync1, btn0_sync2 : std_logic := '0';

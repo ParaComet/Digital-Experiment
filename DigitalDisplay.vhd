@@ -6,7 +6,7 @@ entity DigitalDisplay is
     port (
         clk          : in  std_logic;
         rst          : in  std_logic;
-        dist_int     : in  integer range 0 to 999; 
+        dist_int     : in  integer range 0 to 1000; 
         warning_stage : in  integer range 0 to 4;  -- ，用于第0位显示
         level        : in  integer range 0 to 4;   -- 释放速度，用于第6位显示
         is_release  : in  std_logic;  -- 是否在释放，用于第3位显示
@@ -45,7 +45,7 @@ begin
     end process;
 
     process(dist_int)
-        variable v : integer range 0 to 999 := 0;
+        variable v : integer range 0 to 1000 := 0;
     begin
         v := dist_int;
         dist_3  <= v / 100;

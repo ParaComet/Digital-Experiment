@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity Water_Lc is
     port (
-        clk_50mhz : in std_logic;
+        clk_1mhz : in std_logic;
         rst : in std_logic;
 
         btn_1 : in std_logic;
@@ -14,6 +14,9 @@ entity Water_Lc is
         echo : in std_logic;
         trig : out std_logic;
         beep : out std_logic;
+
+        busy : out std_logic;
+        echoled : out std_logic;
 
 
         LedMatrix_Row : out std_logic_vector(7 downto 0);
@@ -27,15 +30,15 @@ end entity;
 
 architecture rtl of Water_Lc is
 
-constant INPUT_CLK : integer := 50_000_000;  -- 主时钟（Hz）
-constant DETECT_TICKS : integer := INPUT_CLK / 1_000 * 100; -- 100ms
+--constant INPUT_CLK : integer := 1_000_000;  -- 主时钟（Hz）
+constant DETECT_TICKS : integer := 1000_000; -- 100ms
 
-signal clk_1mhz : std_logic;
+
 signal clk_1khz : std_logic;
 signal clk_100hz : std_logic;
 
 signal stage : integer range 0 to 8 := 0; -- 当前水位阶段 0-8
-signal Detect_cnt : integer range 0 to 100 := 0;
+signal Detect_cnt : integer range 0 to 100_000 := 0;
 
 signal release_i : std_logic := '0'; --是否释放
 
@@ -60,7 +63,7 @@ signal warning_stage : integer range 0 to 4 := 0;
 
 signal is_release : std_logic := '0'; -- 是否在释放
 
-signal dist_int : integer range 0 to 999 := 0;
+signal dist_int : integer range 0 to 1001 := 0;
 
 type State_Type is (IDLE, WAIT_DETECT_START, WAIT_DETECT_END, WAIT_RELEASE_END, WAIT_STATE);
 
@@ -70,7 +73,7 @@ signal current_state, next_state : State_Type := IDLE;
 begin
     Button_Inst : entity work.Button
         port map (
-            clk_1khz => clk_1khz,
+            clk_1khz => clk_1mhz,
             rst => rst,
             btn0 => btn_1,
             btn2 => btn_2,
@@ -78,14 +81,13 @@ begin
         );
     Clk_Generater_Inst : entity work.Clk_Generater
         generic map (
-            INPUT_CLK => 50_000_000
+            INPUT_CLK => 1_000_000
         )
         port map (
-            clk => clk_50mhz,
+            clk => clk_1mhz,
             rst => rst,
             clk_1khz => clk_1khz,
-            clk_100hz => clk_100hz,
-            clk_1mhz => clk_1mhz
+            clk_100hz => clk_100hz
         );
     
     LedMatrix_inst: entity work.LedMatrix
@@ -104,7 +106,7 @@ begin
 
     DigitalDisplay_inst: entity work.DigitalDisplay
      port map(
-        clk => clk_50mhz,
+        clk => clk_1mhz,
         rst => rst,
         dist_int => dist_int,
         warning_stage => warning_stage,
@@ -116,7 +118,7 @@ begin
 
     UltraSonic_inst: entity work.UltraSonic
      port map(
-        clk => clk_50mhz,
+        clk => clk_1mhz,
         rst => rst,
         start => start,
         echo => echo,
@@ -128,7 +130,7 @@ begin
 
     Beep_inst: entity work.Beep
      port map(
-        clk => clk_50mhz,
+        clk => clk_1mhz,
         rst => rst,
         beep_en => beep_en,
         stage => stage,
@@ -136,28 +138,34 @@ begin
     );
 
 
-    process(clk_50mhz, rst)
+    busy <= busy_r;
+    echoled <= echo;
+
+    process(clk_1mhz, rst)
     begin
         if rst = '1' then
             current_state <= IDLE;
             next_state <= IDLE;
-            Detect_cnt <= 0;    
-        elsif rising_edge(clk_50mhz) then
+            Detect_cnt <= 0;  
+            is_time_to_release <= '0';  
+        elsif rising_edge(clk_1mhz) then
             current_state <= next_state;
-            start <= '0';
+
             case current_state is
                 when IDLE =>
-                    Detect_cnt <= 0;
+                    --Detect_cnt <= 0;
                     if Detect_cnt = DETECT_TICKS -1 then
                         next_state <= WAIT_DETECT_START;
                         Detect_cnt <= 0;
+                        start <= '1';
                     else
                         next_state <= IDLE;
                         Detect_cnt <= Detect_cnt + 1;
-                        start <= '1';
+
                     end if;
                 when WAIT_DETECT_START =>
                     if busy_r = '1' then
+                        start <= '0';
                         next_state <= WAIT_DETECT_END;
                     else
                         next_state <= WAIT_DETECT_START;
@@ -166,28 +174,28 @@ begin
                 
                     if busy_r = '0' then
                         if valid = '1' then
-                            if dist_int < 200 then
+                            if dist_int > 800 then
                                 stage <= 8; 
                                 warning_stage <= 4;
-                            elsif dist_int < 300 then
+                            elsif dist_int >700 then
                                 stage <= 7;
                                 warning_stage <= 3;
-                            elsif dist_int < 400 then
+                            elsif dist_int > 600 then
                                 stage <= 6;
                                 warning_stage <= 3;
-                            elsif dist_int < 500 then
+                            elsif dist_int > 500 then
                                 stage <= 5;
                                 warning_stage <= 2;
-                            elsif dist_int < 600 then
+                            elsif dist_int > 400 then
                                 stage <= 4;
                                 warning_stage <= 2;
-                            elsif dist_int < 700 then
+                            elsif dist_int > 300 then
                                 stage <= 3;
                                 warning_stage <= 1;
-                            elsif dist_int < 800 then
+                            elsif dist_int > 200 then
                                 stage <= 2;
                                 warning_stage <= 1;
-                            elsif dist_int < 900 then
+                            elsif dist_int > 100 then
                                 stage <= 1;
                                 warning_stage <= 1;
                             else
@@ -202,7 +210,7 @@ begin
                 when WAIT_RELEASE_END =>
                     if stage = 8 then
                         is_time_to_release <= '1';
-                    elsif stage <=3 then
+                    elsif stage < 4 then
                         is_time_to_release <= '0';
                     end if;
                     next_state <= IDLE;
@@ -211,25 +219,25 @@ begin
             end case;
         end if;
     end process;
-    process(clk_1khz, rst)
+    process(clk_1mhz, rst)
     begin
         if rst = '1' then
             is_release <= '0';
 
-        elsif rising_edge(clk_1khz) then
+        elsif rising_edge(clk_1mhz) then
 
-            if is_time_to_release <= '1' then
+            if is_time_to_release = '1' then
                 is_release <= '1';
             else
                 if stage <= 3 then
                     is_release <= '0';
                 end if;
 
-                if key_flag <= 1 then
+                if key_flag = 1 then
                     if stage =6 or stage =7 then
                         is_release <= not is_release;
                     end if;
-                elsif key_flag <= 2 then
+                elsif key_flag = 2 then
                     if release_level_auto = 3 then
                         release_level_auto <= 1;
                     else 

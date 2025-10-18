@@ -70,13 +70,13 @@ begin
                 tempR := Table_Level(stage_reg - 1);
             end if;
         else
-            if release_index < 4 then
-                tempG := Table_release(release_index);
-                tempR := Table_release(release_index);
+            if release_index < 3 then
                 release_index := release_index + 1;
             else
                 release_index := 0;
             end if;
+            tempG := Table_release(release_index);
+            tempR := Table_release(release_index);
         end if;
 
     end if;
