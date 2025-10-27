@@ -45,7 +45,7 @@ begin
             beep_reg <= '0';
         elsif rising_edge(clk) then
             if (beep_en = '1') and (stage /= 0) then
-                if cnt = cnt_max-1 then
+                if cnt >= cnt_max-1 then
                     cnt <= 0;
                     beep_reg <= not beep_reg; 
                 else
