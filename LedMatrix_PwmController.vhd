@@ -34,7 +34,7 @@ signal pwm_row_data_G : std_logic_vector(7 downto 0) := (others => '0');
 
 begin
 
-    process(clk_1khz, rst)
+    p1:process(clk_1khz, rst)
     begin
         if rst = '1' then
             current_row_index <= 0;
@@ -52,7 +52,7 @@ begin
     
     end process;
     
-    process(clk_pwm, rst)
+    p2:process(clk_pwm, rst)
     begin
         if rst = '1' then
             pwm_counter <= 0;

@@ -55,7 +55,7 @@ begin
 
 
     -- time counter（在 clk_8khz 上升沿计数）
-    process(clk_8khz, rst_n)
+    p1:process(clk_8khz, rst_n)
     begin
         if rst_n = '1' then
             time_cnt <= (others => '0');
@@ -69,7 +69,7 @@ begin
     end process;
 
     -- remote_in 延时打拍，基于 clk_8khz
-    process(clk_8khz, rst_n)
+    p2:process(clk_8khz, rst_n)
     begin
         if rst_n = '1' then
             remote_in_d0 <= '0';
@@ -81,7 +81,7 @@ begin
     end process;
 
     -- 状态寄存（同步到 div_clk）
-    process(clk_8khz, rst_n)
+    p3:process(clk_8khz, rst_n)
     begin
         if rst_n = '1' then
             cur_state <= IDLE;
@@ -91,7 +91,7 @@ begin
     end process;
 
     -- 组合下一个状态逻辑
-    process(cur_state, remote_in_d0, time_done, error_en, judge_flag, ir_pos, ir_neg, data_cnt)
+    p4:process(cur_state, remote_in_d0, time_done, error_en, judge_flag, ir_pos, ir_neg, data_cnt)
     begin
         next_state <= IDLE;
         case cur_state is
@@ -139,7 +139,7 @@ begin
     end process;
 
     -- 主状态机：行为在 clk_8khz 上更新
-    process(clk_8khz, rst_n)
+    p5:process(clk_8khz, rst_n)
     begin
         if rst_n = '1' then
             time_cnt_clr <= '0';
@@ -207,10 +207,11 @@ begin
                         end if;
                     elsif ir_neg = '1' then
                         time_cnt_clr <= '1';
+                        --重新开始计时
                         data_cnt <= data_cnt + 1;
-                        -- 解析数据位：当处于第 16 至 31 位为控制码与反码
+                        -- 解析数据位：当处于第 16 至 31 位为控制码与反码，忽略前16位地址码和反码
                         if data_cnt >= to_unsigned(16, data_cnt'length) and data_cnt <= to_unsigned(31, data_cnt'length) then
-                            -- 0: 0.565ms -> ~4.52 (range 2..6 in Verilog)
+                            -- 0: 0.565ms -> ~4.52 (range 2..6 )
                             if time_cnt >= to_unsigned(2, time_cnt'length) and time_cnt <= to_unsigned(6, time_cnt'length) then
                                 data_temp <= '0' & data_temp(15 downto 1); -- 右移并插入 0
                             -- 1: 1.69ms -> ~13.52 (range 10..15)

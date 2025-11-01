@@ -20,8 +20,9 @@ architecture rtl of LedMatrix is
 
     type Frequency is array (0 to 4) of integer range 0 to 63;
 
-    constant ANIMATION_UPDATE_FREQ : Frequency := (60, 60, 35, 16, 8);  -- 100Hz
-
+    constant ANIMATION_UPDATE_FREQ : Frequency := (60, 60, 35, 16, 8);  
+    -- 100Hz下动画帧更新时间
+    -- 分别为1.2s,1.2s,0.7s,0.32s,0.16s
     component LedMatrix_Animation is
         port (
             clk_Update           : in  std_logic;

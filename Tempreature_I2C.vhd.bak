@@ -179,7 +179,6 @@ begin
             end if;
           when mstr_ack =>
             if (read_count = 2 or ack_error_sig = '1') then
-              sda_int <= '1';
               state   <= stop;
             else
               sda_int <= '1';

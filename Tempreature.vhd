@@ -43,7 +43,7 @@ component Temperature_I2C is
 end component;
 
 -- 模块控制信号
-signal busy_temp  : std_logic := '0';
+signal temp_busy  : std_logic := '0';
 signal prev_ena   : std_logic := '0';
 signal prev_busy  : std_logic := '0';
 
@@ -51,10 +51,11 @@ signal prev_busy  : std_logic := '0';
 signal ena_i2c    : std_logic := '0';
 signal busy_i2c   : std_logic := '0';
 signal rw_i2c     : std_logic := '0';
-signal data_wr_sig: std_logic_vector(7 downto 0) := (others => '0');
-signal data_rd_i2c: std_logic_vector(7 downto 0);
-signal byte_valid_i2c : std_logic := '0';
+signal data_wr_sig     : std_logic_vector(7 downto 0) := (others => '0');
+signal data_rd_i2c     : std_logic_vector(7 downto 0);
+signal byte_valid_i2c  : std_logic := '0';
 signal prev_byte_valid : std_logic := '0';
+signal ack_error_i2c   : std_logic := '0';
 
 signal msb_byte   : std_logic_vector(7 downto 0) := (others => '0');
 signal lsb_byte   : std_logic_vector(7 downto 0) := (others => '0');
@@ -68,7 +69,7 @@ signal seq_state : seq_type := S_IDLE;
 
 begin
 
-    busy <= busy_temp;
+    busy <= temp_busy;
 
     I2C_Master : Temperature_I2C
         generic map (
@@ -84,7 +85,7 @@ begin
             data_wr => data_wr_sig,
             data_rd => data_rd_i2c,
             busy => busy_i2c,
-            ack_error => open,
+            ack_error => ack_error_i2c,
             scl => scl,
             sda => sda,
             byte_valid => byte_valid_i2c
@@ -106,7 +107,7 @@ begin
             msb_byte <= (others => '0');
             lsb_byte <= (others => '0');
             seq_state <= S_IDLE;
-            busy_temp <= '0';
+            temp_busy <= '0';
             bytes_received <= 0;
         elsif rising_edge(clk) then
             prev_ena <= ena;
@@ -119,7 +120,7 @@ begin
                         data_wr_sig <= x"00";
                         rw_i2c <= '0';         -- 写
                         ena_i2c <= '1';
-                        busy_temp <= '1';
+                        temp_busy <= '1';
                         
                         seq_state <= S_WAIT_WRITE_START;
                     end if;
@@ -133,10 +134,14 @@ begin
                 when S_WAIT_WRITE_DONE =>
                     if (busy_i2c = '0' and prev_busy = '1') then
                         -- 写指针完成，发一次读事务，请求连续读取两个字节
-                        rw_i2c <= '1';
-                        ena_i2c <= '1';
-                        bytes_received <= 0;
-                        seq_state <= S_WAIT_READ_START;
+                        if(ack_error_i2c = '1') then
+                            seq_state <= S_IDLE;
+                        else
+                            rw_i2c <= '1';
+                            ena_i2c <= '1';
+                            bytes_received <= 0;
+                            seq_state <= S_WAIT_READ_START;
+                        end if;
                     end if;
 
                 when S_WAIT_READ_START =>
@@ -163,7 +168,11 @@ begin
                     end if;
                     if (busy_i2c = '0' and prev_busy = '1') then
                         -- 事务结束，进入计算状态
-                        seq_state <= S_CALC_TEMP;
+                        if (ack_error_i2c = '1') then
+                            seq_state <= S_IDLE;
+                        else
+                            seq_state <= S_CALC_TEMP;
+                        end if;
                     end if;
 
                 when S_CALC_TEMP =>
@@ -188,7 +197,7 @@ begin
                     temp_dot <= half_bit;
                     temp <= signed_msb;
                     seq_state <= S_IDLE;
-                    busy_temp <= '0';
+                    temp_busy <= '0';
             
             end case;
 

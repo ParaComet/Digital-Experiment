@@ -58,7 +58,7 @@ begin
                  not data_clk_prev when stop,
                  sda_int when others;
 
-  process (clk, rst)
+  p1:process (clk, rst)
     variable count : integer range 0 to divider * 4;
   begin
     if rst = '1' then
@@ -88,7 +88,7 @@ begin
     end if;
   end process;
 
-  process (clk, rst)
+  p2:process (clk, rst)
   begin
     if rst = '1' then
       state     <= ready;

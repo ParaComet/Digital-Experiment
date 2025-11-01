@@ -34,7 +34,7 @@ begin
     -- 两级同步，避免亚稳态（将异步按键信号安全同步到 clk_1khz 域）
     -- 说明：第一拍采样异步输入，第二拍采样第一拍输出，从而大幅降低亚稳态传播风险。
     -- 如果按键为低有效（按下为 '0'），可把下面 btnX_sync1 <= btnX 改为 btnX_sync1 <= not btnX
-    sync_proc: process(clk_8khz)
+    p1: process(clk_8khz)
     begin
         if rising_edge(clk_8khz) then
             if rst = '1' then
@@ -52,10 +52,10 @@ begin
                 btn2_sync2 <= btn2_sync1;
             end if;
         end if;
-    end process sync_proc;
+    end process;
 
     -- 消抖：输入在 DEBOUNCE_MS 毫秒内稳定后才改变 debX
-    debounce_proc: process(clk_8khz)
+    p2: process(clk_8khz)
     begin
         if rising_edge(clk_8khz) then
             if rst = '1' then
@@ -91,10 +91,10 @@ begin
                 end if;
             end if;
         end if;
-    end process debounce_proc;
+    end process;
 
     -- 产生按键上升沿脉冲到 key_flag（优先 btn0 -> 1，其次 btn2 -> 2）
-    keyflag_proc: process(clk_8khz)
+    p3: process(clk_8khz)
     begin
         if rising_edge(clk_8khz) then
             if rst = '1' then
@@ -113,7 +113,7 @@ begin
                 prev_deb2 <= deb2;
             end if;
         end if;
-    end process keyflag_proc;
+    end process;
 
     key_flag <= key_flag_reg;
 

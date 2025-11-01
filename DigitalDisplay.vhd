@@ -41,7 +41,7 @@ architecture rtl of DigitalDisplay is
 begin
 
     time_fi <= time_fi_r;
-    process(clk, rst)
+    p1:process(clk, rst)
     begin
         if rst = '1' then
             en_index <= 0;
@@ -77,12 +77,12 @@ begin
         end if;
     end process;
 
-    process(en_index)
+    p2:process(en_index)
     begin
         en_out <= (others => '1');
         en_out(en_index) <= '0';
     end process;
-    process(temp_int)
+    p3:process(temp_int)
         variable v : integer range 0 to 63;
     begin
         v := temp_int;
@@ -91,7 +91,7 @@ begin
     end process;
 
     -- 根据当前位选择要显示的字符索引（组合逻辑）
-    process(en_index, temp_tens, temp_units, temp_dot, stage)
+    p4:process(en_index, temp_tens, temp_units, temp_dot, stage)
     begin 
         dp_now <= '0';
         case en_index is
